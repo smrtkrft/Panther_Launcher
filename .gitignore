@@ -12,3 +12,4 @@ app/build
 app/debug
 diff.*
 *.jks
+app/keystore.properties

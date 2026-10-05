@@ -1,4 +1,5 @@
 import com.android.build.api.dsl.ApplicationExtension
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
@@ -77,9 +78,16 @@ extensions.configure<ApplicationExtension>("android") {
 
             println("Using keystore: ${keystoreFile.absolutePath} (${keystoreFile.length()} bytes)")
 
+            // Signing secrets come from the environment, a Gradle property, or app/keystore.properties
+            // (ignored by git) when building on this machine.
+            val localSecrets = Properties().apply {
+                val file = rootProject.file("app/keystore.properties")
+                if (file.exists()) file.inputStream().use { load(it) }
+            }
             fun required(name: String): String =
                 System.getenv(name)
                     ?: project.findProperty(name) as String?
+                    ?: localSecrets.getProperty(name)
                     ?: error("Missing required environment variable: $name")
 
             storeFile = keystoreFile
