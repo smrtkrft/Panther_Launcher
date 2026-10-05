@@ -52,6 +52,17 @@ Bu dosya, Panther Launcher'ın kaynağı olan [mLauncher (Multi Launcher)](https
 
 ### C – Keyfî GUI tasarımı
 
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/drawer-categories.png" width="260" alt="Çekmecede kategori görünümü"></td>
+    <td align="center"><img src="docs/screenshots/widget-resize.png" width="260" alt="Widget boyutlandırma"></td>
+  </tr>
+  <tr>
+    <td align="center">Çekmecede kategori görünümü</td>
+    <td align="center">Widget boyutlandırma</td>
+  </tr>
+</table>
+
 - Adın uzunluğuna bağlı olmayan, kelime başlarını ve tek harflik yazım hatalarını eşleştiren "Akıllı arama" eklendi; kapatılınca eski arama geri geliyor.
 - Çekmecedeki arama alanı büyütüldü ve listeyle arasına boşluk eklendi.
 - Çekmeceye kategori görünümü eklendi: sabitlenmiş uygulamalar üstte, diğerleri aynı anda yalnızca biri açılan kategorilerde; her uygulama tek yerde görünür ve kapatılınca A–Z listesi geri gelir.
@@ -114,6 +125,17 @@ This file summarises where Panther Launcher departs from its source, [mLauncher 
 - The widget picker lists every widget, configure screens are opened the way Android intends for widgets, and the widget host id no longer depends on the app's name.
 
 ### C – Discretionary GUI design
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/drawer-categories.png" width="260" alt="Category view in the drawer"></td>
+    <td align="center"><img src="docs/screenshots/widget-resize.png" width="260" alt="Resizing a widget"></td>
+  </tr>
+  <tr>
+    <td align="center">Category view in the drawer</td>
+    <td align="center">Resizing a widget</td>
+  </tr>
+</table>
 
 - "Smart Search" was added: it does not depend on the length of the name and matches word beginnings and single-letter typos; switching it off brings back the previous search.
 - The search area in the drawer was enlarged and a gap was added between it and the list.

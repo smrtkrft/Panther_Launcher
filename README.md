@@ -6,6 +6,13 @@
 
 Sade ve dağınıklıktan uzak bir Android başlatıcısı.
 
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/drawer-categories.png" width="260" alt="Çekmecede kategori görünümü"></td>
+    <td align="center"><img src="docs/screenshots/widget-resize.png" width="260" alt="Widget boyutlandırma"></td>
+  </tr>
+</table>
+
 ## Bu proje hakkında
 
 Bu proje **SmartKraft // seu** tarafından, herhangi bir dağıtım amacı güdülmeden ve keyfî olarak, yalnızca kendi kullanımım için geliştirilmektedir.
