@@ -29,7 +29,7 @@ val baseVersionCode =
 
 extensions.configure<ApplicationExtension>("android") {
 
-    namespace = "com.github.codeworkscreativehub.mlauncher"
+    namespace = "ch.smartkraft.pantherlauncher"
 
     compileSdk = 37
 
@@ -45,46 +45,35 @@ extensions.configure<ApplicationExtension>("android") {
     productFlavors {
         create("prod") {
             dimension = "channel"
-            applicationId = "app.mlauncher"
-            resValue("string", "app_name", "Multi Launcher")
-            resValue("bool", "is_play_store", "false")
-        }
-
-        create("play") {
-            dimension = "channel"
-            applicationId = "app.mlauncher"
-            resValue("string", "app_name", "Multi Launcher")
-            resValue("bool", "is_play_store", "true")
+            applicationId = "app.pantherlauncher"
+            resValue("string", "app_name", "Panther Launcher")
         }
 
         create("beta") {
             dimension = "channel"
-            applicationId = "app.mlauncher.beta"
+            applicationId = "app.pantherlauncher.beta"
             versionNameSuffix = "-beta"
-            resValue("string", "app_name", "Multi Launcher Beta")
-            resValue("bool", "is_play_store", "false")
+            resValue("string", "app_name", "Panther Launcher Beta")
         }
 
         create("alpha") {
             dimension = "channel"
-            applicationId = "app.mlauncher.alpha"
+            applicationId = "app.pantherlauncher.alpha"
             versionNameSuffix = "-alpha"
-            resValue("string", "app_name", "Multi Launcher Alpha")
-            resValue("bool", "is_play_store", "false")
+            resValue("string", "app_name", "Panther Launcher Alpha")
         }
 
         create("nightly") {
             dimension = "channel"
-            applicationId = "app.mlauncher.nightly"
+            applicationId = "app.pantherlauncher.nightly"
             versionNameSuffix = "-nightly"
-            resValue("string", "app_name", "Multi Launcher Nightly")
-            resValue("bool", "is_play_store", "false")
+            resValue("string", "app_name", "Panther Launcher Nightly")
         }
     }
 
     signingConfigs {
         create("release") {
-            val keystoreFile = rootProject.file("app/mLauncher.jks")
+            val keystoreFile = rootProject.file("app/pantherlauncher.jks")
 
             println("Using keystore: ${keystoreFile.absolutePath} (${keystoreFile.length()} bytes)")
 
@@ -108,7 +97,7 @@ extensions.configure<ApplicationExtension>("android") {
             signingConfig = signingConfigs["debug"]
 
             resValue("string", "app_version", baseVersionName)
-            resValue("string", "app_name", "Multi Launcher Debug")
+            resValue("string", "app_name", "Panther Launcher Debug")
             resValue("string", "empty", "")
         }
 

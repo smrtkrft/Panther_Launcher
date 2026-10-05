@@ -17,11 +17,11 @@
     <string name="grant_location_permission">Om verder te gaan, moet u toestemming geven voor toegang tot de locatie.</string>
     <string name="reason_location_permission">Deze app heeft toegang tot uw locatie nodig om nauwkeurige weersupdates te kunnen geven op basis van uw huidige locatie. We verzamelen of delen geen persoonlijke gegevens.</string>
     <string name="grant_accessibility_permission">Om door te gaan, moet u toestemming geven voor Toegankelijkheid.</string>
-    <string name="reason_accessibility_permission">MultiLauncher heeft toestemming voor toegankelijkheid nodig om geavanceerde functies te kunnen bieden, zoals het vergrendelen van het scherm en het openen van snelle instellingen. Deze functies dragen bij aan een betere gebruiksvriendelijkheid. We verzamelen of delen geen gegevens.</string>
+    <string name="reason_accessibility_permission">Panther Launcher heeft toestemming voor toegankelijkheid nodig om geavanceerde functies te kunnen bieden, zoals het vergrendelen van het scherm en het openen van snelle instellingen. Deze functies dragen bij aan een betere gebruiksvriendelijkheid. We verzamelen of delen geen gegevens.</string>
     <string name="permission_granted">Toestemming verleend! U kunt doorgaan.</string>
     <string name="this_can_be_disabled_later">* Deze toestemming kan later worden uitgeschakeld.</string>
     <!-- Strings used for settings menus -->
-    <string name="settings_name">MultiLauncher-instellingen</string>
+    <string name="settings_name">Panther Launcher-instellingen</string>
     <string name="settings_features_title">Functies</string>
     <string name="settings_features_description">Verbeter uw productiviteit.</string>
     <string name="settings_look_feel_title">Uiterlijk &amp; Stijl</string>
@@ -41,9 +41,9 @@
     <string name="settings_advanced_description">Toegang tot app-info, standaard launcher, back-uptools en meer.</string>
     <string name="settings_expert_title">Deskundige</string>
     <string name="settings_expert_description">Ontgrendel verborgen opties en geavanceerde instellingen.</string>
-    <string name="settings_exit_mlauncher_title">MultiLauncher verlaten</string>
-    <string name="settings_exit_mlauncher_description">Schakel tijdelijk over naar je standaard launcher.</string>
-    <string name="settings_exit_mlauncher_dialog">Kies een launcher</string>
+    <string name="settings_exit_launcher_title">Panther Launcher verlaten</string>
+    <string name="settings_exit_launcher_description">Schakel tijdelijk over naar je standaard launcher.</string>
+    <string name="settings_exit_launcher_dialog">Kies een launcher</string>
     <!-- Strings used for features settings -->
     <string name="features_settings_title">Functies</string>
     <string name="personalization">Personalisatie</string>
@@ -182,7 +182,7 @@
     <string name="advanced_settings_app_info_title">App informatie</string>
     <string name="advanced_settings_app_info_description">%1$s</string>
     <string name="advanced_settings_set_as_default_launcher">Instellen als standaard launcher</string>
-    <string name="advanced_settings_set_as_default_launcher_description">Maak Multi Launcher je standaard startscherm-app.</string>
+    <string name="advanced_settings_set_as_default_launcher_description">Maak Panther Launcher je standaard startscherm-app.</string>
     <string name="advanced_settings_change_default_launcher">Standaard launcher wijzigen</string>
     <string name="advanced_settings_change_default_launcher_description">Kies een andere launcher als standaard.</string>
     <string name="advanced_settings_restart_title">Herstart Launcher</string>
@@ -212,10 +212,6 @@
     <string name="advanced_settings_clear_yes">Ja</string>
     <string name="advanced_settings_clear_no">Nee</string>
     <string name="advanced_settings_help_feedback_title">Hulp &amp; Feedback</string>
-    <string name="advanced_settings_community_support_title">Ondersteuning van de gemeenschap</string>
-    <string name="advanced_settings_share_application_title">Deel applicatie</string>
-    <string name="advanced_settings_share_application_description">Verbeter uw ervaring met %1$s!</string>
-    <string name="advanced_settings_share_application_description_addon">Download het nu op %1$s en zie waar iedereen het over heeft! %2$s\n</string>
     <!-- Strings used for about settings -->
     <string name="about_settings_title">Over %1$s</string>
     <!-- Strings used for expert settings -->
@@ -242,14 +238,14 @@
     <string name="empty_favorite">Ongebruikt</string>
     <string name="confirm_remove_favorite">Weet je zeker dat je deze app uit je favorieten wilt verwijderen?</string>
     <!-- Accessibility/Help Strings -->
-    <string name="accessibility_service_name">MultiLauncher Actie Services</string>
+    <string name="accessibility_service_name">Panther Launcher Actie Services</string>
     <string name="accessibility_service_why_we_need">Waarom we toestemming voor toegankelijkheid nodig hebben</string>
-    <string name="accessibility_service_description">Deze toegankelijkheidsservice stelt MultiLauncher in staat om bepaalde acties uit te voeren, zoals het vergrendelen van het scherm of het openen van de snelle instellingen. Onze toegankelijkheidsservice verzamelt of deelt geen gegevens.</string>
+    <string name="accessibility_service_description">Deze toegankelijkheidsservice stelt Panther Launcher in staat om bepaalde acties uit te voeren, zoals het vergrendelen van het scherm of het openen van de snelle instellingen. Onze toegankelijkheidsservice verzamelt of deelt geen gegevens.</string>
     <string name="accessibility_service_more_info">
-    MultiLauncher heeft toegang tot de Toegankelijkheidsservice nodig om functies zoals de volgende mogelijk te maken:\n\n
+    Panther Launcher heeft toegang tot de Toegankelijkheidsservice nodig om functies zoals de volgende mogelijk te maken:\n\n
     • Het scherm vergrendelen met een gebaar of sneltoets\n
     • Het paneel Snelle instellingen snel openen\n\n
-    Deze toestemming stelt MultiLauncher in staat om deze acties namens u uit te voeren, maar we verzamelen, bewaren of delen geen persoonlijke of gevoelige gegevens via deze service.\n\n
+    Deze toestemming stelt Panther Launcher in staat om deze acties namens u uit te voeren, maar we verzamelen, bewaren of delen geen persoonlijke of gevoelige gegevens via deze service.\n\n
     Je kunt deze toegang op elk moment uitschakelen via de instellingen van je apparaat.
     </string>
     <string name="can_not_delete_system_apps">Kan systeemapps niet verwijderen</string>
@@ -265,7 +261,7 @@
     <string name="text_authentication_cancel">Authenticatie Annuleren.</string>
     <string name="text_authentication_error">Authenticatiefout: %1$s (code %2$d)</string>
     <string name="text_authentication_failed">Authenticatie mislukt.</string>
-    <string name="text_biometric_login">Biometrische login MultiLauncher-instellingen</string>
+    <string name="text_biometric_login">Biometrische login Panther Launcher-instellingen</string>
     <string name="text_biometric_login_app">Biometrische login voor %1$s</string>
     <string name="text_biometric_login_sub">Log in met uw biometrische gegevens</string>
     <!-- Crash Strings -->
@@ -274,7 +270,6 @@
     <string name="acra_send_report">Verzend rapport</string>
     <string name="acra_dont_send">Niet verzenden</string>
     <!-- Share Strings -->
-    <string name="share_application">Deel de applicatie</string>
     <string name="share_note">Deel notitie</string>
     <!-- Icon Pack Strings -->
     <string name="choose_icon_pack">Kies een iconenpakket</string>
@@ -362,7 +357,7 @@
     <string name="widgets_not_added">Er zijn nog geen widgets toegevoegd. Houd ingedrukt om er een toe te voegen.</string>
     <!-- Private Spaces Strings -->
     <string name="alert_requires_android_v">Voor deze functionaliteit is Android 15 of hoger vereist.</string>
-    <string name="toast_private_space_default_home_screen">MultiLauncher moet het standaard startscherm zijn om toegang te krijgen tot uw privéruimte.</string>
+    <string name="toast_private_space_default_home_screen">Panther Launcher moet het standaard startscherm zijn om toegang te krijgen tot uw privéruimte.</string>
     <string name="toast_private_space_locked">Privéruimte afgesloten</string>
     <string name="toast_private_space_unlocked">Privéruimte ontgrendeld</string>
     <string name="toast_private_space_not_available">Privéruimte is niet beschikbaar</string>
@@ -376,7 +371,6 @@
     <string name="settings_home_buttons_title">Home-knoppen</string>
     <string name="settings_applist_buttons_title">Applijstknoppen</string>
     <string name="settings_source_code">Broncode</string>
-    <string name="settings_donations">Donaties</string>
     <string name="settings_credits">Credits</string>
     <string-array name="priorities">
         <item>Laag</item>

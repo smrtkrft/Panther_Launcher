@@ -1,12 +1,12 @@
 # WordOfTheDay Folder
 
-This folder contains exported WordOfTheDay for the MultiLauncher. WordOfTheDay are stored as `.json` files, which are JSON-based and contain the
+This folder contains exported WordOfTheDay for the Panther Launcher. WordOfTheDay are stored as `.json` files, which are JSON-based and contain the
 WordOfTheDay related
 `SharedPreferences` settings.
 
 ## Importing a WordOfTheDay
 
-1. Open the MultiLauncher settings.
+1. Open the Panther Launcher settings.
 2. Navigate to the advanced section.
 3. Click `Word of The Day` to Import.
 4. Select an `.json` file from your device.

@@ -35,14 +35,14 @@ jobs:
         id: write_base64_file
         shell: bash
         run: |
-          echo "${{ secrets.SIGNINGKEY_BASE64 }}" > mLauncher.jks.tmp
-          base64 -d -i mLauncher.jks.tmp > mLauncher.jks
-          rm mLauncher.jks.tmp
+          echo "${{ secrets.SIGNINGKEY_BASE64 }}" > pantherlauncher.jks.tmp
+          base64 -d -i pantherlauncher.jks.tmp > pantherlauncher.jks
+          rm pantherlauncher.jks.tmp
 
           mkdir -p app
-          mv mLauncher.jks app/
+          mv pantherlauncher.jks app/
 
-          DESTINATION_FILE="app/mLauncher.jks"
+          DESTINATION_FILE="app/pantherlauncher.jks"
           echo "filePath=$DESTINATION_FILE" >> "$GITHUB_OUTPUT"
           echo "Keystore written to $DESTINATION_FILE"
 
@@ -59,4 +59,4 @@ jobs:
         if: always()
         shell: bash
         run: |
-          shred -u app/mLauncher.jks || rm -f app/mLauncher.jks
+          shred -u app/pantherlauncher.jks || rm -f app/pantherlauncher.jks

@@ -17,11 +17,11 @@
     <string name="grant_location_permission">หากต้องการดำเนินการต่อ โปรดให้สิทธิ์การเข้าถึงตำแหน่ง</string>
     <string name="reason_location_permission">แอปนี้จำเป็นต้องมีการเข้าถึงตำแหน่งเพื่อให้ข้อมูลอัปเดตสภาพอากาศที่แม่นยำตามตำแหน่งปัจจุบันของคุณ เราจะไม่รวบรวมหรือแบ่งปันข้อมูลส่วนบุคคลใดๆ</string>
     <string name="grant_accessibility_permission">หากต้องการดำเนินการต่อ โปรดให้สิทธิ์การเข้าถึง</string>
-    <string name="reason_accessibility_permission">MultiLauncher ต้องได้รับอนุญาตการเข้าถึงเพื่อให้มีฟีเจอร์ขั้นสูง เช่น การล็อกหน้าจอและการเปิดการตั้งค่าด่วน ฟังก์ชันเหล่านี้จะช่วยปรับปรุงการใช้งาน เราไม่รวบรวมหรือแบ่งปันข้อมูลใดๆ</string>
+    <string name="reason_accessibility_permission">Panther Launcher ต้องได้รับอนุญาตการเข้าถึงเพื่อให้มีฟีเจอร์ขั้นสูง เช่น การล็อกหน้าจอและการเปิดการตั้งค่าด่วน ฟังก์ชันเหล่านี้จะช่วยปรับปรุงการใช้งาน เราไม่รวบรวมหรือแบ่งปันข้อมูลใดๆ</string>
     <string name="permission_granted">ได้รับอนุญาตแล้ว! คุณสามารถดำเนินการต่อได้</string>
     <string name="this_can_be_disabled_later">* สิทธิ์นี้อาจถูกปิดใช้งานในภายหลัง</string>
     <!-- Strings used for settings menus -->
-    <string name="settings_name">การตั้งค่า MultiLauncher</string>
+    <string name="settings_name">การตั้งค่า Panther Launcher</string>
     <string name="settings_features_title">คุณสมบัติ</string>
     <string name="settings_features_description">ปรับปรุงประสิทธิภาพการทำงานของคุณ</string>
     <string name="settings_look_feel_title">มอง &amp; รู้สึก</string>
@@ -41,9 +41,9 @@
     <string name="settings_advanced_description">เข้าถึงข้อมูลแอป ตัวเปิดใช้เริ่มต้น เครื่องมือสำรองข้อมูล และอื่นๆ อีกมากมาย</string>
     <string name="settings_expert_title">ผู้เชี่ยวชาญ</string>
     <string name="settings_expert_description">ปลดล็อคตัวเลือกที่ซ่อนอยู่และการปรับแต่งขั้นสูง</string>
-    <string name="settings_exit_mlauncher_title">ออกจาก MultiLauncher</string>
-    <string name="settings_exit_mlauncher_description">สลับไปใช้ตัวเปิดใช้เริ่มต้นของคุณชั่วคราว</string>
-    <string name="settings_exit_mlauncher_dialog">เลือกตัวเรียกใช้งาน</string>
+    <string name="settings_exit_launcher_title">ออกจาก Panther Launcher</string>
+    <string name="settings_exit_launcher_description">สลับไปใช้ตัวเปิดใช้เริ่มต้นของคุณชั่วคราว</string>
+    <string name="settings_exit_launcher_dialog">เลือกตัวเรียกใช้งาน</string>
     <!-- Strings used for features settings -->
     <string name="features_settings_title">คุณสมบัติ</string>
     <string name="personalization">การปรับแต่งส่วนบุคคล</string>
@@ -182,7 +182,7 @@
     <string name="advanced_settings_app_info_title">ข้อมูลแอป</string>
     <string name="advanced_settings_app_info_description">%1$s</string>
     <string name="advanced_settings_set_as_default_launcher">ตั้งเป็นตัวเรียกใช้งานเริ่มต้น</string>
-    <string name="advanced_settings_set_as_default_launcher_description">ตั้ง Multi Launcher ให้เป็นแอปหลักเริ่มต้นของคุณ</string>
+    <string name="advanced_settings_set_as_default_launcher_description">ตั้ง Panther Launcher ให้เป็นแอปหลักเริ่มต้นของคุณ</string>
     <string name="advanced_settings_change_default_launcher">เปลี่ยนตัวเรียกใช้งานเริ่มต้น</string>
     <string name="advanced_settings_change_default_launcher_description">เลือกตัวเปิดใช้อื่นเป็นค่าเริ่มต้นของคุณ</string>
     <string name="advanced_settings_restart_title">รีสตาร์ทตัวเรียกใช้งาน</string>
@@ -212,10 +212,6 @@
     <string name="advanced_settings_clear_yes">ใช่</string>
     <string name="advanced_settings_clear_no">เลขที่</string>
     <string name="advanced_settings_help_feedback_title">ช่วยเหลือ &amp; ข้อเสนอแนะ</string>
-    <string name="advanced_settings_community_support_title">การสนับสนุนชุมชน</string>
-    <string name="advanced_settings_share_application_title">แอปพลิเคชั่นแบ่งปัน</string>
-    <string name="advanced_settings_share_application_description">ยกระดับประสบการณ์ของคุณด้วย %1$s!</string>
-    <string name="advanced_settings_share_application_description_addon">รับเลยตอนนี้ที่ %1$s และดูว่าทุกคนกำลังพูดถึงอะไร! %2$s\n</string>
     <!-- Strings used for about settings -->
     <string name="about_settings_title">เกี่ยวกับ %1$s</string>
     <!-- Strings used for expert settings -->
@@ -242,13 +238,13 @@
     <string name="empty_favorite">ยังไม่ได้ใช้งาน</string>
     <string name="confirm_remove_favorite">คุณแน่ใจหรือไม่ว่าต้องการลบแอปนี้ออกจากรายการโปรด?</string>
     <!-- Accessibility/Help Strings -->
-    <string name="accessibility_service_name">บริการการดำเนินการ MultiLauncher</string>
+    <string name="accessibility_service_name">บริการการดำเนินการ Panther Launcher</string>
     <string name="accessibility_service_why_we_need">เหตุใดเราจึงต้องได้รับอนุญาตการเข้าถึง</string>
-    <string name="accessibility_service_description">บริการการเข้าถึงนี้ช่วยให้ MultiLauncher สามารถดำเนินการบางอย่างได้ เช่น ล็อกหน้าจอหรือเปิดการตั้งค่าด่วน บริการการเข้าถึงของเราไม่รวบรวมหรือแบ่งปันข้อมูลใดๆ</string>
-    <string name="accessibility_service_more_info">    MultiLauncher ต้องเข้าถึง Accessibility Service เพื่อเปิดใช้คุณสมบัติต่างๆ เช่น:\n\n
+    <string name="accessibility_service_description">บริการการเข้าถึงนี้ช่วยให้ Panther Launcher สามารถดำเนินการบางอย่างได้ เช่น ล็อกหน้าจอหรือเปิดการตั้งค่าด่วน บริการการเข้าถึงของเราไม่รวบรวมหรือแบ่งปันข้อมูลใดๆ</string>
+    <string name="accessibility_service_more_info">    Panther Launcher ต้องเข้าถึง Accessibility Service เพื่อเปิดใช้คุณสมบัติต่างๆ เช่น:\n\n
     • การล็อกหน้าจอด้วยท่าทางหรือปุ่มลัด\n
     • การเปิดแผงการตั้งค่าด่วนอย่างรวดเร็ว\n\n
-    การอนุญาตนี้ช่วยให้ MultiLauncher สามารถดำเนินการเหล่านี้ในนามของคุณได้ แต่เราจะไม่รวบรวม จัดเก็บ หรือแบ่งปันข้อมูลส่วนบุคคลหรือข้อมูลละเอียดอ่อนใดๆ ผ่านบริการนี้\n\n
+    การอนุญาตนี้ช่วยให้ Panther Launcher สามารถดำเนินการเหล่านี้ในนามของคุณได้ แต่เราจะไม่รวบรวม จัดเก็บ หรือแบ่งปันข้อมูลส่วนบุคคลหรือข้อมูลละเอียดอ่อนใดๆ ผ่านบริการนี้\n\n
     คุณสามารถปิดการใช้งานการเข้าถึงนี้ได้ตลอดเวลาจากการตั้งค่าอุปกรณ์ของคุณ
     </string>
     <string name="can_not_delete_system_apps">ไม่สามารถลบแอประบบได้</string>
@@ -264,7 +260,7 @@
     <string name="text_authentication_cancel">ยกเลิกการรับรองความถูกต้อง</string>
     <string name="text_authentication_error">ข้อผิดพลาดในการตรวจสอบสิทธิ์:%1$s(รหัส %2$d)</string>
     <string name="text_authentication_failed">รับรองความถูกต้องล้มเหลว.</string>
-    <string name="text_biometric_login">การเข้าสู่ระบบไบโอเมตริกซ์ การตั้งค่า MultiLauncher</string>
+    <string name="text_biometric_login">การเข้าสู่ระบบไบโอเมตริกซ์ การตั้งค่า Panther Launcher</string>
     <string name="text_biometric_login_app">การเข้าสู่ระบบไบโอเมตริกซ์สำหรับ %1$s</string>
     <string name="text_biometric_login_sub">เข้าสู่ระบบโดยใช้ข้อมูลประจำตัวไบโอเมตริกซ์ของคุณ</string>
     <!-- Crash Strings -->
@@ -273,7 +269,6 @@
     <string name="acra_send_report">ส่งรายงาน</string>
     <string name="acra_dont_send">อย่าส่ง</string>
     <!-- Share Strings -->
-    <string name="share_application">แอปพลิเคชั่นแบ่งปัน</string>
     <string name="share_note">แบ่งปันบันทึก</string>
     <!-- Icon Pack Strings -->
     <string name="choose_icon_pack">เลือกไอคอนแพ็ค</string>
@@ -363,7 +358,7 @@
     <string name="widgets_not_added">ยังไม่มีการเพิ่มวิดเจ็ต กดค้างไว้เพื่อเพิ่มวิดเจ็ต</string>
     <!-- Private Spaces Strings -->
     <string name="alert_requires_android_v">ฟังก์ชันนี้ต้องใช้ Android 15 ขึ้นไป</string>
-    <string name="toast_private_space_default_home_screen">MultiLauncher จะต้องเป็นหน้าจอหลักเริ่มต้นเพื่อเข้าถึงพื้นที่ส่วนตัว</string>
+    <string name="toast_private_space_default_home_screen">Panther Launcher จะต้องเป็นหน้าจอหลักเริ่มต้นเพื่อเข้าถึงพื้นที่ส่วนตัว</string>
     <string name="toast_private_space_locked">พื้นที่ส่วนตัวถูกล็อค</string>
     <string name="toast_private_space_unlocked">พื้นที่ส่วนตัวปลดล็อค</string>
     <string name="toast_private_space_not_available">พื้นที่ส่วนตัวไม่สามารถใช้งานได้</string>
@@ -377,7 +372,6 @@
     <string name="settings_home_buttons_title">ปุ่มโฮม</string>
     <string name="settings_applist_buttons_title">ปุ่มรายการแอป</string>
     <string name="settings_source_code">รหัสต้นฉบับ</string>
-    <string name="settings_donations">การบริจาค</string>
     <string name="settings_credits">เครดิต</string>
     <string-array name="priorities">
         <item>ต่ำ</item>

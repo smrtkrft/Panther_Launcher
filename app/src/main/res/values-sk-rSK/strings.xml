@@ -17,11 +17,11 @@
     <string name="grant_location_permission">Ak chcete pokračovať, udeľte povolenie na používanie polohy.</string>
     <string name="reason_location_permission">Táto aplikácia potrebuje prístup k polohe, aby mohla poskytovať presné informácie o počasí na základe vašej aktuálnej polohy. Nezhromažďujeme ani nezdieľame žiadne osobné údaje.</string>
     <string name="grant_accessibility_permission">Ak chcete pokračovať, udeľte povolenie na zjednodušenie ovládania.</string>
-    <string name="reason_accessibility_permission">MultiLauncher potrebuje povolenie na zjednodušenie ovládania, aby mohol poskytovať vylepšené funkcie, ako je uzamknutie obrazovky a otvorenie rýchlych nastavení. Tieto funkcie pomáhajú zlepšiť použiteľnosť. Nezhromažďujeme ani nezdieľame žiadne údaje.</string>
+    <string name="reason_accessibility_permission">Panther Launcher potrebuje povolenie na zjednodušenie ovládania, aby mohol poskytovať vylepšené funkcie, ako je uzamknutie obrazovky a otvorenie rýchlych nastavení. Tieto funkcie pomáhajú zlepšiť použiteľnosť. Nezhromažďujeme ani nezdieľame žiadne údaje.</string>
     <string name="permission_granted">Povolenie udelené! Môžete pokračovať.</string>
     <string name="this_can_be_disabled_later">* Toto povolenie môže byť neskôr zakázané.</string>
     <!-- Strings used for settings menus -->
-    <string name="settings_name">Nastavenia MultiLauncher</string>
+    <string name="settings_name">Nastavenia Panther Launcher</string>
     <string name="settings_features_title">Vlastnosti</string>
     <string name="settings_features_description">Zlepšite svoju produktivitu.</string>
     <string name="settings_look_feel_title">Pozrite sa &amp; Cítite</string>
@@ -41,9 +41,9 @@
     <string name="settings_advanced_description">Prístup k informáciám o aplikácii, predvolenému spúšťaču, nástrojom na zálohovanie a ďalším funkciám.</string>
     <string name="settings_expert_title">Expert</string>
     <string name="settings_expert_description">Odomknite skryté možnosti a pokročilé vylepšenia.</string>
-    <string name="settings_exit_mlauncher_title">Ukončite MultiLauncher</string>
-    <string name="settings_exit_mlauncher_description">Dočasne prepnite na predvolený spúšťač.</string>
-    <string name="settings_exit_mlauncher_dialog">Vyberte spúšťač</string>
+    <string name="settings_exit_launcher_title">Ukončite Panther Launcher</string>
+    <string name="settings_exit_launcher_description">Dočasne prepnite na predvolený spúšťač.</string>
+    <string name="settings_exit_launcher_dialog">Vyberte spúšťač</string>
     <!-- Strings used for features settings -->
     <string name="features_settings_title">Vlastnosti</string>
     <string name="personalization">Personalizácia</string>
@@ -182,7 +182,7 @@
     <string name="advanced_settings_app_info_title">Informácie o aplikácii</string>
     <string name="advanced_settings_app_info_description">%1$s</string>
     <string name="advanced_settings_set_as_default_launcher">Nastaviť ako predvolený spúšťač</string>
-    <string name="advanced_settings_set_as_default_launcher_description">Nastavte si Multi Launcher ako predvolenú domovskú aplikáciu.</string>
+    <string name="advanced_settings_set_as_default_launcher_description">Nastavte si Panther Launcher ako predvolenú domovskú aplikáciu.</string>
     <string name="advanced_settings_change_default_launcher">Zmeniť predvolený spúšťač</string>
     <string name="advanced_settings_change_default_launcher_description">Vyberte iný spúšťač ako predvolený.</string>
     <string name="advanced_settings_restart_title">Reštartujte spúšťač</string>
@@ -212,10 +212,6 @@
     <string name="advanced_settings_clear_yes">Áno</string>
     <string name="advanced_settings_clear_no">Nie</string>
     <string name="advanced_settings_help_feedback_title">Pomoc &amp; Spätná väzba</string>
-    <string name="advanced_settings_community_support_title">Podpora komunity</string>
-    <string name="advanced_settings_share_application_title">Zdieľať aplikáciu</string>
-    <string name="advanced_settings_share_application_description">Zvýšte svoje skúsenosti s %1$s!</string>
-    <string name="advanced_settings_share_application_description_addon">Získajte to teraz na %1$s a uvidíte, o čom všetci hovoria! %2$s\n</string>
     <!-- Strings used for about settings -->
     <string name="about_settings_title">Približne %1$s</string>
     <!-- Strings used for expert settings -->
@@ -242,15 +238,15 @@
     <string name="empty_favorite">Nepoužité</string>
     <string name="confirm_remove_favorite">Naozaj chcete túto aplikáciu odstrániť z obľúbených?</string>
     <!-- Accessibility/Help Strings -->
-    <string name="accessibility_service_name">Služby akcií MultiLauncher</string>
+    <string name="accessibility_service_name">Služby akcií Panther Launcher</string>
     <string name="accessibility_service_why_we_need">Prečo potrebujeme povolenie na prístupnosť</string>
-    <string name="accessibility_service_description">Táto služba prístupnosti umožňuje programu MultiLauncher vykonávať určité akcie, ako je uzamknutie obrazovky alebo otvorenie rýchlych nastavení. Naša služba dostupnosti nezhromažďuje ani nezdieľa žiadne údaje.</string>
-    <string name="accessibility_service_more_info">MultiLauncher vyžaduje prístup k Službe prístupnosti, aby mohol povoliť funkcie ako:
+    <string name="accessibility_service_description">Táto služba prístupnosti umožňuje programu Panther Launcher vykonávať určité akcie, ako je uzamknutie obrazovky alebo otvorenie rýchlych nastavení. Naša služba dostupnosti nezhromažďuje ani nezdieľa žiadne údaje.</string>
+    <string name="accessibility_service_more_info">Panther Launcher vyžaduje prístup k Službe prístupnosti, aby mohol povoliť funkcie ako:
 
 • Zamknutie obrazovky gestom alebo skratkou  
 • Rýchle otvorenie panela rýchlych nastavení  
 
-Toto povolenie umožňuje aplikácii MultiLauncher vykonávať tieto akcie vo vašom mene, ale nezhromažďujeme, neukladáme ani nezdieľame žiadne osobné ani citlivé údaje prostredníctvom tejto služby.  
+Toto povolenie umožňuje aplikácii Panther Launcher vykonávať tieto akcie vo vašom mene, ale nezhromažďujeme, neukladáme ani nezdieľame žiadne osobné ani citlivé údaje prostredníctvom tejto služby.  
 
 Tento prístup môžete kedykoľvek vypnúť v nastaveniach zariadenia.
 </string>
@@ -267,7 +263,7 @@ Tento prístup môžete kedykoľvek vypnúť v nastaveniach zariadenia.
     <string name="text_authentication_cancel">Zrušiť overenie.</string>
     <string name="text_authentication_error">Chyba overenia:%1$s(kód %2$d)</string>
     <string name="text_authentication_failed">Overenie zlyhalo</string>
-    <string name="text_biometric_login">Biometrické prihlásenie Nastavenia MultiLauncher</string>
+    <string name="text_biometric_login">Biometrické prihlásenie Nastavenia Panther Launcher</string>
     <string name="text_biometric_login_app">Biometrické prihlásenie pre %1$s</string>
     <string name="text_biometric_login_sub">Prihláste sa pomocou svojich biometrických údajov.</string>
     <!-- Crash Strings -->
@@ -276,7 +272,6 @@ Tento prístup môžete kedykoľvek vypnúť v nastaveniach zariadenia.
     <string name="acra_send_report">Odoslať správu</string>
     <string name="acra_dont_send">Neposielajte</string>
     <!-- Share Strings -->
-    <string name="share_application">Zdieľať aplikáciu</string>
     <string name="share_note">Zdieľať poznámku</string>
     <!-- Icon Pack Strings -->
     <string name="choose_icon_pack">Vyberte si balík ikon</string>
@@ -364,7 +359,7 @@ Tento prístup môžete kedykoľvek vypnúť v nastaveniach zariadenia.
     <string name="widgets_not_added">Zatiaľ neboli pridané žiadne widgety. Dlhým stlačením pridáte jeden.</string>
     <!-- Private Spaces Strings -->
     <string name="alert_requires_android_v">Táto funkcia vyžaduje Android 15 alebo novší.</string>
-    <string name="toast_private_space_default_home_screen">MultiLauncher musí byť predvolenou domovskou obrazovkou na prístup k súkromnému priestoru.</string>
+    <string name="toast_private_space_default_home_screen">Panther Launcher musí byť predvolenou domovskou obrazovkou na prístup k súkromnému priestoru.</string>
     <string name="toast_private_space_locked">Súkromný priestor je zamknutý</string>
     <string name="toast_private_space_unlocked">Súkromný priestor je odomknutý</string>
     <string name="toast_private_space_not_available">Súkromný priestor nie je k dispozícii</string>
@@ -378,7 +373,6 @@ Tento prístup môžete kedykoľvek vypnúť v nastaveniach zariadenia.
     <string name="settings_home_buttons_title">Tlačidlá Domov</string>
     <string name="settings_applist_buttons_title">Tlačidlá zoznamu aplikácií</string>
     <string name="settings_source_code">Zdrojový kód</string>
-    <string name="settings_donations">Dary</string>
     <string name="settings_credits">Kredity</string>
     <string-array name="priorities">
         <item>Nízka</item>

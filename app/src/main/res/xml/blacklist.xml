@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <blacklist>
     <!-- Example: Package names of apps to be blacklisted -->
-    <app packageName="app.mlauncher" />
+    <app packageName="app.pantherlauncher" />
     <app packageName="com.opera.browser" />
     <app packageName="com.google.android.apps.healthdata" />
     <app packageName="com.google.android.healthconnect.controller" />

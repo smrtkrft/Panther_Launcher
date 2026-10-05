@@ -17,11 +17,11 @@
     <string name="grant_location_permission">Per continuare, si prega di concedere l\'autorizzazione alla posizione.</string>
     <string name="reason_location_permission">Questa app necessita dell\'accesso alla posizione per fornire aggiornamenti meteo accurati in base alla tua posizione attuale. Non raccogliamo né condividiamo alcun dato personale.</string>
     <string name="grant_accessibility_permission">Per continuare, si prega di concedere l\'autorizzazione di accessibilità.</string>
-    <string name="reason_accessibility_permission">MultiLauncher necessita dell\'autorizzazione di accessibilità per fornire funzionalità avanzate, come il blocco dello schermo e l\'apertura delle impostazioni rapide. Queste funzioni contribuiscono a migliorare l\'usabilità. Non raccogliamo né condividiamo alcun dato.</string>
+    <string name="reason_accessibility_permission">Panther Launcher necessita dell\'autorizzazione di accessibilità per fornire funzionalità avanzate, come il blocco dello schermo e l\'apertura delle impostazioni rapide. Queste funzioni contribuiscono a migliorare l\'usabilità. Non raccogliamo né condividiamo alcun dato.</string>
     <string name="permission_granted">Autorizzazione concessa! Puoi continuare.</string>
     <string name="this_can_be_disabled_later">* Questa autorizzazione potrebbe essere disabilitata in seguito.</string>
     <!-- Strings used for settings menus -->
-    <string name="settings_name">Impostazioni MultiLauncher</string>
+    <string name="settings_name">Impostazioni Panther Launcher</string>
     <string name="settings_features_title">Caratteristiche</string>
     <string name="settings_features_description">Migliora la tua produttività.</string>
     <string name="settings_look_feel_title">Guarda &amp; Senti</string>
@@ -41,9 +41,9 @@
     <string name="settings_advanced_description">Accedi alle informazioni sull\'app, al launcher predefinito, agli strumenti di backup e altro ancora.</string>
     <string name="settings_expert_title">Esperto</string>
     <string name="settings_expert_description">Sblocca opzioni nascoste e impostazioni avanzate.</string>
-    <string name="settings_exit_mlauncher_title">Esci da MultiLauncher</string>
-    <string name="settings_exit_mlauncher_description">Passa temporaneamente al tuo launcher predefinito.</string>
-    <string name="settings_exit_mlauncher_dialog">Scegli un lanciatore</string>
+    <string name="settings_exit_launcher_title">Esci da Panther Launcher</string>
+    <string name="settings_exit_launcher_description">Passa temporaneamente al tuo launcher predefinito.</string>
+    <string name="settings_exit_launcher_dialog">Scegli un lanciatore</string>
     <!-- Strings used for features settings -->
     <string name="features_settings_title">Caratteristiche</string>
     <string name="personalization">la santità</string>
@@ -182,7 +182,7 @@
     <string name="advanced_settings_app_info_title">Informazioni sull\'app</string>
     <string name="advanced_settings_app_info_description">%1$s</string>
     <string name="advanced_settings_set_as_default_launcher">Usa come launcher predefinito</string>
-    <string name="advanced_settings_set_as_default_launcher_description">Imposta Multi Launcher come app predefinita per la schermata iniziale.</string>
+    <string name="advanced_settings_set_as_default_launcher_description">Imposta Panther Launcher come app predefinita per la schermata iniziale.</string>
     <string name="advanced_settings_change_default_launcher">Cambiare il launcher predefinito</string>
     <string name="advanced_settings_change_default_launcher_description">Scegli un launcher diverso come predefinito.</string>
     <string name="advanced_settings_restart_title">Riavvia il programma di avvio</string>
@@ -212,10 +212,6 @@
     <string name="advanced_settings_clear_yes">SÌ</string>
     <string name="advanced_settings_clear_no">NO</string>
     <string name="advanced_settings_help_feedback_title">Aiuto &amp; Feedback</string>
-    <string name="advanced_settings_community_support_title">Sostegno della comunità</string>
-    <string name="advanced_settings_share_application_title">Condividi l\'applicazione</string>
-    <string name="advanced_settings_share_application_description">Migliora la tua esperienza con %1$s!</string>
-    <string name="advanced_settings_share_application_description_addon">Acquistalo ora su %1$s e scopri di cosa parlano tutti! %2$s\n</string>
     <!-- Strings used for about settings -->
     <string name="about_settings_title">Informazioni su %1$s</string>
     <!-- Strings used for expert settings -->
@@ -242,14 +238,14 @@
     <string name="empty_favorite">Inutilizzato</string>
     <string name="confirm_remove_favorite">Sei sicuro di voler rimuovere questa app dai preferiti?</string>
     <!-- Accessibility/Help Strings -->
-    <string name="accessibility_service_name">Servizi di azione MultiLauncher</string>
+    <string name="accessibility_service_name">Servizi di azione Panther Launcher</string>
     <string name="accessibility_service_why_we_need">Perché abbiamo bisogno dell\'autorizzazione di accessibilità</string>
-    <string name="accessibility_service_description">Questo servizio di accessibilità consente a MultiLauncher di eseguire determinate azioni, come bloccare lo schermo o aprire le impostazioni rapide. Il nostro servizio di accessibilità non raccoglie né condivide alcun dato.</string>
+    <string name="accessibility_service_description">Questo servizio di accessibilità consente a Panther Launcher di eseguire determinate azioni, come bloccare lo schermo o aprire le impostazioni rapide. Il nostro servizio di accessibilità non raccoglie né condivide alcun dato.</string>
     <string name="accessibility_service_more_info">
-    MultiLauncher richiede l\'accesso al Servizio di accessibilità per abilitare funzionalità come:\n\n
+    Panther Launcher richiede l\'accesso al Servizio di accessibilità per abilitare funzionalità come:\n\n
     • Bloccare lo schermo con un gesto o una scorciatoia\n
     • Aprire rapidamente il pannello delle impostazioni rapide\n\n
-    Questa autorizzazione consente a MultiLauncher di eseguire queste azioni per tuo conto, ma non raccogliamo, memorizziamo o condividiamo dati personali o sensibili tramite questo servizio.\n\n
+    Questa autorizzazione consente a Panther Launcher di eseguire queste azioni per tuo conto, ma non raccogliamo, memorizziamo o condividiamo dati personali o sensibili tramite questo servizio.\n\n
     Puoi disabilitare questo accesso in qualsiasi momento dalle impostazioni del tuo dispositivo.
     </string>
     <string name="can_not_delete_system_apps">Impossibile eliminare le app di sistema</string>
@@ -265,7 +261,7 @@
     <string name="text_authentication_cancel">Autenticazione annullata.</string>
     <string name="text_authentication_error">Errore di autenticazione: %1$s (codice %2$d)</string>
     <string name="text_authentication_failed">Autenticazione non riuscita.</string>
-    <string name="text_biometric_login">Accesso biometrico Impostazioni MultiLauncher</string>
+    <string name="text_biometric_login">Accesso biometrico Impostazioni Panther Launcher</string>
     <string name="text_biometric_login_app">Accesso biometrico per %1$s</string>
     <string name="text_biometric_login_sub">Accedi utilizzando le tue credenziali biometriche</string>
     <!-- Crash Strings -->
@@ -274,7 +270,6 @@
     <string name="acra_send_report">Invia rapporto</string>
     <string name="acra_dont_send">Non inviare</string>
     <!-- Share Strings -->
-    <string name="share_application">Applicazione di condivisione</string>
     <string name="share_note">Note di condivisione</string>
     <!-- Icon Pack Strings -->
     <string name="choose_icon_pack">Scegli il pacchetto di icone</string>
@@ -362,7 +357,7 @@
     <string name="widgets_not_added">Nessun widget aggiunto al momento. Tieni premuto a lungo per aggiungerne uno.</string>
     <!-- Private Spaces Strings -->
     <string name="alert_requires_android_v">Questa funzionalità richiede Android 15 o versioni successive.</string>
-    <string name="toast_private_space_default_home_screen">MultiLauncher deve essere impostato come schermata iniziale predefinita per accedere allo spazio privato.</string>
+    <string name="toast_private_space_default_home_screen">Panther Launcher deve essere impostato come schermata iniziale predefinita per accedere allo spazio privato.</string>
     <string name="toast_private_space_locked">Spazio privato chiuso a chiave</string>
     <string name="toast_private_space_unlocked">Spazio privato sbloccato</string>
     <string name="toast_private_space_not_available">Non è disponibile uno spazio privato.</string>
@@ -376,7 +371,6 @@
     <string name="settings_home_buttons_title">Pulsanti Home</string>
     <string name="settings_applist_buttons_title">Pulsanti dell\'elenco delle app</string>
     <string name="settings_source_code">Codice sorgente</string>
-    <string name="settings_donations">Donazioni</string>
     <string name="settings_credits">Crediti</string>
     <string-array name="priorities">
         <item>Basso</item>

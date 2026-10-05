@@ -26,4 +26,4 @@ dependencyResolutionManagement {
 }
 
 include(":app")
-rootProject.name = "mLauncher"
+rootProject.name = "PantherLauncher"

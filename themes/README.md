@@ -1,11 +1,11 @@
 # Theme Folder
 
-This folder contains exported themes for the MultiLauncher. Themes are stored as `.mtheme` files, which are JSON-based and contain the theme-related
+This folder contains exported themes for the Panther Launcher. Themes are stored as `.mtheme` files, which are JSON-based and contain the theme-related
 `SharedPreferences` settings.
 
 ## Exporting a Theme
 
-1. Open the MultiLauncher settings.
+1. Open the Panther Launcher settings.
 2. Navigate to the advanced section.
 3. Click `Theme Creations` then Export.
 4. Choose a filename (must have the `.mtheme` extension).
@@ -13,7 +13,7 @@ This folder contains exported themes for the MultiLauncher. Themes are stored as
 
 ## Importing a Theme
 
-1. Open the MultiLauncher settings.
+1. Open the Panther Launcher settings.
 2. Navigate to the advanced section.
 3. Click `Theme Creations` then Import.
 4. Select an `.mtheme` file from your device.

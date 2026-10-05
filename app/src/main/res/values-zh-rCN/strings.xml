@@ -17,11 +17,11 @@
     <string name="grant_location_permission">要继续，请授予位置权限。</string>
     <string name="reason_location_permission">此应用需要位置访问权限，以根据你当前的位置提供准确的天气更新。我们不会收集或分享任何个人数据。</string>
     <string name="grant_accessibility_permission">要继续，请授予无障碍权限。</string>
-    <string name="reason_accessibility_permission">MultiLauncher 需要无障碍权限来提供增强功能，例如锁定屏幕和打开快捷设置。这些功能有助于提升可用性。我们不会收集或分享任何数据。</string>
+    <string name="reason_accessibility_permission">Panther Launcher 需要无障碍权限来提供增强功能，例如锁定屏幕和打开快捷设置。这些功能有助于提升可用性。我们不会收集或分享任何数据。</string>
     <string name="permission_granted">权限已授予！您可以继续。</string>
     <string name="this_can_be_disabled_later">* 此权限稍后可以关闭。</string>
     <!-- Strings used for settings menus -->
-    <string name="settings_name">MultiLauncher 设置</string>
+    <string name="settings_name">Panther Launcher 设置</string>
     <string name="settings_features_title">功能</string>
     <string name="settings_features_description">提升你的效率。</string>
     <string name="settings_look_feel_title">外观与体验</string>
@@ -41,9 +41,9 @@
     <string name="settings_advanced_description">访问应用信息、默认启动器、备份工具等。</string>
     <string name="settings_expert_title">专家</string>
     <string name="settings_expert_description">解锁隐藏选项和高级调整。</string>
-    <string name="settings_exit_mlauncher_title">退出 MultiLauncher</string>
-    <string name="settings_exit_mlauncher_description">临时切换到默认启动器。</string>
-    <string name="settings_exit_mlauncher_dialog">选择启动器</string>
+    <string name="settings_exit_launcher_title">退出 Panther Launcher</string>
+    <string name="settings_exit_launcher_description">临时切换到默认启动器。</string>
+    <string name="settings_exit_launcher_dialog">选择启动器</string>
     <!-- Strings used for features settings -->
     <string name="features_settings_title">功能</string>
     <string name="personalization">个性化</string>
@@ -179,7 +179,7 @@
     <string name="advanced_settings_app_info_title">应用信息</string>
     <string name="advanced_settings_app_info_description">%1$s</string>
     <string name="advanced_settings_set_as_default_launcher">设为默认启动器</string>
-    <string name="advanced_settings_set_as_default_launcher_description">将 Multi Launcher 设为默认主屏幕应用。</string>
+    <string name="advanced_settings_set_as_default_launcher_description">将 Panther Launcher 设为默认主屏幕应用。</string>
     <string name="advanced_settings_change_default_launcher">更改默认启动器</string>
     <string name="advanced_settings_change_default_launcher_description">选择其他启动器作为默认启动器。</string>
     <string name="advanced_settings_restart_title">重启启动器</string>
@@ -209,10 +209,6 @@
     <string name="advanced_settings_clear_yes">是</string>
     <string name="advanced_settings_clear_no">否</string>
     <string name="advanced_settings_help_feedback_title">帮助与反馈</string>
-    <string name="advanced_settings_community_support_title">社区支持</string>
-    <string name="advanced_settings_share_application_title">分享应用</string>
-    <string name="advanced_settings_share_application_description">使用 %1$s 提升你的体验！</string>
-    <string name="advanced_settings_share_application_description_addon">立即在 %1$s 获取，看看大家都在聊什么！%2$s\n</string>
     <!-- Strings used for about settings -->
     <string name="about_settings_title">关于 %1$s</string>
     <!-- Strings used for expert settings -->
@@ -239,13 +235,13 @@
     <string name="empty_favorite">未使用的</string>
     <string name="confirm_remove_favorite">您确定要将此应用从收藏夹中移除吗？</string>
     <!-- Accessibility/Help Strings -->
-    <string name="accessibility_service_name">MultiLauncher 操作服务</string>
+    <string name="accessibility_service_name">Panther Launcher 操作服务</string>
     <string name="accessibility_service_why_we_need">为什么需要无障碍权限</string>
-    <string name="accessibility_service_description">此无障碍服务允许 MultiLauncher 执行某些操作，例如锁定屏幕或打开快捷设置面板。我们的无障碍服务不会收集或分享任何数据。</string>
-    <string name="accessibility_service_more_info">    MultiLauncher 需要访问无障碍服务，以启用以下功能：\n\n
+    <string name="accessibility_service_description">此无障碍服务允许 Panther Launcher 执行某些操作，例如锁定屏幕或打开快捷设置面板。我们的无障碍服务不会收集或分享任何数据。</string>
+    <string name="accessibility_service_more_info">    Panther Launcher 需要访问无障碍服务，以启用以下功能：\n\n
     • 通过手势或快捷方式锁定屏幕\n
     • 快速打开快捷设置面板\n\n
-    此权限允许 MultiLauncher 代你执行这些操作，但我们不会通过此服务收集、存储或分享任何个人或敏感数据。\n\n
+    此权限允许 Panther Launcher 代你执行这些操作，但我们不会通过此服务收集、存储或分享任何个人或敏感数据。\n\n
     你可以随时在设备设置中关闭此访问权限。
     </string>
     <string name="can_not_delete_system_apps">无法删除系统应用</string>
@@ -261,7 +257,7 @@
     <string name="text_authentication_cancel">身份验证已取消。</string>
     <string name="text_authentication_error">身份验证错误：%1$s（代码 %2$d）</string>
     <string name="text_authentication_failed">身份验证失败。</string>
-    <string name="text_biometric_login">使用生物识别登录 MultiLauncher 设置</string>
+    <string name="text_biometric_login">使用生物识别登录 Panther Launcher 设置</string>
     <string name="text_biometric_login_app">使用生物识别登录 %1$s</string>
     <string name="text_biometric_login_sub">使用生物识别凭据登录。</string>
     <!-- Crash Strings -->
@@ -270,7 +266,6 @@
     <string name="acra_send_report">发送报告</string>
     <string name="acra_dont_send">不发送</string>
     <!-- Share Strings -->
-    <string name="share_application">分享应用</string>
     <string name="share_note">分享笔记</string>
     <!-- Icon Pack Strings -->
     <string name="choose_icon_pack">选择图标包</string>
@@ -350,7 +345,7 @@
     <string name="widgets_not_added">尚未添加小部件。长按即可添加。</string>
     <!-- Private Spaces Strings -->
     <string name="alert_requires_android_v">此功能需要 Android 15 或更高版本。</string>
-    <string name="toast_private_space_default_home_screen">MultiLauncher 需要成为默认主屏幕才能访问私密空间。</string>
+    <string name="toast_private_space_default_home_screen">Panther Launcher 需要成为默认主屏幕才能访问私密空间。</string>
     <string name="toast_private_space_locked">私密空间已锁定</string>
     <string name="toast_private_space_unlocked">私密空间已解锁</string>
     <string name="toast_private_space_not_available">私密空间不可用</string>
@@ -364,7 +359,6 @@
     <string name="settings_home_buttons_title">主屏幕按钮</string>
     <string name="settings_applist_buttons_title">应用列表按钮</string>
     <string name="settings_source_code">源代码</string>
-    <string name="settings_donations">捐赠</string>
     <string name="settings_credits">鸣谢</string>
     <string-array name="priorities">
         <item>低</item>

@@ -7,7 +7,7 @@
     android:layout_gravity="center"
     tools:context=".ui.widgets.WidgetFragment">
 
-    <com.github.creativecodecat.components.views.FontAppCompatTextView
+    <ch.smartkraft.components.views.FontAppCompatTextView
         android:id="@+id/emptyPlaceholder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

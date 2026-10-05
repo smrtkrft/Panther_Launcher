@@ -17,7 +17,7 @@
     <string name="grant_location_permission">للمتابعة، يرجى منح إذن الوصول إلى الموقع.</string>
     <string name="reason_location_permission">يحتاج هذا التطبيق إلى الوصول إلى الموقع لتوفير تحديثات دقيقة للطقس بناءً على موقعك الحالي. لا نقوم بجمع أو مشاركة أي بيانات شخصية.</string>
     <string name="grant_accessibility_permission">للمتابعة، يرجى منح إذن الوصول.</string>
-    <string name="reason_accessibility_permission">يحتاج تطبيق MultiLauncher إلى إذن الوصول لتوفير ميزات محسّنة، مثل قفل الشاشة وفتح الإعدادات السريعة. تُسهم هذه الوظائف في تحسين تجربة المستخدم. لا نقوم بجمع أو مشاركة أي بيانات.</string>
+    <string name="reason_accessibility_permission">يحتاج تطبيق Panther Launcher إلى إذن الوصول لتوفير ميزات محسّنة، مثل قفل الشاشة وفتح الإعدادات السريعة. تُسهم هذه الوظائف في تحسين تجربة المستخدم. لا نقوم بجمع أو مشاركة أي بيانات.</string>
     <string name="permission_granted">تمت الموافقة! يمكنك المتابعة.</string>
     <string name="this_can_be_disabled_later">* قد يتم تعطيل هذا الإذن لاحقًا.</string>
     <!-- Strings used for settings menus -->
@@ -41,9 +41,9 @@
     <string name="settings_advanced_description">يمكنك الوصول إلى معلومات التطبيق، والمشغل الافتراضي، وأدوات النسخ الاحتياطي، والمزيد.</string>
     <string name="settings_expert_title">خبير</string>
     <string name="settings_expert_description">افتح الخيارات المخفية والتعديلات المتقدمة.</string>
-    <string name="settings_exit_mlauncher_title">الخروج من مشغل التطبيقات المتعددة</string>
-    <string name="settings_exit_mlauncher_description">قم بالتبديل إلى مشغل التطبيقات الافتراضي الخاص بك مؤقتًا.</string>
-    <string name="settings_exit_mlauncher_dialog">اختر مشغل تطبيقات</string>
+    <string name="settings_exit_launcher_title">الخروج من مشغل التطبيقات المتعددة</string>
+    <string name="settings_exit_launcher_description">قم بالتبديل إلى مشغل التطبيقات الافتراضي الخاص بك مؤقتًا.</string>
+    <string name="settings_exit_launcher_dialog">اختر مشغل تطبيقات</string>
     <!-- Strings used for features settings -->
     <string name="features_settings_title">الميزات</string>
     <string name="personalization">التخصيص</string>
@@ -182,7 +182,7 @@
     <string name="advanced_settings_app_info_title">معلومات التطبيق</string>
     <string name="advanced_settings_app_info_description">%1$s</string>
     <string name="advanced_settings_set_as_default_launcher">تعيينه كتطبيق تشغيل افتراضي</string>
-    <string name="advanced_settings_set_as_default_launcher_description">اجعل تطبيق Multi Launcher تطبيقك الرئيسي الافتراضي.</string>
+    <string name="advanced_settings_set_as_default_launcher_description">اجعل تطبيق Panther Launcher تطبيقك الرئيسي الافتراضي.</string>
     <string name="advanced_settings_change_default_launcher">تغيير المشغل الافتراضي</string>
     <string name="advanced_settings_change_default_launcher_description">اختر مشغلًا مختلفًا ليكون المشغل الافتراضي.</string>
     <string name="advanced_settings_restart_title">إعادة تشغيل المشغل</string>
@@ -212,10 +212,6 @@
     <string name="advanced_settings_clear_yes">نعم</string>
     <string name="advanced_settings_clear_no">لا</string>
     <string name="advanced_settings_help_feedback_title">مساعدة و ملاحظات</string>
-    <string name="advanced_settings_community_support_title">دعم المجتمع</string>
-    <string name="advanced_settings_share_application_title">مشاركة التطبيق</string>
-    <string name="advanced_settings_share_application_description">ارتقِ بتجربتك مع %1$s!</string>
-    <string name="advanced_settings_share_application_description_addon">احصل عليه الآن على %1$s واكتشف ما يتحدث عنه الجميع! %2$s\n</string>
     <!-- Strings used for about settings -->
     <string name="about_settings_title">حول %1$s</string>
     <!-- Strings used for expert settings -->
@@ -244,11 +240,11 @@
     <!-- Accessibility/Help Strings -->
     <string name="accessibility_service_name">خدمات تشغيل متعددة المشغلات</string>
     <string name="accessibility_service_why_we_need">لماذا نحتاج إلى إذن الوصول؟</string>
-    <string name="accessibility_service_description">تتيح خدمة تسهيل الوصول هذه لبرنامج MultiLauncher القيام ببعض الإجراءات مثل قفل الشاشة أو فتح الإعدادات السريعة. ولا تقوم خدمة تسهيل الوصول لدينا بجمع أو مشاركة أي بيانات.</string>
-    <string name="accessibility_service_more_info">    يتطلب MultiLauncher الوصول إلى خدمة إمكانية الوصول لتمكين ميزات مثل:\n\n
+    <string name="accessibility_service_description">تتيح خدمة تسهيل الوصول هذه لبرنامج Panther Launcher القيام ببعض الإجراءات مثل قفل الشاشة أو فتح الإعدادات السريعة. ولا تقوم خدمة تسهيل الوصول لدينا بجمع أو مشاركة أي بيانات.</string>
+    <string name="accessibility_service_more_info">    يتطلب Panther Launcher الوصول إلى خدمة إمكانية الوصول لتمكين ميزات مثل:\n\n
     - قفل الشاشة باستخدام إيماءة أو اختصار\n
     - فتح لوحة الإعدادات السريعة بسرعة\n\n
-    يسمح هذا الإذن لـ MultiLauncher بتنفيذ هذه الإجراءات نيابةً عنك، ولكننا لا نجمع أو نخزن أو نشارك أي بيانات شخصية أو حساسة من خلال هذه الخدمة.\n\n
+    يسمح هذا الإذن لـ Panther Launcher بتنفيذ هذه الإجراءات نيابةً عنك، ولكننا لا نجمع أو نخزن أو نشارك أي بيانات شخصية أو حساسة من خلال هذه الخدمة.\n\n
     يمكنك تعطيل هذا الوصول في أي وقت من إعدادات جهازك.
     </string>
     <string name="can_not_delete_system_apps">لا يمكن حذف تطبيقات النظام</string>
@@ -264,7 +260,7 @@
     <string name="text_authentication_cancel">إلغاء المصادقة.</string>
     <string name="text_authentication_error">خطأ في المصادقة: %1$s (الرمز %2$d)</string>
     <string name="text_authentication_failed">المصادقة فشلت.</string>
-    <string name="text_biometric_login">إعدادات تسجيل الدخول البيومتري لـ MultiLauncher</string>
+    <string name="text_biometric_login">إعدادات تسجيل الدخول البيومتري لـ Panther Launcher</string>
     <string name="text_biometric_login_app">تسجيل الدخول البيومتري لـ %1$s</string>
     <string name="text_biometric_login_sub">قم بتسجيل الدخول باستخدام بيانات الاعتماد البيومترية الخاصة بك</string>
     <!-- Crash Strings -->
@@ -273,7 +269,6 @@
     <string name="acra_send_report">إرسال تقرير</string>
     <string name="acra_dont_send">لا ترسل</string>
     <!-- Share Strings -->
-    <string name="share_application">مشاركة التطبيق</string>
     <string name="share_note">ملاحظة المشاركة</string>
     <!-- Icon Pack Strings -->
     <string name="choose_icon_pack">اختر حزمة الأيقونات</string>
@@ -361,7 +356,7 @@
     <string name="widgets_not_added">لم تتم إضافة أي أدوات بعد. اضغط مطولاً لإضافة واحدة.</string>
     <!-- Private Spaces Strings -->
     <string name="alert_requires_android_v">تتطلب هذه الخاصية نظام Android 15 أو أحدث.</string>
-    <string name="toast_private_space_default_home_screen">يجب أن يكون MultiLauncher هو الشاشة الرئيسية الافتراضية للوصول إلى المساحة الخاصة.</string>
+    <string name="toast_private_space_default_home_screen">يجب أن يكون Panther Launcher هو الشاشة الرئيسية الافتراضية للوصول إلى المساحة الخاصة.</string>
     <string name="toast_private_space_locked">مساحة خاصة مغلقة</string>
     <string name="toast_private_space_unlocked">تم فتح مساحة خاصة</string>
     <string name="toast_private_space_not_available">المساحة الخاصة غير متاحة</string>
@@ -375,7 +370,6 @@
     <string name="settings_home_buttons_title">أزرار الصفحة الرئيسية</string>
     <string name="settings_applist_buttons_title">أزرار قائمة التطبيقات</string>
     <string name="settings_source_code">شفرة المصدر</string>
-    <string name="settings_donations">التبرعات</string>
     <string name="settings_credits">الشكر والتقدير</string>
     <string-array name="priorities">
         <item>قليل</item>

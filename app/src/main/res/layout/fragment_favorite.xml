@@ -44,7 +44,7 @@
             android:orientation="horizontal"
             android:spacing="16dp">
 
-            <com.github.creativecodecat.components.views.FontAppCompatTextView
+            <ch.smartkraft.components.views.FontAppCompatTextView
                 android:id="@+id/removeAppButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                 android:textColor="?attr/primaryColor"
                 android:textSize="16sp" />
 
-            <com.github.creativecodecat.components.views.FontAppCompatTextView
+            <ch.smartkraft.components.views.FontAppCompatTextView
                 android:id="@+id/addAppButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

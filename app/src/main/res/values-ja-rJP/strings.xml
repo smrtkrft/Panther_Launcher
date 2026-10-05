@@ -17,7 +17,7 @@
     <string name="grant_location_permission">続行するには、位置情報へのアクセス許可を与えてください。</string>
     <string name="reason_location_permission">このアプリは、現在地に基づいて正確な天気予報を提供するために、位置情報へのアクセス権限を必要とします。当社は個人データを収集したり、共有したりすることはありません。</string>
     <string name="grant_accessibility_permission">続行するには、アクセシビリティのアクセス許可を与えてください。</string>
-    <string name="reason_accessibility_permission">MultiLauncherは、画面ロックやクイック設定の起動といった拡張機能を提供するために、アクセシビリティ権限を必要とします。これらの機能は、ユーザビリティの向上に役立ちます。当社は、いかなるデータも収集または共有しません。</string>
+    <string name="reason_accessibility_permission">Panther Launcherは、画面ロックやクイック設定の起動といった拡張機能を提供するために、アクセシビリティ権限を必要とします。これらの機能は、ユーザビリティの向上に役立ちます。当社は、いかなるデータも収集または共有しません。</string>
     <string name="permission_granted">許可されました！続行してください。</string>
     <string name="this_can_be_disabled_later">※この権限は後で無効にされる可能性があります。</string>
     <!-- Strings used for settings menus -->
@@ -41,9 +41,9 @@
     <string name="settings_advanced_description">アプリ情報、デフォルトランチャー、バックアップツールなどにアクセスできます。</string>
     <string name="settings_expert_title">専門家</string>
     <string name="settings_expert_description">隠されたオプションや高度な設定をアンロックします。</string>
-    <string name="settings_exit_mlauncher_title">マルチランチャーを終了する</string>
-    <string name="settings_exit_mlauncher_description">一時的にデフォルトのランチャーに切り替えてください。</string>
-    <string name="settings_exit_mlauncher_dialog">ランチャーを選択してください</string>
+    <string name="settings_exit_launcher_title">マルチランチャーを終了する</string>
+    <string name="settings_exit_launcher_description">一時的にデフォルトのランチャーに切り替えてください。</string>
+    <string name="settings_exit_launcher_dialog">ランチャーを選択してください</string>
     <!-- Strings used for features settings -->
     <string name="features_settings_title">特徴</string>
     <string name="personalization">パーソナライゼーション</string>
@@ -179,7 +179,7 @@
     <string name="advanced_settings_app_info_title">アプリ情報</string>
     <string name="advanced_settings_app_info_description">%1$s</string>
     <string name="advanced_settings_set_as_default_launcher">デフォルトランチャーとして設定</string>
-    <string name="advanced_settings_set_as_default_launcher_description">Multi Launcherをデフォルトのホームアプリに設定しましょう。</string>
+    <string name="advanced_settings_set_as_default_launcher_description">Panther Launcherをデフォルトのホームアプリに設定しましょう。</string>
     <string name="advanced_settings_change_default_launcher">デフォルトランチャーを変更する</string>
     <string name="advanced_settings_change_default_launcher_description">デフォルトのランチャーを別のものに変更してください。</string>
     <string name="advanced_settings_restart_title">ランチャーを再起動してください</string>
@@ -209,10 +209,6 @@
     <string name="advanced_settings_clear_yes">はい</string>
     <string name="advanced_settings_clear_no">いいえ</string>
     <string name="advanced_settings_help_feedback_title">ヘルプ &amp; フィードバック</string>
-    <string name="advanced_settings_community_support_title">コミュニティサポート</string>
-    <string name="advanced_settings_share_application_title">アプリを共有する</string>
-    <string name="advanced_settings_share_application_description">%1$s で体験を向上させましょう！</string>
-    <string name="advanced_settings_share_application_description_addon">今すぐ %1$s で入手して、みんなが話題にしているものをチェックしよう！ %2$s\n</string>
     <!-- Strings used for about settings -->
     <string name="about_settings_title">概要 %1$s</string>
     <!-- Strings used for expert settings -->
@@ -241,12 +237,12 @@
     <!-- Accessibility/Help Strings -->
     <string name="accessibility_service_name">マルチランチャーアクションサービス</string>
     <string name="accessibility_service_why_we_need">アクセシビリティ許可が必要な理由</string>
-    <string name="accessibility_service_description">このアクセシビリティサービスにより、MultiLauncherは画面のロックやクイック設定の起動などの特定のアクションを実行できます。当社のアクセシビリティサービスは、いかなるデータも収集または共有しません。</string>
+    <string name="accessibility_service_description">このアクセシビリティサービスにより、Panther Launcherは画面のロックやクイック設定の起動などの特定のアクションを実行できます。当社のアクセシビリティサービスは、いかなるデータも収集または共有しません。</string>
     <string name="accessibility_service_more_info">
-    MultiLauncher は、次のような機能を有効にするためにアクセシビリティ サービスへのアクセスを必要とします。\n\n
+    Panther Launcher は、次のような機能を有効にするためにアクセシビリティ サービスへのアクセスを必要とします。\n\n
     • ジェスチャーまたはショートカットによる画面のロック\n
     • クイック設定パネルをすばやく開く\n\n
-    この権限により、MultiLauncher はユーザーに代わってこれらのアクションを実行できますが、このサービスを通じて個人データや機密データを収集、保存、または共有することはありません。\n\n
+    この権限により、Panther Launcher はユーザーに代わってこれらのアクションを実行できますが、このサービスを通じて個人データや機密データを収集、保存、または共有することはありません。\n\n
     デバイスの設定からいつでもこのアクセスを無効にできます。
     </string>
     <string name="can_not_delete_system_apps">システムアプリを削除できません</string>
@@ -271,7 +267,6 @@
     <string name="acra_send_report">レポートを送信</string>
     <string name="acra_dont_send">送信しないでください</string>
     <!-- Share Strings -->
-    <string name="share_application">アプリを共有する</string>
     <string name="share_note">シェアノート</string>
     <!-- Icon Pack Strings -->
     <string name="choose_icon_pack">アイコンパックを選択</string>
@@ -351,7 +346,7 @@
     <string name="widgets_not_added">ウィジェットはまだ追加されていません。長押しして追加してください。</string>
     <!-- Private Spaces Strings -->
     <string name="alert_requires_android_v">この機能を利用するには、Android 15以降が必要です。</string>
-    <string name="toast_private_space_default_home_screen">プライベートスペースにアクセスするには、MultiLauncherをデフォルトのホーム画面に設定する必要があります。</string>
+    <string name="toast_private_space_default_home_screen">プライベートスペースにアクセスするには、Panther Launcherをデフォルトのホーム画面に設定する必要があります。</string>
     <string name="toast_private_space_locked">プライベート空間は施錠されています</string>
     <string name="toast_private_space_unlocked">プライベート空間のロックを解除</string>
     <string name="toast_private_space_not_available">個室は利用できません</string>
@@ -365,7 +360,6 @@
     <string name="settings_home_buttons_title">ホームボタン</string>
     <string name="settings_applist_buttons_title">アプリ一覧ボタン</string>
     <string name="settings_source_code">ソースコード</string>
-    <string name="settings_donations">寄付</string>
     <string name="settings_credits">クレジット</string>
     <string-array name="priorities">
         <item>低い</item>

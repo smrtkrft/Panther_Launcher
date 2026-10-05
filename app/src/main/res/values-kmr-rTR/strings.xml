@@ -17,11 +17,11 @@
     <string name="grant_location_permission">Ji bo domandinê,tika ye mafê cihê bide.</string>
     <string name="reason_location_permission">Ev sepan ji bo nîşandana zanyariyên rast ên bayê li gorî cihê te yê niha ye, ji ber wê pêwistî bi gihîştina cihê dike. Em tu daneyên kesane kom nakin û parve nakin.</string>
     <string name="grant_accessibility_permission">Ji bo domandinê, tika ye mafê gihîştinê bide.</string>
-    <string name="reason_accessibility_permission">MultiLauncher ji bo pêşkêşkirina taybetmendiyên pêşketî yên mîna girtina dîmenderê û vekirina sazkariyên bilez pêwistî bi mafê gihîştinê dike. Ev fonksiyon ji bo hêsankirina bikaranînê ne. Em tu daneyan kom nakin û parve nakin.</string>
+    <string name="reason_accessibility_permission">Panther Launcher ji bo pêşkêşkirina taybetmendiyên pêşketî yên mîna girtina dîmenderê û vekirina sazkariyên bilez pêwistî bi mafê gihîştinê dike. Ev fonksiyon ji bo hêsankirina bikaranînê ne. Em tu daneyan kom nakin û parve nakin.</string>
     <string name="permission_granted">Maf hat dayîn! Tu dikarî bidomînî.</string>
     <string name="this_can_be_disabled_later">* Ev maf dikare paşê were neçalakkirin.</string>
     <!-- Strings used for settings menus -->
-    <string name="settings_name">Sazkariyên MultiLauncher</string>
+    <string name="settings_name">Sazkariyên Panther Launcher</string>
     <string name="settings_features_title">Taybetmendî</string>
     <string name="settings_features_description">Berhemdariya xwe pêş bixe.</string>
     <string name="settings_look_feel_title">Xuyabûn &amp; Hest</string>
@@ -41,9 +41,9 @@
     <string name="settings_advanced_description">Bigihêje zanyariyên sepanê, launcherê berdest, amûrên vegerandinê û hwd.</string>
     <string name="settings_expert_title">Pispor</string>
     <string name="settings_expert_description">Vebijêrkên veşartî û sazkariyên pêşketî veke.</string>
-    <string name="settings_exit_mlauncher_title">Ji MultiLauncher derkeve</string>
-    <string name="settings_exit_mlauncher_description">Bi awayekî demkî derbasî launchera xwe ya berdest bibe.</string>
-    <string name="settings_exit_mlauncher_dialog">Destpêkarekî hilbijêre</string>
+    <string name="settings_exit_launcher_title">Ji Panther Launcher derkeve</string>
+    <string name="settings_exit_launcher_description">Bi awayekî demkî derbasî launchera xwe ya berdest bibe.</string>
+    <string name="settings_exit_launcher_dialog">Destpêkarekî hilbijêre</string>
     <!-- Strings used for features settings -->
     <string name="features_settings_title">Taybetmendî</string>
     <string name="personalization">Kesanekirin</string>
@@ -182,7 +182,7 @@
     <string name="advanced_settings_app_info_title">Zanyariyên sepanê</string>
     <string name="advanced_settings_app_info_description">%1$s</string>
     <string name="advanced_settings_set_as_default_launcher">Wekî destpêkarê berdest saz bike</string>
-    <string name="advanced_settings_set_as_default_launcher_description">Multi Launcher bike sepanê xwe ya dîmendera sereke.</string>
+    <string name="advanced_settings_set_as_default_launcher_description">Panther Launcher bike sepanê xwe ya dîmendera sereke.</string>
     <string name="advanced_settings_change_default_launcher">Destpêkarê berdest biguherîne</string>
     <string name="advanced_settings_change_default_launcher_description">Destpêkarekî din wekî berdest hilbijêre.</string>
     <string name="advanced_settings_restart_title">Destpêkarê dîsa bide destpêkirin</string>
@@ -212,10 +212,6 @@
     <string name="advanced_settings_clear_yes">Erê</string>
     <string name="advanced_settings_clear_no">Na</string>
     <string name="advanced_settings_help_feedback_title">Alîkarî &amp; Nirxandin</string>
-    <string name="advanced_settings_community_support_title">Piştgiriya civakê</string>
-    <string name="advanced_settings_share_application_title">Sepanê parve bike</string>
-    <string name="advanced_settings_share_application_description">Bi %1$s ezmûna xwe bilind bike!</string>
-    <string name="advanced_settings_share_application_description_addon">Niha ji %1$s daxîne û bibîne bê her kes çi dibêje! %2$s\n</string>
     <!-- Strings used for about settings -->
     <string name="about_settings_title">Derbarê %1$s</string>
     <!-- Strings used for expert settings -->
@@ -242,13 +238,13 @@
     <string name="empty_favorite">Unused</string>
     <string name="confirm_remove_favorite">Are you sure you want to remove this app from favorites?</string>
     <!-- Accessibility/Help Strings -->
-    <string name="accessibility_service_name">Rajeyên çalakiyê yên MultiLauncher</string>
+    <string name="accessibility_service_name">Rajeyên çalakiyê yên Panther Launcher</string>
     <string name="accessibility_service_why_we_need">Çima pêwistiya me bi mafê gihîştinê heye</string>
-    <string name="accessibility_service_description">Ev rajeya gihîştinê rê dide MultiLauncher ku hin çalakiyan bike, mîna girtina dîmenderê yan vekirina sazkariyên bilez. Rajeya me ya gihîştinê tu daneyan kom nake û parve nake.</string>
-    <string name="accessibility_service_more_info">MultiLauncher ji bo çalakirina van taybetmendiyan pêwistî bi gihîştina rajeya gihîştinê heye:\n\n
+    <string name="accessibility_service_description">Ev rajeya gihîştinê rê dide Panther Launcher ku hin çalakiyan bike, mîna girtina dîmenderê yan vekirina sazkariyên bilez. Rajeya me ya gihîştinê tu daneyan kom nake û parve nake.</string>
+    <string name="accessibility_service_more_info">Panther Launcher ji bo çalakirina van taybetmendiyan pêwistî bi gihîştina rajeya gihîştinê heye:\n\n
     • Girtina dîmenderê bi tevger an kurterêyekê\n
     • Vekirina bilez a destgeha sazkariyên bilez\n\n
-    •Ev maf rê dide MultiLauncher ku li ser navê te van çalakiyan bike, lê em bi riya vê rajeyê tu          daneyên kesane an hesas kom nakin, hilnaynin û parve nakin.\n\n
+    •Ev maf rê dide Panther Launcher ku li ser navê te van çalakiyan bike, lê em bi riya vê rajeyê tu          daneyên kesane an hesas kom nakin, hilnaynin û parve nakin.\n\n
     •Tu dikarî her dem vê gihîştinê ji sazkariyên amûrê xwe bigirî.
     •</string>
     <string name="can_not_delete_system_apps">Sepanên pergalê nayên jêbirin</string>
@@ -264,7 +260,7 @@
     <string name="text_authentication_cancel">Rastkirin hat têkbirin.</string>
     <string name="text_authentication_error">Şaşetiya rastkirinê: %1$s (kod %2$d)</string>
     <string name="text_authentication_failed">Rastkirin têk çû.</string>
-    <string name="text_biometric_login">Rastkirina biyometrîk ji bo sazkariyên MultiLauncher</string>
+    <string name="text_biometric_login">Rastkirina biyometrîk ji bo sazkariyên Panther Launcher</string>
     <string name="text_biometric_login_app">Rastkirina biyometrîk ji bo %1$s</string>
     <string name="text_biometric_login_sub">Bi rastkirina xwe yên biyometrîk têkeve.</string>
     <!-- Crash Strings -->
@@ -273,7 +269,6 @@
     <string name="acra_send_report">Raporê bişîne</string>
     <string name="acra_dont_send">Neşîne</string>
     <!-- Share Strings -->
-    <string name="share_application">Sepanê parve bike</string>
     <string name="share_note">Nîşeye parve bike</string>
     <!-- Icon Pack Strings -->
     <string name="choose_icon_pack">Pakêta îkonan bibijêre</string>
@@ -361,7 +356,7 @@
     <string name="widgets_not_added">Hîn tu sepanok nehatine tevlîkirin. Ji bo tevlîkirinê dirêj bitikîne.</string>
     <!-- Private Spaces Strings -->
     <string name="alert_requires_android_v">Ev fonksiyon pêwistî bi Android 15 an bilindtir dike.</string>
-    <string name="toast_private_space_default_home_screen">MultiLauncher pêwistî bi vê dike ku bibe sepana dîmendera sereke ya berdest ji bo gihîştina qada taybet.</string>
+    <string name="toast_private_space_default_home_screen">Panther Launcher pêwistî bi vê dike ku bibe sepana dîmendera sereke ya berdest ji bo gihîştina qada taybet.</string>
     <string name="toast_private_space_locked">Qada taybet hat kilîtkirin</string>
     <string name="toast_private_space_unlocked">Qada taybet hat vekirin</string>
     <string name="toast_private_space_not_available">Qada taybet tine ye</string>
@@ -375,7 +370,6 @@
     <string name="settings_home_buttons_title">Bişkokên dîmendera sereke</string>
     <string name="settings_applist_buttons_title">Bişkokên lîsteya sepananan</string>
     <string name="settings_source_code">Çavkaniya kodê</string>
-    <string name="settings_donations">Bexşîn</string>
     <string name="settings_credits">Kedkar</string>
     <string-array name="priorities">
         <item>Nizm</item>

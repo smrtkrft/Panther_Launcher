@@ -1,5 +1,0 @@
-Versione: 1.4.7
-
-Correzioni di bug:
-
-Risolto il problema con la visualizzazione di RENAME in tutte le aree dell'elenco dell'app.

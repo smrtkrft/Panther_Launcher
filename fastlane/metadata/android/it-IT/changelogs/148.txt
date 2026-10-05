@@ -1,6 +1,0 @@
-Versione: 1.4.8
-
-Correzioni di bug:
-
-Risolto il problema con l'elenco delle app in modo che non mostrasse i duplicati quando sono abilitate le app recenti
-Risolto il problema con il sistema di backup poiché non funzionava.

@@ -17,11 +17,11 @@
     <string name="grant_location_permission">Norėdami tęsti, suteikite vietos leidimą.</string>
     <string name="reason_location_permission">Šiai programai reikalinga prieiga prie vietos, kad būtų galima teikti tikslius orų naujinius pagal jūsų dabartinę vietą. Mes nerenkame ir nesidaliname jokiais asmeniniais duomenimis.</string>
     <string name="grant_accessibility_permission">Jei norite tęsti, suteikite pritaikymo neįgaliesiems leidimą.</string>
-    <string name="reason_accessibility_permission">„MultiLauncher“ reikalingas pritaikymo neįgaliesiems leidimas, kad galėtų teikti patobulintas funkcijas, pvz., užrakinti ekraną ir atidaryti sparčiuosius nustatymus. Šios funkcijos padeda pagerinti naudojimą. Mes nerenkame ir nesidaliname jokiais duomenimis.</string>
+    <string name="reason_accessibility_permission">„Panther Launcher“ reikalingas pritaikymo neįgaliesiems leidimas, kad galėtų teikti patobulintas funkcijas, pvz., užrakinti ekraną ir atidaryti sparčiuosius nustatymus. Šios funkcijos padeda pagerinti naudojimą. Mes nerenkame ir nesidaliname jokiais duomenimis.</string>
     <string name="permission_granted">Leidimas suteiktas! Galite tęsti.</string>
     <string name="this_can_be_disabled_later">* Šis leidimas vėliau gali būti išjungtas.</string>
     <!-- Strings used for settings menus -->
-    <string name="settings_name">MultiLauncher nustatymai</string>
+    <string name="settings_name">Panther Launcher nustatymai</string>
     <string name="settings_features_title">Ypatybės</string>
     <string name="settings_features_description">Pagerinkite savo produktyvumą.</string>
     <string name="settings_look_feel_title">Išvaizda</string>
@@ -41,9 +41,9 @@
     <string name="settings_advanced_description">Pasiekite programos informaciją, numatytąją paleidimo priemonę, atsarginių kopijų kūrimo įrankius ir kt.</string>
     <string name="settings_expert_title">Ekspertas</string>
     <string name="settings_expert_description">Atrakinkite paslėptas parinktis ir išplėstinius pakeitimus.</string>
-    <string name="settings_exit_mlauncher_title">Išeikite iš „MultiLauncher“.</string>
-    <string name="settings_exit_mlauncher_description">Laikinai perjunkite į numatytąją paleidimo priemonę.</string>
-    <string name="settings_exit_mlauncher_dialog">Pasirinkite paleidimo priemonę</string>
+    <string name="settings_exit_launcher_title">Išeikite iš „Panther Launcher“.</string>
+    <string name="settings_exit_launcher_description">Laikinai perjunkite į numatytąją paleidimo priemonę.</string>
+    <string name="settings_exit_launcher_dialog">Pasirinkite paleidimo priemonę</string>
     <!-- Strings used for features settings -->
     <string name="features_settings_title">Savybės</string>
     <string name="personalization">Personalizavimas</string>
@@ -182,7 +182,7 @@
     <string name="advanced_settings_app_info_title">Programos informacija</string>
     <string name="advanced_settings_app_info_description">%1$s</string>
     <string name="advanced_settings_set_as_default_launcher">Nustatyti kaip numatytajį darbalaukį</string>
-    <string name="advanced_settings_set_as_default_launcher_description">Padarykite „Multi Launcher“ numatytąja namų programėle.</string>
+    <string name="advanced_settings_set_as_default_launcher_description">Padarykite „Panther Launcher“ numatytąja namų programėle.</string>
     <string name="advanced_settings_change_default_launcher">Pakeisti numatytajį darbalaukį</string>
     <string name="advanced_settings_change_default_launcher_description">Pasirinkite kitą paleidimo priemonę kaip numatytąją.</string>
     <string name="advanced_settings_restart_title">Iš naujo paleiskite paleidimo priemonę</string>
@@ -212,10 +212,6 @@
     <string name="advanced_settings_clear_yes">Taip</string>
     <string name="advanced_settings_clear_no">Ne</string>
     <string name="advanced_settings_help_feedback_title">Pagalba &amp; Atsiliepimai</string>
-    <string name="advanced_settings_community_support_title">Bendruomenės parama</string>
-    <string name="advanced_settings_share_application_title">Dalintis programa</string>
-    <string name="advanced_settings_share_application_description">Padidinkite savo patirtį naudodami %1$s!</string>
-    <string name="advanced_settings_share_application_description_addon">Gaukite jį dabar %1$s ir pažiūrėkite, apie ką visi kalba! %2$s\n</string>
     <!-- Strings used for about settings -->
     <string name="about_settings_title">Apie %1$s</string>
     <!-- Strings used for expert settings -->
@@ -242,15 +238,15 @@
     <string name="empty_favorite">Nenaudotas</string>
     <string name="confirm_remove_favorite">Ar tikrai norite pašalinti šią programėlę iš mėgstamiausių?</string>
     <!-- Accessibility/Help Strings -->
-    <string name="accessibility_service_name">„MultiLauncher“ veiksmų paslaugos</string>
+    <string name="accessibility_service_name">„Panther Launcher“ veiksmų paslaugos</string>
     <string name="accessibility_service_why_we_need">Kodėl mums reikia prieigos leidimo</string>
-    <string name="accessibility_service_description">Ši pritaikymo neįgaliesiems paslauga leidžia MultiLauncher atlikti tam tikrus veiksmus, pvz., užrakinti ekraną arba atidaryti sparčiuosius nustatymus. Mūsų prieinamumo paslauga nerenka ir nebendrina jokių duomenų.</string>
-    <string name="accessibility_service_more_info">MultiLauncher reikalinga prieiga prie Prieinamumo paslaugos, kad galėtų įjungti tokias funkcijas kaip:
+    <string name="accessibility_service_description">Ši pritaikymo neįgaliesiems paslauga leidžia Panther Launcher atlikti tam tikrus veiksmus, pvz., užrakinti ekraną arba atidaryti sparčiuosius nustatymus. Mūsų prieinamumo paslauga nerenka ir nebendrina jokių duomenų.</string>
+    <string name="accessibility_service_more_info">Panther Launcher reikalinga prieiga prie Prieinamumo paslaugos, kad galėtų įjungti tokias funkcijas kaip:
 
 • Ekrano užrakinimas gestu arba sparčiuoju klavišu
 • Greitas greitųjų nustatymų skydelio atidarymas
 
-Šis leidimas leidžia MultiLauncher atlikti šiuos veiksmus jūsų vardu, tačiau mes nerenkame, nesaugome ir nesidalijame jokiais asmeniniais ar jautriais duomenimis per šią paslaugą.
+Šis leidimas leidžia Panther Launcher atlikti šiuos veiksmus jūsų vardu, tačiau mes nerenkame, nesaugome ir nesidalijame jokiais asmeniniais ar jautriais duomenimis per šią paslaugą.
 
 Jūs bet kada galite išjungti šią prieigą savo įrenginio nustatymuose.
 </string>
@@ -267,7 +263,7 @@ Jūs bet kada galite išjungti šią prieigą savo įrenginio nustatymuose.
     <string name="text_authentication_cancel">Autentifikavimo atšaukimas.</string>
     <string name="text_authentication_error">Autentifikavimo klaida:%1$s(kodas %2$d)</string>
     <string name="text_authentication_failed">Autentifikavimas nepavyko.</string>
-    <string name="text_biometric_login">Biometrinio prisijungimo MultiLauncher nustatymai</string>
+    <string name="text_biometric_login">Biometrinio prisijungimo Panther Launcher nustatymai</string>
     <string name="text_biometric_login_app">Biometrinis prisijungimas %1$s</string>
     <string name="text_biometric_login_sub">Prisijunkite naudodami biometrinius kredencialus</string>
     <!-- Crash Strings -->
@@ -276,7 +272,6 @@ Jūs bet kada galite išjungti šią prieigą savo įrenginio nustatymuose.
     <string name="acra_send_report">Siųsti ataskaitą</string>
     <string name="acra_dont_send">Nesiųsti</string>
     <!-- Share Strings -->
-    <string name="share_application">Bendrinti programą</string>
     <string name="share_note">Bendrinti pastabą</string>
     <!-- Icon Pack Strings -->
     <string name="choose_icon_pack">Pasirinkite piktogramų paketą</string>
@@ -364,7 +359,7 @@ Jūs bet kada galite išjungti šią prieigą savo įrenginio nustatymuose.
     <string name="widgets_not_added">Dar nėra pridėtų valdiklių. Ilgai paspauskite, kad pridėtumėte.</string>
     <!-- Private Spaces Strings -->
     <string name="alert_requires_android_v">Šiai funkcijai reikalinga „Android 15“ arba naujesnė versija.</string>
-    <string name="toast_private_space_default_home_screen">Norint pasiekti privačią erdvę, MultiLauncher turi būti numatytasis pagrindinis ekranas.</string>
+    <string name="toast_private_space_default_home_screen">Norint pasiekti privačią erdvę, Panther Launcher turi būti numatytasis pagrindinis ekranas.</string>
     <string name="toast_private_space_locked">Privati erdvė užrakinta</string>
     <string name="toast_private_space_unlocked">Privati erdvė atrakinta</string>
     <string name="toast_private_space_not_available">Privačios erdvės nėra</string>
@@ -378,7 +373,6 @@ Jūs bet kada galite išjungti šią prieigą savo įrenginio nustatymuose.
     <string name="settings_home_buttons_title">Namų mygtukai</string>
     <string name="settings_applist_buttons_title">Programų sąrašo mygtukai</string>
     <string name="settings_source_code">Šaltinio kodas</string>
-    <string name="settings_donations">Aukos</string>
     <string name="settings_credits">Kreditai</string>
     <string-array name="priorities">
         <item>Žemas</item>

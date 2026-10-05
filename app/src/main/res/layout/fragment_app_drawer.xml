@@ -20,7 +20,7 @@
         android:orientation="horizontal"
         android:paddingHorizontal="8dp">
 
-        <com.github.creativecodecat.components.views.FontSearchView
+        <ch.smartkraft.components.views.FontSearchView
             android:id="@+id/search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
             tools:layout_conversion_absoluteWidth="0dp" />
     </LinearLayout>
 
-    <com.github.creativecodecat.components.views.FontAppCompatTextView
+    <ch.smartkraft.components.views.FontAppCompatTextView
         android:id="@+id/clearHomeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
         app:theme="@style/AppSearchText" />
 
     <!-- Drawer button and tip, positioned below search container -->
-    <com.github.creativecodecat.components.views.FontAppCompatTextView
+    <ch.smartkraft.components.views.FontAppCompatTextView
         android:id="@+id/appDrawerTip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -143,7 +143,7 @@
         android:clipToPadding="false">
 
         <!-- RecyclerView positioned below the Drawer TextViews -->
-        <com.github.creativecodecat.components.views.FontRecyclerView
+        <ch.smartkraft.components.views.FontRecyclerView
             android:id="@+id/appsRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -153,7 +153,7 @@
             android:requiresFadingEdge="vertical"
             android:scrollbars="none" />
 
-        <com.github.creativecodecat.components.views.FontRecyclerView
+        <ch.smartkraft.components.views.FontRecyclerView
             android:id="@+id/contactsRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -171,7 +171,7 @@
         android:layout_margin="8dp"
         android:visibility="gone">
 
-        <com.github.codeworkscreativehub.mlauncher.ui.components.AZSidebarView
+        <ch.smartkraft.pantherlauncher.ui.components.AZSidebarView
             android:id="@+id/azSidebar"
             android:layout_width="32dp"
             android:layout_height="match_parent" />
@@ -179,7 +179,7 @@
 
 
     <!-- List Empty Hint, center aligned -->
-    <com.github.creativecodecat.components.views.FontAppCompatTextView
+    <ch.smartkraft.components.views.FontAppCompatTextView
         android:id="@+id/listEmptyHint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

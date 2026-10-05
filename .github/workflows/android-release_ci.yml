@@ -35,19 +35,19 @@ jobs:
         id: write_base64_file
         shell: bash
         run: |
-          echo "${{ secrets.SIGNINGKEY_BASE64 }}" > mLauncher.jks.tmp
-          base64 -d -i mLauncher.jks.tmp > mLauncher.jks
-          rm mLauncher.jks.tmp
+          echo "${{ secrets.SIGNINGKEY_BASE64 }}" > pantherlauncher.jks.tmp
+          base64 -d -i pantherlauncher.jks.tmp > pantherlauncher.jks
+          rm pantherlauncher.jks.tmp
 
           mkdir -p app
-          mv mLauncher.jks app/
+          mv pantherlauncher.jks app/
 
-          DESTINATION_FILE="app/mLauncher.jks"
+          DESTINATION_FILE="app/pantherlauncher.jks"
           echo "filePath=$DESTINATION_FILE" >> "$GITHUB_OUTPUT"
           echo "Keystore written to $DESTINATION_FILE"
 
       - name: Build with Gradle
-        run: ./gradlew clean assembleProdRelease bundlePlayRelease --refresh-dependencies --no-daemon
+        run: ./gradlew clean assembleProdRelease --refresh-dependencies --no-daemon
         env:
           JAVA_TOOL_OPTIONS: "-Dhttps.protocols=TLSv1.2"
           KEY_STORE_FILE: ${{ steps.write_base64_file.outputs.filePath }}
@@ -59,7 +59,7 @@ jobs:
         if: always()
         shell: bash
         run: |
-          shred -u app/mLauncher.jks || rm -f app/mLauncher.jks
+          shred -u app/pantherlauncher.jks || rm -f app/pantherlauncher.jks
 
       - name: Detect build artifacts
         id: detect_artifacts
@@ -68,20 +68,17 @@ jobs:
           set -e
           
           APK=$(find app/build/outputs/apk -name "*.apk" -type f | head -n 1)
-          AAB=$(find app/build/outputs/bundle -name "*.aab" -type f | head -n 1)
           MAPPING=$(find app/build/outputs/mapping -name "mapping.txt" -type f | head -n 1)
           
           echo "Detected APK: $APK"
-          echo "Detected AAB: $AAB"
           echo "Detected mapping: $MAPPING"
           
-          if [[ -z "$APK" || -z "$AAB" ]]; then
-            echo "❌ APK or AAB not found"
+          if [[ -z "$APK" ]]; then
+            echo "❌ APK not found"
             exit 1
           fi
           
           echo "apk=$APK" >> "$GITHUB_OUTPUT"
-          echo "aab=$AAB" >> "$GITHUB_OUTPUT"
           echo "mapping=$MAPPING" >> "$GITHUB_OUTPUT"
 
 
@@ -90,7 +87,7 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ${{ steps.detect_artifacts.outputs.apk }}
-          asset_name: MultiLauncher-${{ github.ref_name }}-Signed.apk
+          asset_name: PantherLauncher-${{ github.ref_name }}-Signed.apk
           tag: ${{ github.ref }}
           overwrite: true
 
@@ -99,37 +96,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ${{ steps.detect_artifacts.outputs.mapping }}
-          asset_name: MultiLauncher-${{ github.ref_name }}-mapping.txt
+          asset_name: PantherLauncher-${{ github.ref_name }}-mapping.txt
           tag: ${{ github.ref }}
           overwrite: true
-
-      - name: Release to GitHub
-        uses: svenstaro/upload-release-action@2.11.5
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ${{ steps.detect_artifacts.outputs.aab }}
-          asset_name: MultiLauncher-${{ github.ref_name }}-Signed.aab
-          tag: ${{ github.ref }}
-          overwrite: true
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version: '20'  # or whatever version you need
-
-      - name: Post Release to Discord
-        env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          DISCORD_ROLEID: ${{ secrets.DISCORD_ROLEID }}
-        run: |
-          # Run your Discord release script
-          node post-discord-release.js
-
-      - name: Upload to Google Play
-        uses: r0adkll/upload-google-play@v1
-        with:
-          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
-          packageName: app.mlauncher
-          releaseFiles: ${{ steps.detect_artifacts.outputs.aab }}
-          tracks: internal
-          status: completed

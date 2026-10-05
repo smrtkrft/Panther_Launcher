@@ -17,11 +17,11 @@
     <string name="grant_location_permission">כדי להמשיך, אנא הענק הרשאת מיקום.</string>
     <string name="reason_location_permission">אפליקציה זו זקוקה לגישה למיקום כדי לספק עדכוני מזג אוויר מדויקים על סמך המיקום הנוכחי שלך. אנחנו לא אוספים או משתפים נתונים אישיים כלשהם.</string>
     <string name="grant_accessibility_permission">כדי להמשיך, אנא הענק הרשאת נגישות.</string>
-    <string name="reason_accessibility_permission">MultiLauncher זקוק להרשאת נגישות כדי לספק תכונות משופרות, כגון נעילת המסך ופתיחת הגדרות מהירות. פונקציות אלו עוזרות לשפר את השימושיות. אנחנו לא אוספים או משתפים נתונים כלשהם.</string>
+    <string name="reason_accessibility_permission">Panther Launcher זקוק להרשאת נגישות כדי לספק תכונות משופרות, כגון נעילת המסך ופתיחת הגדרות מהירות. פונקציות אלו עוזרות לשפר את השימושיות. אנחנו לא אוספים או משתפים נתונים כלשהם.</string>
     <string name="permission_granted">ניתנה רשות! אתה יכול להמשיך.</string>
     <string name="this_can_be_disabled_later">* ייתכן שהרשאה זו תושבת מאוחר יותר.</string>
     <!-- Strings used for settings menus -->
-    <string name="settings_name">הגדרות MultiLauncher</string>
+    <string name="settings_name">הגדרות Panther Launcher</string>
     <string name="settings_features_title">תכונות</string>
     <string name="settings_features_description">הגדרות לשיפור היעילות שלך.</string>
     <string name="settings_look_feel_title">מראה &amp; תחושה</string>
@@ -41,9 +41,9 @@
     <string name="settings_advanced_description">גישה למידע על אפליקציות, מפעיל ברירת מחדל, כלי גיבוי ועוד.</string>
     <string name="settings_expert_title">מוּמחֶה</string>
     <string name="settings_expert_description">פתח אפשרויות נסתרות ושיפורים מתקדמים.</string>
-    <string name="settings_exit_mlauncher_title">צא מ-MultiLauncher</string>
-    <string name="settings_exit_mlauncher_description">עבור למפעיל ברירת המחדל שלך באופן זמני.</string>
-    <string name="settings_exit_mlauncher_dialog">בחר משגר</string>
+    <string name="settings_exit_launcher_title">צא מ-Panther Launcher</string>
+    <string name="settings_exit_launcher_description">עבור למפעיל ברירת המחדל שלך באופן זמני.</string>
+    <string name="settings_exit_launcher_dialog">בחר משגר</string>
     <!-- Strings used for features settings -->
     <string name="features_settings_title">תכונות</string>
     <string name="personalization">התאמה אישית</string>
@@ -182,7 +182,7 @@
     <string name="advanced_settings_app_info_title">מידע על היישום</string>
     <string name="advanced_settings_app_info_description">%1$s</string>
     <string name="advanced_settings_set_as_default_launcher">הגדר כמשגר ברירת מחדל</string>
-    <string name="advanced_settings_set_as_default_launcher_description">הפוך את Multi Launcher לאפליקציית הבית המוגדרת כברירת מחדל.</string>
+    <string name="advanced_settings_set_as_default_launcher_description">הפוך את Panther Launcher לאפליקציית הבית המוגדרת כברירת מחדל.</string>
     <string name="advanced_settings_change_default_launcher">שנה את משגר ברירת המחדל</string>
     <string name="advanced_settings_change_default_launcher_description">בחר משגר אחר כברירת מחדל.</string>
     <string name="advanced_settings_restart_title">הפעל מחדש את המשגר</string>
@@ -212,10 +212,6 @@
     <string name="advanced_settings_clear_yes">כֵּן</string>
     <string name="advanced_settings_clear_no">לֹא</string>
     <string name="advanced_settings_help_feedback_title">עזרה &amp; משוב</string>
-    <string name="advanced_settings_community_support_title">תמיכה קהילתית</string>
-    <string name="advanced_settings_share_application_title">שתף את היישום</string>
-    <string name="advanced_settings_share_application_description">שפר את החוויה שלך עם %1$s!</string>
-    <string name="advanced_settings_share_application_description_addon">השג אותו עכשיו ב- %1$s וראה על מה כולם מדברים! %2$s\n</string>
     <!-- Strings used for about settings -->
     <string name="about_settings_title">בערך %1$s</string>
     <!-- Strings used for expert settings -->
@@ -244,13 +240,13 @@
     <!-- Accessibility/Help Strings -->
     <string name="accessibility_service_name">שירותי פעולה של משגרים מרובים</string>
     <string name="accessibility_service_why_we_need">למה אנחנו צריכים אישור נגישות</string>
-    <string name="accessibility_service_description">שירות נגישות זה מאפשר ל-MultiLauncher לבצע פעולות מסוימות כמו נעילת המסך או פתיחת ההגדרות המהירות. שירות הנגישות שלנו אינו אוסף או משתף נתונים כלשהם.</string>
-    <string name="accessibility_service_more_info">MultiLauncher דורשת גישה לשירות הנגישות כדי לאפשר תכונות כגון:
+    <string name="accessibility_service_description">שירות נגישות זה מאפשר ל-Panther Launcher לבצע פעולות מסוימות כמו נעילת המסך או פתיחת ההגדרות המהירות. שירות הנגישות שלנו אינו אוסף או משתף נתונים כלשהם.</string>
+    <string name="accessibility_service_more_info">Panther Launcher דורשת גישה לשירות הנגישות כדי לאפשר תכונות כגון:
 
 • נעילת המסך באמצעות מחווה או קיצור דרך
 • פתיחה מהירה של לוח ההגדרות המהירות
 
-הרשאה זו מאפשרת ל-MultiLauncher לבצע את הפעולות האלו עבורך, אך איננו אוספים, שומרים או משתפים מידע אישי או רגיש דרך שירות זה.
+הרשאה זו מאפשרת ל-Panther Launcher לבצע את הפעולות האלו עבורך, אך איננו אוספים, שומרים או משתפים מידע אישי או רגיש דרך שירות זה.
 
 תוכל להשבית גישה זו בכל עת מהגדרות המכשיר שלך.
 </string>
@@ -267,7 +263,7 @@
     <string name="text_authentication_cancel">ביטול האימות.</string>
     <string name="text_authentication_error">שגיאת אימות:%1$s(קוד %2$d)</string>
     <string name="text_authentication_failed">אימות נכשל.</string>
-    <string name="text_biometric_login">התחברות ביומטרית הגדרות MultiLauncher</string>
+    <string name="text_biometric_login">התחברות ביומטרית הגדרות Panther Launcher</string>
     <string name="text_biometric_login_app">התחברות ביומטרית עבור %1$s</string>
     <string name="text_biometric_login_sub">היכנס באמצעות האישור הביומטרי שלך</string>
     <!-- Crash Strings -->
@@ -276,7 +272,6 @@
     <string name="acra_send_report">שלח דו\"ח</string>
     <string name="acra_dont_send">אל תשלח</string>
     <!-- Share Strings -->
-    <string name="share_application">שתף את האפליקציה</string>
     <string name="share_note">שתף הערה</string>
     <!-- Icon Pack Strings -->
     <string name="choose_icon_pack">בחר חבילת אייקונים</string>
@@ -364,7 +359,7 @@
     <string name="widgets_not_added">עדיין לא נוספו ווידג\'טים. לחצו לחיצה ארוכה כדי להוסיף אחד.</string>
     <!-- Private Spaces Strings -->
     <string name="alert_requires_android_v">פונקציונליות זו דורשת אנדרואיד 15 ואילך.</string>
-    <string name="toast_private_space_default_home_screen">MultiLauncher צריך להיות מסך הבית המוגדר כברירת מחדל כדי לגשת למרחב פרטי.</string>
+    <string name="toast_private_space_default_home_screen">Panther Launcher צריך להיות מסך הבית המוגדר כברירת מחדל כדי לגשת למרחב פרטי.</string>
     <string name="toast_private_space_locked">מרחב פרטי נעול</string>
     <string name="toast_private_space_unlocked">מרחב פרטי לא נעול</string>
     <string name="toast_private_space_not_available">מרחב פרטי אינו זמין</string>
@@ -378,7 +373,6 @@
     <string name="settings_home_buttons_title">כפתורי בית</string>
     <string name="settings_applist_buttons_title">כפתורי רשימת אפליקציות</string>
     <string name="settings_source_code">קוד המקור</string>
-    <string name="settings_donations">תרומות</string>
     <string name="settings_credits">קרדיטים</string>
     <string-array name="priorities">
         <item>נָמוּך</item>

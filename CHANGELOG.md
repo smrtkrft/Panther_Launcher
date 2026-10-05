@@ -1,5 +1,7 @@
 # Changelog
 
+> This file is the change history of [mLauncher (Multi Launcher)](https://github.com/CodeWorksCreativeHub/mLauncher), the source of Panther Launcher, up to the point where the fork was made. It is kept unchanged for attribution and is no longer updated; changes made in Panther Launcher are recorded in the git history.
+
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 ## [1.12.2.0 → Unreleased](https://github.com/CodeWorksCreativeHub/mLauncher/tree/main) - In Development
