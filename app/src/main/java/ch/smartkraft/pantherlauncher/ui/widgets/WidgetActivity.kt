@@ -1,5 +1,6 @@
 package ch.smartkraft.pantherlauncher.ui.widgets
 
+import android.appwidget.AppWidgetHost
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProviderInfo
 import android.content.Intent
@@ -24,6 +25,7 @@ class WidgetActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "WidgetActivity"
+        private const val REQUEST_CONFIGURE_WIDGET = 4201
     }
 
     private lateinit var widgetPermissionLauncher: ActivityResultLauncher<Intent>
@@ -121,6 +123,33 @@ class WidgetActivity : AppCompatActivity() {
         AppLogger.d(TAG, "Launching widget permission intent: $intent")
         widgetResultCallback = callback
         widgetPermissionLauncher.launch(intent)
+    }
+
+    private var widgetConfigureCallback: ((Int) -> Unit)? = null
+
+    /**
+     * Opens a widget's configure screen through the widget host. Unlike a plain intent this also
+     * works when the configure activity is not exported.
+     */
+    fun launchWidgetConfigure(host: AppWidgetHost, appWidgetId: Int, callback: (Int) -> Unit) {
+        widgetConfigureCallback = callback
+        try {
+            host.startAppWidgetConfigureActivityForResult(this, appWidgetId, 0, REQUEST_CONFIGURE_WIDGET, null)
+        } catch (e: Exception) {
+            AppLogger.e(TAG, "Could not open the configure screen for widgetId=$appWidgetId", e)
+            widgetConfigureCallback = null
+            callback(RESULT_CANCELED)
+        }
+    }
+
+    @Deprecated("The widget host can only report the configure result this way")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        @Suppress("DEPRECATION")
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CONFIGURE_WIDGET) {
+            widgetConfigureCallback?.invoke(resultCode)
+            widgetConfigureCallback = null
+        }
     }
 
     fun safeCreateWidget(widgetInfo: AppWidgetProviderInfo, appWidgetId: Int) {

@@ -25,6 +25,7 @@ Bu dosya, Panther Launcher'ın kaynağı olan [mLauncher (Multi Launcher)](https
 - Kilitli uygulamalar ana ekrandaki hızlı erişim düğmeleri ve tarih dokunuşu üzerinden doğrulamasız açılamıyor.
 - Cihazda ekran kilidi yoksa uygulama kilitlenemiyor; önceden böyle kilitlenen uygulama sessizce açılmaz hale geliyordu.
 - Erişilebilirlik servisi artık ekran içeriğini okuma yetkisi istemiyor ve bildirim metinlerini kayda yazmıyor.
+- Widget'lar artık sahibi uygulamanın kodu launcher'a yüklenmeden gösteriliyor ve başka uygulamadan dönen widget kimliğine güvenilmiyor.
 
 ### B – Hata düzeltmeleri
 
@@ -36,6 +37,11 @@ Bu dosya, Panther Launcher'ın kaynağı olan [mLauncher (Multi Launcher)](https
 - "Sistemi izle" teması, koyu mod zamanlanmış ya da otomatik olduğunda da doğru çalışıyor.
 - Gizlenen uygulamalar, "Son kullanılanları göster" açıkken artık çekmecede ve aramada görünmüyor.
 - Türkçe çevirideki 349 metnin 106'sı düzeltildi.
+- Widget'ların yeri ve boyutu yalnızca ızgara hücresi olarak saklanıyor; her açılışta kayma, ekran döndürmede bozulma ve eski boyutun kaydedilmesi giderildi.
+- Widget'lar üst üste binmiyor ve sayfanın dışına taşmıyor; dolu yere bırakılan widget eski yerine dönüyor, sayfa doluyken uyarı çıkıyor.
+- Yeni widget, uygulamasının istediği boyutla ekleniyor ve gerçek boyutu kendisine doğru bildiriliyor; varsayılanın altına da küçültülebiliyor.
+- "Tüm widget'ları kaldır" çökmesi, boyutlandırmadan çıkışta sayfanın yeniden başlaması ve yavaş sürüklerken menünün açılması giderildi.
+- Widget seçici tüm widget'ları listeliyor, ayar ekranları Android'in widget'lar için ayırdığı yoldan açılıyor ve widget kimliği artık uygulamanın adına bağlı değil.
 
 ### C – Keyfî GUI tasarımı
 
@@ -43,6 +49,9 @@ Bu dosya, Panther Launcher'ın kaynağı olan [mLauncher (Multi Launcher)](https
 - Çekmecedeki arama alanı büyütüldü ve listeyle arasına boşluk eklendi.
 - Günün Sözü tüm parçalarıyla kaldırıldı.
 - Uygulamanın adı "Panther Launcher", kimliği `app.pantherlauncher` oldu.
+- Yeni logo: siyah üzerine beyaz, Cormorant Garamond (açık lisanslı) ile yazılmış "PanTher"; uyarlanabilir uygulama simgesi olarak da kullanılıyor.
+- Widget düzenleme görünümü yenilendi: ince çerçeve, küçük tutamaçlar, canlı boyut etiketi, noktalı ızgara ve kesik çizgili bırakma önizlemesi.
+- Launcher artık kendi uygulama listesinde görünüyor; dokununca ayarları açılıyor.
 - Hakkında ekranından bağış, Discord ve "Uygulamayı Paylaş" bağlantıları kaldırıldı.
 
 ---
@@ -68,6 +77,7 @@ This file summarises where Panther Launcher departs from its source, [mLauncher 
 - Locked apps can no longer be opened without authentication through the home screen quick-action buttons or the date tap.
 - An app cannot be locked when the device has no screen lock; previously an app locked that way silently became impossible to open.
 - The accessibility service no longer asks for permission to read screen content, and notification text is no longer written to the log.
+- Widgets are now shown without loading the code of the app that owns them into the launcher, and a widget id returned by another app is no longer trusted.
 
 ### B – Bug fixes
 
@@ -79,6 +89,11 @@ This file summarises where Panther Launcher departs from its source, [mLauncher 
 - The "follow system" theme now also works when dark mode is scheduled or automatic.
 - Hidden apps no longer appear in the drawer or in search when "Show recent apps" is on.
 - 106 of the 349 strings in the Turkish translation were corrected.
+- A widget's place and size are stored as grid cells only; drifting on every open, breaking on rotation and saving the old size are fixed.
+- Widgets no longer overlap or leave the page; a widget dropped on taken cells returns to its place, and a warning is shown when the page is full.
+- A new widget is added at the size its app asks for and is told its real size correctly; it can also be made smaller than its default.
+- The "Remove all Widgets" crash, the page restart when leaving resize mode and the menu opening during a slow drag are fixed.
+- The widget picker lists every widget, configure screens are opened the way Android intends for widgets, and the widget host id no longer depends on the app's name.
 
 ### C – Discretionary GUI design
 
@@ -86,4 +101,7 @@ This file summarises where Panther Launcher departs from its source, [mLauncher 
 - The search area in the drawer was enlarged and a gap was added between it and the list.
 - Word of the Day was removed with all its parts.
 - The app is now named "Panther Launcher" with the ID `app.pantherlauncher`.
+- New logo: "PanTher" in white on black, set in Cormorant Garamond (open licence); it is also used as an adaptive app icon.
+- The widget editing view was redesigned: thin outline, small handles, live size label, dotted grid and a dashed landing preview.
+- The launcher now appears in its own app list; tapping it opens its settings.
 - Donation, Discord and "Share Application" links were removed from the About screen.

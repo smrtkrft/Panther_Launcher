@@ -871,11 +871,18 @@ class AppDrawerFragment : BaseFragment() {
         flag: AppDrawerFlag,
         n: Int = 0
     ): (appListItem: AppListItem) -> Unit = { appModel ->
-        viewModel.selectedApp(this, appModel, flag, n)
-        if (flag == AppDrawerFlag.LaunchApp || flag == AppDrawerFlag.HiddenApps)
-            findNavController().popBackStack(R.id.mainFragment, false)
-        else
-            closeDrawer()
+        val opensLauncherItself = appModel.activityPackage == requireContext().packageName &&
+                (flag == AppDrawerFlag.LaunchApp || flag == AppDrawerFlag.HiddenApps)
+        if (opensLauncherItself) {
+            // The launcher is already running; its own entry leads to its settings
+            findNavController().navigate(R.id.action_appListFragment_to_settingsFragment)
+        } else {
+            viewModel.selectedApp(this, appModel, flag, n)
+            if (flag == AppDrawerFlag.LaunchApp || flag == AppDrawerFlag.HiddenApps)
+                findNavController().popBackStack(R.id.mainFragment, false)
+            else
+                closeDrawer()
+        }
     }
 
     private fun appDeleteListener(): (appListItem: AppListItem) -> Unit = { appModel ->

@@ -1,6 +1,13 @@
 package ch.smartkraft.pantherlauncher.ui.widgets
 
 import android.annotation.SuppressLint
+import android.util.SizeF
+import android.os.Build
+import androidx.core.graphics.ColorUtils
+import android.util.TypedValue
+import android.graphics.drawable.LayerDrawable
+import android.graphics.drawable.Drawable
+import android.graphics.Color
 import android.app.Activity
 import android.appwidget.AppWidgetHost
 import android.appwidget.AppWidgetHostView
@@ -45,15 +52,55 @@ class ResizableWidgetWrapper(
         private const val TAG = "ResizableWidgetWrapper"
     }
 
+    // The widget's place on the grid in cells. Pixels are derived from these and never stored.
     var currentCol: Int = 0
     var currentRow: Int = 0
+    var cellsW: Int = defaultCellsW
+    var cellsH: Int = defaultCellsH
+
+    /** Asked before a move or resize is accepted; false when the target cells are taken. */
+    var canPlace: (GridRect) -> Boolean = { true }
+
+    val gridRect: GridRect get() = GridRect(currentCol, currentRow, cellsW, cellsH)
 
     private var lastX = 0f
     private var lastY = 0f
     private val minSize = 100
 
+    /** Called when this widget enters or leaves resize mode, so the page can dim the others. */
+    var onResizeModeChanged: (Boolean) -> Unit = {}
+
     var isResizeMode = false
-    private val handleSize = 50
+        set(value) {
+            if (field == value) return
+            field = value
+            updateEditVisuals()
+            onResizeModeChanged(value)
+        }
+
+    private val density = context.resources.displayMetrics.density
+    private fun dp(value: Float): Int = (value * density).toInt()
+
+    // Touch area of a handle; the visible pill inside it is much smaller
+    private val handleSize = dp(28f)
+    private val accentColor: Int = TypedValue().let {
+        context.theme.resolveAttribute(R.attr.primaryColor, it, true)
+        it.data
+    }
+    private val onAccentColor: Int = if (ColorUtils.calculateLuminance(accentColor) > 0.5) Color.BLACK else Color.WHITE
+    private val blockedColor = "#E5484D".toColorInt()
+    private val outlineRadius = dp(18f).toFloat()
+
+    private val sizeLabel = TextView(context).apply {
+        setTextColor(onAccentColor)
+        textSize = 13f
+        setPadding(dp(12f), dp(5f), dp(12f), dp(5f))
+        background = GradientDrawable().apply {
+            cornerRadius = dp(14f).toFloat()
+            setColor(accentColor)
+        }
+        visibility = GONE
+    }
 
     private val topHandle = createHandle()
     private val bottomHandle = createHandle()
@@ -72,25 +119,8 @@ class ResizableWidgetWrapper(
 
         AppLogger.d(TAG, "🧩 Initializing wrapper for widget: ${widgetInfo.provider.packageName}")
 
-        // Calculate pixel width/height from cells
-        post {
-            val parentFrame = parent as? FrameLayout
-            val parentWidth = parentFrame?.width ?: context.resources.displayMetrics.widthPixels
-
-            // ✅ Calculate consistent grid cell size (same as in WidgetFragment)
-            val cellWidth = (parentWidth - (cellMargin * (gridColumns - 1))) / gridColumns
-            val cellHeight = cellWidth // assuming square cells
-
-            // ✅ Calculate widget dimensions using the same logic as saving/loading
-            val widthPx = (defaultCellsW * (cellWidth + cellMargin)) - cellMargin
-            val heightPx = (defaultCellsH * (cellHeight + cellMargin)) - cellMargin
-
-            layoutParams = LayoutParams(widthPx, heightPx)
-            AppLogger.d(TAG, "📐 layoutParams set to ${widthPx}x${heightPx} for ${defaultCellsW}x${defaultCellsH} cells")
-
-            // ✅ Ensure hostView fills wrapper and updates provider with current size
-            fillHostView(widthPx, heightPx)
-        }
+        // Position and size come from the grid cells once the wrapper is attached
+        post { applyCells() }
 
         addView(
             hostView, LayoutParams(
@@ -111,6 +141,11 @@ class ResizableWidgetWrapper(
         bottomRightHandle.layoutParams = LayoutParams(handleSize, handleSize).apply { gravity = Gravity.BOTTOM or Gravity.END }
 
 
+        listOf(topHandle, bottomHandle).forEach { it.background = handleDrawable(36f, 5f) }
+        listOf(leftHandle, rightHandle).forEach { it.background = handleDrawable(5f, 36f) }
+        listOf(topLeftHandle, topRightHandle, bottomLeftHandle, bottomRightHandle).forEach { it.background = handleDrawable(10f, 10f) }
+
+        addView(sizeLabel, LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply { gravity = Gravity.CENTER })
         addView(topHandle)
         addView(bottomHandle)
         addView(leftHandle)
@@ -136,6 +171,60 @@ class ResizableWidgetWrapper(
         attachResizeAndDragHandlers()
     }
 
+    private fun grid(): WidgetGrid? {
+        val parentView = parent as? View ?: return null
+        if (parentView.width <= 0) return null
+        return WidgetGrid(parentView.width, gridColumns, cellMargin, parentView.height)
+    }
+
+    /** Places and sizes the wrapper from its grid cells. */
+    fun applyCells() {
+        val grid = grid() ?: return
+        val widthPx = grid.sizeOf(cellsW)
+        val heightPx = grid.sizeOf(cellsH)
+        translationX = grid.offsetOf(currentCol).toFloat()
+        translationY = grid.offsetOf(currentRow).toFloat()
+        val lp = (layoutParams as? LayoutParams) ?: LayoutParams(widthPx, heightPx)
+        lp.width = widthPx
+        lp.height = heightPx
+        lp.leftMargin = 0
+        lp.topMargin = 0
+        layoutParams = lp
+        fillHostView(widthPx, heightPx)
+    }
+
+    /** Takes [target] if it is free and returns true; otherwise goes back to where it was. */
+    private fun moveTo(target: GridRect): Boolean {
+        val grid = grid() ?: return false
+        val fitted = grid.fit(target)
+        val accepted = fitted != gridRect && canPlace(fitted)
+        if (accepted) {
+            currentCol = fitted.col
+            currentRow = fitted.row
+            cellsW = fitted.cellsW
+            cellsH = fitted.cellsH
+        }
+        applyCells()
+        return accepted
+    }
+
+    /** The cells the wrapper covers at its current pixel position and size. */
+    private fun rectUnderWrapper(): GridRect? {
+        val grid = grid() ?: return null
+        val lp = layoutParams as? LayoutParams ?: return null
+        val col = grid.indexAt(translationX)
+        val row = grid.indexAt(translationY)
+        val endCol = grid.indexAt(translationX + lp.width + cellMargin)
+        val endRow = grid.indexAt(translationY + lp.height + cellMargin)
+        return grid.fit(GridRect(col, row, endCol - col, endRow - row))
+    }
+
+    fun exitResizeMode() {
+        isResizeMode = false
+        setHandlesVisible(false)
+        applyCells()
+    }
+
     private fun fillHostView(parentWidth: Int = width, parentHeight: Int = height) {
         AppLogger.d(TAG, "fillHostView($parentWidth x $parentHeight) called")
         // 1. Force hostView to fill THIS wrapper
@@ -153,15 +242,15 @@ class ResizableWidgetWrapper(
             }
 
             try {
-                val options = Bundle().apply {
-                    putInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH, parentWidth / 4)
-                    putInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH, parentWidth)
-                    putInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT, parentHeight / 4)
-                    putInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT, parentHeight)
+                // The widget is told its real size in dp; it picks its layout from this
+                val widthDp = (parentWidth / density).toInt()
+                val heightDp = (parentHeight / density).toInt()
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    hostView.updateAppWidgetSize(Bundle(), listOf(SizeF(widthDp.toFloat(), heightDp.toFloat())))
+                } else {
+                    @Suppress("DEPRECATION")
+                    hostView.updateAppWidgetSize(null, widthDp, heightDp, widthDp, heightDp)
                 }
-
-                val appWidgetManager = AppWidgetManager.getInstance(context)
-                appWidgetManager.updateAppWidgetOptions(hostView.appWidgetId, options)
 
                 AppLogger.i(TAG, "✅ fillHostView: using parent size width=$parentWidth, height=$parentHeight")
             } catch (e: Exception) {
@@ -170,14 +259,40 @@ class ResizableWidgetWrapper(
         }
     }
 
-    private fun createHandle(): View = View(context).apply {
-        background = GradientDrawable().apply {
+    /** A handle is a large invisible touch area with a small pill (edges) or dot (corners) drawn in it. */
+    private fun createHandle(): View = View(context).apply { visibility = GONE }
+
+    private fun handleDrawable(widthDp: Float, heightDp: Float): Drawable {
+        val pill = GradientDrawable().apply {
             shape = GradientDrawable.RECTANGLE
-            cornerRadius = 8f
-            setColor("#26A6DA95".toColorInt()) // semi-transparent fill
-            setStroke(4, "#FFA6DA95".toColorInt()) // optional outline
+            cornerRadius = dp(8f).toFloat()
+            setColor(accentColor)
+            setStroke(dp(1.5f), onAccentColor)
         }
-        visibility = GONE
+        // Centre the pill inside the touch area without stretching it
+        return LayerDrawable(arrayOf(pill)).apply {
+            setLayerGravity(0, Gravity.CENTER)
+            setLayerSize(0, dp(widthDp), dp(heightDp))
+        }
+    }
+
+    /** Outline, handles and size label for the current mode. */
+    private fun updateEditVisuals() {
+        foreground = if (isResizeMode) {
+            GradientDrawable().apply {
+                cornerRadius = outlineRadius
+                setStroke(dp(1.5f), accentColor)
+            }
+        } else null
+        setHandlesVisible(isResizeMode)
+        sizeLabel.visibility = if (isResizeMode) VISIBLE else GONE
+        if (isResizeMode) updateSizeLabel(gridRect)
+    }
+
+    private fun updateSizeLabel(rect: GridRect, free: Boolean = true) {
+        sizeLabel.text = context.getString(R.string.widgets_size_label, rect.cellsW, rect.cellsH)
+        (sizeLabel.background as? GradientDrawable)?.setColor(if (free) accentColor else blockedColor)
+        sizeLabel.setTextColor(if (free) onAccentColor else Color.WHITE)
     }
 
     fun setHandlesVisible(visible: Boolean) {
@@ -340,15 +455,17 @@ class ResizableWidgetWrapper(
 
                             layoutParams = lp
                             fillHostView(lp.width, lp.height)
+                            rectUnderWrapper()?.let { updateSizeLabel(it, it == gridRect || canPlace(it)) }
                             lastX = event.rawX
                             lastY = event.rawY
                         }
                     }
 
                     MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                        activeResizeHandle?.let { snapResizeToGrid(it) }
                         activeResizeHandle = null
-                        onUpdate()
+                        val target = rectUnderWrapper()
+                        if (target != null && moveTo(target)) onUpdate()
+                        updateSizeLabel(gridRect)
                     }
                 }
                 true
@@ -377,7 +494,11 @@ class ResizableWidgetWrapper(
             view.setOnTouchListener { v, event ->
                 // Skip handles
                 if (v in skipViews) return@setOnTouchListener false
-                gestureDetector.onTouchEvent(event)
+                // The wrapper follows the finger, so its own coordinates never change during a drag.
+                // Screen coordinates let the detector see the movement and not report a long press.
+                val onScreen = MotionEvent.obtain(event).apply { setLocation(event.rawX, event.rawY) }
+                gestureDetector.onTouchEvent(onScreen)
+                onScreen.recycle()
                 if (isResizeMode) return@setOnTouchListener false
 
                 // 🟡 If not in global edit mode, don't consume — allow normal widget touch behavior
@@ -393,7 +514,7 @@ class ResizableWidgetWrapper(
                         val parentFrame = parent as? FrameLayout
                         if (parentFrame != null) {
                             ghostView = View(context).apply {
-                                setBackgroundColor("#26C6A0F6".toColorInt())
+                                background = ghostDrawable(true)
                                 layoutParams = LayoutParams(width, height).apply {
                                     if (layoutParams is LayoutParams) {
                                         leftMargin = (layoutParams as LayoutParams).leftMargin
@@ -427,10 +548,13 @@ class ResizableWidgetWrapper(
 
                     MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                         dialogDismissed = false
-                        snapToGrid()
                         (ghostView?.parent as? ViewGroup)?.removeView(ghostView)
                         ghostView = null
-                        onUpdate()
+                        val grid = grid()
+                        if (grid != null) {
+                            val target = gridRect.copy(col = grid.indexAt(translationX), row = grid.indexAt(translationY))
+                            if (moveTo(target)) onUpdate()
+                        }
                     }
                 }
 
@@ -441,156 +565,31 @@ class ResizableWidgetWrapper(
         attachDrag(root)
     }
 
+    /** Landing preview: a soft rounded shape with a dashed outline, red when the cells are taken. */
+    private fun ghostDrawable(free: Boolean): Drawable {
+        val color = if (free) accentColor else blockedColor
+        return GradientDrawable().apply {
+            cornerRadius = outlineRadius
+            setColor(ColorUtils.setAlphaComponent(color, 38))
+            setStroke(dp(1.5f), color, dp(6f).toFloat(), dp(4f).toFloat())
+        }
+    }
+
+    /** Shows where the widget would land. */
     private fun updateGhostPosition() {
-        val parentFrame = parent as? FrameLayout ?: return
+        val grid = grid() ?: return
+        val target = grid.fit(gridRect.copy(col = grid.indexAt(translationX), row = grid.indexAt(translationY)))
+        val free = target == gridRect || canPlace(target)
 
-        val parentWidth = parentFrame.width.coerceAtLeast(1)
-        val parentHeight = parentFrame.height.coerceAtLeast(1)
-
-        val cellWidth = ((parentWidth - (cellMargin * (gridColumns - 1))) / gridColumns).coerceAtLeast(1)
-        val cellHeight = cellWidth
-
-        val maxX = (parentWidth - width).coerceAtLeast(0)
-        val maxY = (parentHeight - height).coerceAtLeast(0)
-
-        val col = ((translationX + cellWidth / 2) / (cellWidth + cellMargin))
-            .toInt()
-            .coerceIn(0, gridColumns - 1)
-        val row = ((translationY + cellHeight / 2) / (cellHeight + cellMargin))
-            .toInt()
-            .coerceAtLeast(0)
-
-        val newX = (col * (cellWidth + cellMargin)).coerceIn(0, maxX)
-        val newY = (row * (cellHeight + cellMargin)).coerceIn(0, maxY)
-
+        ghostView?.background = ghostDrawable(free)
         ghostView?.layoutParams = (ghostView?.layoutParams as LayoutParams).apply {
-            leftMargin = newX
-            topMargin = newY
-            width = this@ResizableWidgetWrapper.width
-            height = this@ResizableWidgetWrapper.height
+            leftMargin = grid.offsetOf(target.col)
+            topMargin = grid.offsetOf(target.row)
+            width = grid.sizeOf(target.cellsW)
+            height = grid.sizeOf(target.cellsH)
         }
         ghostView?.requestLayout()
     }
-
-    fun snapToGrid() {
-        val parentFrame = parent as? FrameLayout ?: return
-
-        val parentWidth = parentFrame.width.coerceAtLeast(1)
-        val parentHeight = parentFrame.height.coerceAtLeast(1)
-
-        val cellWidth = ((parentWidth - (cellMargin * (gridColumns - 1))) / gridColumns).coerceAtLeast(1)
-        val cellHeight = cellWidth
-
-        // Max translation ensures widget never leaves parent
-        val maxX = (parentWidth - width).coerceAtLeast(0)
-        val maxY = (parentHeight - height).coerceAtLeast(0)
-
-        val col = ((translationX + cellWidth / 2) / (cellWidth + cellMargin))
-            .toInt()
-            .coerceIn(0, gridColumns - 1)
-
-        val row = ((translationY + cellHeight / 2) / (cellHeight + cellMargin))
-            .toInt()
-            .coerceAtLeast(0) // row may expand beyond grid if needed
-
-        translationX = (col * (cellWidth + cellMargin)).toFloat().coerceIn(0f, maxX.toFloat())
-        translationY = (row * (cellHeight + cellMargin)).toFloat().coerceIn(0f, maxY.toFloat())
-
-        currentCol = col
-        currentRow = row
-    }
-
-    fun snapResizeToGrid(side: String) {
-        val parentFrame = parent as? FrameLayout ?: return
-        val lp = layoutParams as? LayoutParams ?: return
-
-        val parentWidth = parentFrame.width.coerceAtLeast(1)
-        val parentHeight = parentFrame.height.coerceAtLeast(1)
-        val cellSize = ((parentWidth - (cellMargin * (gridColumns - 1))) / gridColumns).coerceAtLeast(1)
-
-        val maxWidth = (parentWidth - lp.leftMargin).coerceAtLeast(minSize)
-        val maxHeight = (parentHeight - lp.topMargin).coerceAtLeast(minSize)
-
-        // Helper to snap a float coordinate to the nearest cell
-        fun snapToCell(value: Float): Int {
-            return ((value + cellSize / 2f) / (cellSize + cellMargin)).toInt() * (cellSize + cellMargin)
-        }
-
-        // Compute the "visible" top and left by combining margin and translation
-        val currentLeft = lp.leftMargin + translationX
-        val currentTop = lp.topMargin + translationY
-        val right = currentLeft + lp.width
-        val bottom = currentTop + lp.height
-
-        // Snap positions depending on which side was resized
-        when (side) {
-            "TOP" -> {
-                val snappedTop = snapToCell(currentTop)
-                val newHeight = (bottom - snappedTop).toInt().coerceAtLeast(minSize).coerceAtMost(maxHeight)
-                translationY += (snappedTop - currentTop)
-                lp.height = newHeight
-            }
-
-            "BOTTOM" -> {
-                val snappedBottom = snapToCell(bottom)
-                lp.height = (snappedBottom - currentTop).toInt().coerceAtLeast(minSize).coerceAtMost(maxHeight)
-            }
-
-            "LEFT" -> {
-                val snappedLeft = snapToCell(currentLeft)
-                val newWidth = (right - snappedLeft).toInt().coerceAtLeast(minSize).coerceAtMost(maxWidth)
-                translationX += (snappedLeft - currentLeft)
-                lp.width = newWidth
-            }
-
-            "RIGHT" -> {
-                val snappedRight = snapToCell(right)
-                lp.width = (snappedRight - currentLeft).toInt().coerceAtLeast(minSize).coerceAtMost(maxWidth)
-            }
-
-            "TOP_LEFT" -> {
-                val snappedTop = snapToCell(currentTop)
-                val snappedLeft = snapToCell(currentLeft)
-                val newWidth = (right - snappedLeft).toInt().coerceAtLeast(minSize).coerceAtMost(maxWidth)
-                val newHeight = (bottom - snappedTop).toInt().coerceAtLeast(minSize).coerceAtMost(maxHeight)
-                translationX += (snappedLeft - currentLeft)
-                translationY += (snappedTop - currentTop)
-                lp.width = newWidth
-                lp.height = newHeight
-            }
-
-            "TOP_RIGHT" -> {
-                val snappedTop = snapToCell(currentTop)
-                val snappedRight = snapToCell(right)
-                val newHeight = (bottom - snappedTop).toInt().coerceAtLeast(minSize).coerceAtMost(maxHeight)
-                val newWidth = (snappedRight - currentLeft).toInt().coerceAtLeast(minSize).coerceAtMost(maxWidth)
-                translationY += (snappedTop - currentTop)
-                lp.width = newWidth
-                lp.height = newHeight
-            }
-
-            "BOTTOM_LEFT" -> {
-                val snappedBottom = snapToCell(bottom)
-                val snappedLeft = snapToCell(currentLeft)
-                val newWidth = (right - snappedLeft).toInt().coerceAtLeast(minSize).coerceAtMost(maxWidth)
-                val newHeight = (snappedBottom - currentTop).toInt().coerceAtLeast(minSize).coerceAtMost(maxHeight)
-                translationX += (snappedLeft - currentLeft)
-                lp.width = newWidth
-                lp.height = newHeight
-            }
-
-            "BOTTOM_RIGHT" -> {
-                val snappedBottom = snapToCell(bottom)
-                val snappedRight = snapToCell(right)
-                lp.width = (snappedRight - currentLeft).toInt().coerceAtLeast(minSize).coerceAtMost(maxWidth)
-                lp.height = (snappedBottom - currentTop).toInt().coerceAtLeast(minSize).coerceAtMost(maxHeight)
-            }
-        }
-
-        layoutParams = lp
-        fillHostView(lp.width, lp.height)
-    }
-
 
     fun showWidgetMenu() {
         val dialog = FontBottomSheetDialogLocked(context)
@@ -615,9 +614,7 @@ class ResizableWidgetWrapper(
 
         if (isResizeMode) {
             addMenuItem(getLocalizedString(R.string.widgets_exit_resize)) {
-                isResizeMode = false
-                setHandlesVisible(false)
-                reloadActivity()
+                exitResizeMode()
             }
         } else {
             addMenuItem(getLocalizedString(R.string.widgets_resize)) {
@@ -642,11 +639,14 @@ class ResizableWidgetWrapper(
         widgetInfo.configure?.let { configureComponent ->
             addMenuItem(getLocalizedString(R.string.widgets_settings)) {
 
-                val intent = Intent().apply {
-                    component = configureComponent
-                    putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, hostView.appWidgetId)
+                // The host call also reaches configure screens that are not exported
+                try {
+                    (context as? Activity)?.let {
+                        appWidgetHost.startAppWidgetConfigureActivityForResult(it, hostView.appWidgetId, 0, 0, null)
+                    }
+                } catch (e: Exception) {
+                    AppLogger.e(TAG, "Could not open settings of ${configureComponent.flattenToShortString()}", e)
                 }
-                context.startActivity(intent)
             }
         }
 
@@ -685,29 +685,6 @@ class ResizableWidgetWrapper(
         dialog.setOnDismissListener { activeDialog = null }
         dialog.setContentView(container)
         dialog.show()
-    }
-
-    fun reloadActivity() {
-        val activity = context as? Activity ?: return
-
-        val intent = activity.intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-        activity.finish()
-
-        if (android.os.Build.VERSION.SDK_INT >= 34) {
-            activity.overrideActivityTransition(Activity.OVERRIDE_TRANSITION_CLOSE, 0, 0)
-        } else {
-            @Suppress("DEPRECATION")
-            activity.overridePendingTransition(0, 0)
-        }
-
-        activity.startActivity(intent)
-
-        if (android.os.Build.VERSION.SDK_INT >= 34) {
-            activity.overrideActivityTransition(Activity.OVERRIDE_TRANSITION_OPEN, 0, 0)
-        } else {
-            @Suppress("DEPRECATION")
-            activity.overridePendingTransition(0, 0)
-        }
     }
 
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {

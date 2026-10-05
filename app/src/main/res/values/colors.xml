@@ -26,6 +26,7 @@
     <color name="whiteInverseTrans90">#E6000000</color>
     <!-- Black -->
     <color name="black">#000000</color>
+    <color name="ic_launcher_background">#000000</color>
     <color name="blackTrans90">#E6000000</color>
     <color name="blackTrans80">#CC000000</color>
     <color name="blackTrans50">#80000000</color>
