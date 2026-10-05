@@ -638,6 +638,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     .getLastTenAppsUsed(context)
                     .forEach { (pkg, name, activity) ->
                         val key = appKey(pkg, activity, 0)
+                        // Usage is tracked per package, so a hidden activity hides the whole package here
+                        val hidden = isHidden(pkg, key) || hiddenAppsSet.any { it.startsWith("$pkg|") }
+                        if ((hidden && !includeHiddenApps) || (!hidden && !includeRegularApps)) return@forEach
                         if (seenAppKeys.add(key)) {
                             rawApps.add(
                                 RawApp(

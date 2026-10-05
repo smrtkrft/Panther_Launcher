@@ -30,6 +30,7 @@ Bu dosya, Panther Launcher'ın kaynağı olan [mLauncher (Multi Launcher)](https
 - Yavaş yapılan kaydırma hareketleri artık doğru algılanıyor.
 - Ana ekrandaki uygulamalar dokunur dokunmaz açılıyor; 0,3 saniyelik bekleme kalktı.
 - "Sistemi izle" teması, koyu mod zamanlanmış ya da otomatik olduğunda da doğru çalışıyor.
+- Gizlenen uygulamalar, "Son kullanılanları göster" açıkken artık çekmecede ve aramada görünmüyor.
 - Türkçe çevirideki 349 metnin 106'sı düzeltildi.
 
 ### C – Keyfî GUI tasarımı
@@ -68,6 +69,7 @@ This file summarises where Panther Launcher departs from its source, [mLauncher 
 - Slow swipe gestures are now detected correctly.
 - Apps on the home screen open as soon as they are tapped; the 0.3-second wait is gone.
 - The "follow system" theme now also works when dark mode is scheduled or automatic.
+- Hidden apps no longer appear in the drawer or in search when "Show recent apps" is on.
 - 106 of the 349 strings in the Turkish translation were corrected.
 
 ### C – Discretionary GUI design
