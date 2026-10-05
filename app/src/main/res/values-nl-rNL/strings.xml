@@ -7,7 +7,6 @@
     <string name="show_work_apps">Zoek naar werk-apps</string>
     <string name="show_contacts">Contactpersonen zoeken</string>
     <string name="welcome_to_launcher">Welkom bij %1$s</string>
-    <string name="continue_by_you_agree">Door verder te gaan, gaat u akkoord met %1$s</string>
     <string name="usage_access_permission">Machtiging gebruikstoegang</string>
     <string name="location_access_permission">Toegangsrechten voor locatie</string>
     <string name="accessibility_access_permission">Toegankelijkheidsmachtigingen</string>
@@ -79,7 +78,6 @@
     <string name="alarm_settings">Alarm</string>
     <string name="bedtime_start_time">Bedtijd aanvangstijd</string>
     <string name="bedtime_end_time">Bedtijd Eindtijd</string>
-    <string name="show_daily_word">Dagelijks woord tonen</string>
     <string name="show_battery">Batterij weergeven</string>
     <string name="show_battery_icon">Batterijpictogram weergeven</string>
     <string name="show_private_spaces">Toon pictogram voor privéruimtes</string>
@@ -96,7 +94,6 @@
     <string name="date_text_size">Datum tekstgrootte</string>
     <string name="clock_text_size">Kloktekstgrootte</string>
     <string name="alarm_text_size">Teklstgrootte Alarm</string>
-    <string name="daily_word_text_size">Tekstgrootte Dagelijks woord</string>
     <string name="battery_text_size">Tekstgrootte batterij</string>
     <string name="layout_positioning">Lay-out &amp; Positionering</string>
     <string name="app_padding_size">Opvullingsgrootte</string>
@@ -119,7 +116,6 @@
     <string name="date_alignment">Datum</string>
     <string name="clock_alignment">Klok</string>
     <string name="alarm_alignment">Alarm</string>
-    <string name="daily_word_alignment">Dagelijks woord</string>
     <string name="home_alignment">Home Apps</string>
     <string name="drawer_alignment">Lade-apps</string>
     <string name="element_colors">Elementkleuren</string>
@@ -128,7 +124,6 @@
     <string name="clock_color">Klok</string>
     <string name="date_color">Datum</string>
     <string name="alarm_color">Alarm</string>
-    <string name="daily_word_color">Dagelijks woord</string>
     <string name="battery_color">Batterij</string>
     <string name="rainbow_shortcuts">Regenboogsnelkoppelingen</string>
     <string name="shortcuts_color">Snelkoppelingen</string>
@@ -196,19 +191,11 @@
     <string name="advanced_settings_backup_restore_clear_description">Weet u zeker dat u dit wilt doen?</string>
     <string name="advanced_settings_theme_title">Thema creaties</string>
     <string name="advanced_settings_theme_description">Pas thema\'s aan uw wensen aan.</string>
-    <string name="advanced_settings_theme_download">Download</string>
     <string name="advanced_settings_theme_export">Exporteren</string>
     <string name="advanced_settings_theme_import">Importeren</string>
     <string name="advanced_settings_theme_clear">Duidelijk</string>
     <string name="advanced_settings_theme_clear_title">Thema opnieuw instellen</string>
     <string name="advanced_settings_theme_clear_description">Weet je zeker dat je alle thema-instellingen wilt resetten?</string>
-    <string name="advanced_settings_wotd_title">Woord van de dag</string>
-    <string name="advanced_settings_wotd_description">Importeer een aangepaste lijst met het Woord van de Dag.</string>
-    <string name="advanced_settings_wotd_download">Download</string>
-    <string name="advanced_settings_wotd_import">Importeren</string>
-    <string name="advanced_settings_wotd_clear">Duidelijk</string>
-    <string name="advanced_settings_wotd_clear_title">Woord van de dag opnieuw instellen</string>
-    <string name="advanced_settings_wotd_clear_description">Weet je zeker dat je de array \'Woord van de Dag\' wilt resetten?</string>
     <string name="advanced_settings_clear_yes">Ja</string>
     <string name="advanced_settings_clear_no">Nee</string>
     <string name="advanced_settings_help_feedback_title">Hulp &amp; Feedback</string>

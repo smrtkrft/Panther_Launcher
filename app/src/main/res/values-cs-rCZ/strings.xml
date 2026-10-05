@@ -7,7 +7,6 @@
     <string name="show_work_apps">Hledat pracovní aplikace</string>
     <string name="show_contacts">Hledat Kontakty</string>
     <string name="welcome_to_launcher">Vítejte v %1$s</string>
-    <string name="continue_by_you_agree">Pokračováním souhlasíte s %1$s</string>
     <string name="usage_access_permission">Oprávnění pro Přístup k Používání</string>
     <string name="location_access_permission">Oprávnění pro Přístup k Poloze</string>
     <string name="accessibility_access_permission">Oprávnění k Přístupnosti</string>
@@ -79,7 +78,6 @@
     <string name="alarm_settings">Poplach</string>
     <string name="bedtime_start_time">Čas zahájení večerky</string>
     <string name="bedtime_end_time">Konec doby spánku</string>
-    <string name="show_daily_word">Zobrazit denní slovo</string>
     <string name="show_battery">Zobrazit baterii</string>
     <string name="show_battery_icon">Zobrazit ikonu baterie</string>
     <string name="show_private_spaces">Ikona Zobrazit soukromé prostory</string>
@@ -96,7 +94,6 @@
     <string name="date_text_size">Velikost textu data</string>
     <string name="clock_text_size">Velikost textu hodin</string>
     <string name="alarm_text_size">Velikost textu alarmu</string>
-    <string name="daily_word_text_size">Denní velikost textu ve slově</string>
     <string name="battery_text_size">Velikost textu baterie</string>
     <string name="layout_positioning">Rozvržení &amp; Umístění</string>
     <string name="app_padding_size">Velikost odsazení</string>
@@ -119,7 +116,6 @@
     <string name="date_alignment">Datum</string>
     <string name="clock_alignment">Hodiny</string>
     <string name="alarm_alignment">Poplach</string>
-    <string name="daily_word_alignment">Denní slovo</string>
     <string name="home_alignment">Domácí aplikace</string>
     <string name="drawer_alignment">Zásuvkové aplikace</string>
     <string name="element_colors">Barvy prvků</string>
@@ -128,7 +124,6 @@
     <string name="clock_color">Hodiny</string>
     <string name="date_color">Datum</string>
     <string name="alarm_color">Poplach</string>
-    <string name="daily_word_color">Denní slovo</string>
     <string name="battery_color">Baterie</string>
     <string name="rainbow_shortcuts">Duhové zkratky</string>
     <string name="shortcuts_color">Zkratky</string>
@@ -196,19 +191,11 @@
     <string name="advanced_settings_backup_restore_clear_description">Jsi si jistý/á, že to chceš udělat?</string>
     <string name="advanced_settings_theme_title">Tvorba témat</string>
     <string name="advanced_settings_theme_description">Přizpůsobte si témata podle svých představ.</string>
-    <string name="advanced_settings_theme_download">Stáhnout</string>
     <string name="advanced_settings_theme_export">Vývozní</string>
     <string name="advanced_settings_theme_import">Importovat</string>
     <string name="advanced_settings_theme_clear">Jasný</string>
     <string name="advanced_settings_theme_clear_title">Obnovit téma</string>
     <string name="advanced_settings_theme_clear_description">Opravdu chcete obnovit všechna nastavení motivu?</string>
-    <string name="advanced_settings_wotd_title">Slovo dne</string>
-    <string name="advanced_settings_wotd_description">Importovat vlastní seznam Slova dne.</string>
-    <string name="advanced_settings_wotd_download">Stáhnout</string>
-    <string name="advanced_settings_wotd_import">Importovat</string>
-    <string name="advanced_settings_wotd_clear">Jasný</string>
-    <string name="advanced_settings_wotd_clear_title">Obnovit slovo dne</string>
-    <string name="advanced_settings_wotd_clear_description">Jste si jisti, že chcete resetovat pole Slovo dne?</string>
     <string name="advanced_settings_clear_yes">Ano</string>
     <string name="advanced_settings_clear_no">Žádný</string>
     <string name="advanced_settings_help_feedback_title">Nápověda &amp; Zpětná vazba</string>

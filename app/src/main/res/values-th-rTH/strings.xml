@@ -7,7 +7,6 @@
     <string name="show_work_apps">ค้นหาแอปสำหรับการทำงาน</string>
     <string name="show_contacts">ค้นหาผู้ติดต่อ</string>
     <string name="welcome_to_launcher">ยินดีต้อนรับสู่ %1$s</string>
-    <string name="continue_by_you_agree">เมื่อดำเนินการต่อ คุณยอมรับที่จะ %1$s</string>
     <string name="usage_access_permission">การอนุญาตการเข้าถึงการใช้งาน</string>
     <string name="location_access_permission">การอนุญาตการเข้าถึงตำแหน่งที่ตั้ง</string>
     <string name="accessibility_access_permission">การอนุญาตการเข้าถึง</string>
@@ -79,7 +78,6 @@
     <string name="alarm_settings">เตือน</string>
     <string name="bedtime_start_time">เวลาเริ่มเข้านอน</string>
     <string name="bedtime_end_time">เวลาเข้านอน</string>
-    <string name="show_daily_word">แสดงคำศัพท์ประจำวัน</string>
     <string name="show_battery">แสดงแบตเตอรี่</string>
     <string name="show_battery_icon">แสดงไอคอนแบตเตอรี่</string>
     <string name="show_private_spaces">ไอคอนแสดงพื้นที่ส่วนตัว</string>
@@ -96,7 +94,6 @@
     <string name="date_text_size">ขนาดข้อความวันที่</string>
     <string name="clock_text_size">ขนาดข้อความนาฬิกา</string>
     <string name="alarm_text_size">ขนาดข้อความแจ้งเตือน</string>
-    <string name="daily_word_text_size">ขนาดข้อความคำรายวัน</string>
     <string name="battery_text_size">ขนาดข้อความแบตเตอรี่</string>
     <string name="layout_positioning">เค้าโครง &amp; การจัดตำแหน่ง</string>
     <string name="app_padding_size">ขนาดช่องว่างภายใน</string>
@@ -119,7 +116,6 @@
     <string name="date_alignment">วันที่</string>
     <string name="clock_alignment">นาฬิกา</string>
     <string name="alarm_alignment">เตือน</string>
-    <string name="daily_word_alignment">คำศัพท์ประจำวัน</string>
     <string name="home_alignment">แอปพลิเคชั่นสำหรับบ้าน</string>
     <string name="drawer_alignment">แอปลิ้นชัก</string>
     <string name="element_colors">สีธาตุ</string>
@@ -128,7 +124,6 @@
     <string name="clock_color">นาฬิกา</string>
     <string name="date_color">วันที่</string>
     <string name="alarm_color">เตือน</string>
-    <string name="daily_word_color">คำศัพท์ประจำวัน</string>
     <string name="battery_color">แบตเตอรี่</string>
     <string name="rainbow_shortcuts">ทางลัดสายรุ้ง</string>
     <string name="shortcuts_color">ทางลัด</string>
@@ -196,19 +191,11 @@
     <string name="advanced_settings_backup_restore_clear_description">คุณแน่ใจว่าต้องการทำเช่นนี้หรือไม่?</string>
     <string name="advanced_settings_theme_title">การสร้างสรรค์ธีม</string>
     <string name="advanced_settings_theme_description">ปรับแต่งธีมให้เหมาะกับคุณ</string>
-    <string name="advanced_settings_theme_download">ดาวน์โหลด</string>
     <string name="advanced_settings_theme_export">ส่งออก</string>
     <string name="advanced_settings_theme_import">การนำเข้า</string>
     <string name="advanced_settings_theme_clear">ชัดเจน</string>
     <string name="advanced_settings_theme_clear_title">รีเซ็ตธีม</string>
     <string name="advanced_settings_theme_clear_description">คุณแน่ใจหรือไม่ว่าต้องการรีเซ็ตการตั้งค่าธีมทั้งหมด?</string>
-    <string name="advanced_settings_wotd_title">คำศัพท์แห่งวัน</string>
-    <string name="advanced_settings_wotd_description">นำเข้ารายการคำศัพท์แห่งวันที่กำหนดเอง</string>
-    <string name="advanced_settings_wotd_download">ดาวน์โหลด</string>
-    <string name="advanced_settings_wotd_import">การนำเข้า</string>
-    <string name="advanced_settings_wotd_clear">ชัดเจน</string>
-    <string name="advanced_settings_wotd_clear_title">รีเซ็ตคำศัพท์ประจำวัน</string>
-    <string name="advanced_settings_wotd_clear_description">คุณแน่ใจหรือไม่ว่าต้องการรีเซ็ตชุดคำศัพท์ประจำวัน?</string>
     <string name="advanced_settings_clear_yes">ใช่</string>
     <string name="advanced_settings_clear_no">เลขที่</string>
     <string name="advanced_settings_help_feedback_title">ช่วยเหลือ &amp; ข้อเสนอแนะ</string>

@@ -7,7 +7,6 @@
     <string name="show_work_apps">ابحث عن تطبيقات العمل</string>
     <string name="show_contacts">بحث في جهات الاتصال</string>
     <string name="welcome_to_launcher">أهلاً بكم في %1$s</string>
-    <string name="continue_by_you_agree">بمتابعتك، فإنك توافق على %1$s</string>
     <string name="usage_access_permission">أذونات الوصول إلى الاستخدام</string>
     <string name="location_access_permission">أذونات الوصول إلى الموقع</string>
     <string name="accessibility_access_permission">أذونات الوصول</string>
@@ -79,7 +78,6 @@
     <string name="alarm_settings">جهاز إنذار</string>
     <string name="bedtime_start_time">وقت بدء النوم</string>
     <string name="bedtime_end_time">وقت انتهاء وقت النوم</string>
-    <string name="show_daily_word">عرض الكلمة اليومية</string>
     <string name="show_battery">عرض البطارية</string>
     <string name="show_battery_icon">إظهار أيقونة البطارية</string>
     <string name="show_private_spaces">إظهار أيقونة المساحات الخاصة</string>
@@ -96,7 +94,6 @@
     <string name="date_text_size">التاريخ حجم الخط</string>
     <string name="clock_text_size">حجم نص الساعة</string>
     <string name="alarm_text_size">حجم نص التنبيه</string>
-    <string name="daily_word_text_size">حجم نص الكلمات اليومي</string>
     <string name="battery_text_size">حجم نص البطارية</string>
     <string name="layout_positioning">التخطيط و  تحديد المواقع</string>
     <string name="app_padding_size">حجم الحشوة</string>
@@ -119,7 +116,6 @@
     <string name="date_alignment">تاريخ</string>
     <string name="clock_alignment">ساعة</string>
     <string name="alarm_alignment">جهاز إنذار</string>
-    <string name="daily_word_alignment">الكلمة اليومية</string>
     <string name="home_alignment">تطبيقات المنزل</string>
     <string name="drawer_alignment">تطبيقات الدرج</string>
     <string name="element_colors">ألوان العناصر</string>
@@ -128,7 +124,6 @@
     <string name="clock_color">ساعة</string>
     <string name="date_color">تاريخ</string>
     <string name="alarm_color">جهاز إنذار</string>
-    <string name="daily_word_color">الكلمة اليومية</string>
     <string name="battery_color">بطارية</string>
     <string name="rainbow_shortcuts">اختصارات قوس قزح</string>
     <string name="shortcuts_color">اختصارات</string>
@@ -196,19 +191,11 @@
     <string name="advanced_settings_backup_restore_clear_description">هل أنت متأكد من رغبتك في القيام بهذا؟</string>
     <string name="advanced_settings_theme_title">إبداعات ثيم</string>
     <string name="advanced_settings_theme_description">قم بتخصيص القوالب لتناسبك.</string>
-    <string name="advanced_settings_theme_download">تحميل</string>
     <string name="advanced_settings_theme_export">يصدّر</string>
     <string name="advanced_settings_theme_import">يستورد</string>
     <string name="advanced_settings_theme_clear">واضح</string>
     <string name="advanced_settings_theme_clear_title">إعادة ضبط المظهر</string>
     <string name="advanced_settings_theme_clear_description">هل أنت متأكد من رغبتك في إعادة ضبط جميع إعدادات القالب؟</string>
-    <string name="advanced_settings_wotd_title">كلمة اليوم</string>
-    <string name="advanced_settings_wotd_description">استورد قائمة كلمات اليوم المخصصة.</string>
-    <string name="advanced_settings_wotd_download">تحميل</string>
-    <string name="advanced_settings_wotd_import">يستورد</string>
-    <string name="advanced_settings_wotd_clear">واضح</string>
-    <string name="advanced_settings_wotd_clear_title">إعادة ضبط كلمة اليوم</string>
-    <string name="advanced_settings_wotd_clear_description">هل أنت متأكد من رغبتك في إعادة ضبط مصفوفة كلمة اليوم؟</string>
     <string name="advanced_settings_clear_yes">نعم</string>
     <string name="advanced_settings_clear_no">لا</string>
     <string name="advanced_settings_help_feedback_title">مساعدة و ملاحظات</string>

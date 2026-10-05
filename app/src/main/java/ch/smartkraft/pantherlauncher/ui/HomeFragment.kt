@@ -84,7 +84,6 @@ import ch.smartkraft.pantherlauncher.helper.showPermissionDialog
 import ch.smartkraft.pantherlauncher.helper.utils.AppReloader
 import ch.smartkraft.pantherlauncher.helper.utils.BiometricHelper
 import ch.smartkraft.pantherlauncher.helper.utils.PrivateSpaceManager
-import ch.smartkraft.pantherlauncher.helper.wordOfTheDay
 import ch.smartkraft.pantherlauncher.listener.GestureAdapter
 import ch.smartkraft.pantherlauncher.listener.NotificationDotManager
 import ch.smartkraft.pantherlauncher.services.ActionService
@@ -260,7 +259,6 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
             date.textSize = prefs.dateSize.toFloat()
             clock.textSize = prefs.clockSize.toFloat()
             alarm.textSize = prefs.alarmSize.toFloat()
-            dailyWord.textSize = prefs.dailyWordSize.toFloat()
             battery.textSize = prefs.batterySize.toFloat()
             homeScreenPager.textSize = prefs.appSize.toFloat()
 
@@ -270,7 +268,6 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
             date.setTextColor(prefs.dateColor)
             clock.setTextColor(prefs.clockColor)
             alarm.setTextColor(prefs.alarmClockColor)
-            dailyWord.setTextColor(prefs.dailyWordColor)
             battery.setTextColor(prefs.batteryColor)
             totalScreenTime.setTextColor(prefs.appColor)
             setDefaultLauncher.setTextColor(prefs.appColor)
@@ -335,7 +332,6 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
 
 
             alarm.text = getNextAlarm(requireContext(), prefs)
-            dailyWord.text = wordOfTheDay(prefs)
         }
     }
 
@@ -530,9 +526,6 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
             showAlarm.observe(viewLifecycleOwner) {
                 binding.alarm.isVisible = it
             }
-            showDailyWord.observe(viewLifecycleOwner) {
-                binding.dailyWord.isVisible = it
-            }
 
             clockAlignment.observe(viewLifecycleOwner) { clockGravity ->
                 binding.clock.gravity = clockGravity.value()
@@ -561,16 +554,6 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
                 binding.alarm.layoutParams =
                     (binding.alarm.layoutParams as LinearLayout.LayoutParams).apply {
                         gravity = alarmGravity.value()
-                    }
-            }
-
-            dailyWordAlignment.observe(viewLifecycleOwner) { dailyWordGravity ->
-                binding.dailyWord.gravity = dailyWordGravity.value()
-
-                // Set layout_gravity to align the TextView (alarm) within the parent (LinearLayout)
-                binding.dailyWord.layoutParams =
-                    (binding.dailyWord.layoutParams as LinearLayout.LayoutParams).apply {
-                        gravity = dailyWordGravity.value()
                     }
             }
 
@@ -1533,7 +1516,6 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
     private fun dismissDialogs() {
         dialogBuilder.backupRestoreBottomSheet?.dismiss()
         dialogBuilder.saveLoadThemeBottomSheet?.dismiss()
-        dialogBuilder.saveDownloadWOTDBottomSheet?.dismiss()
         dialogBuilder.singleChoiceBottomSheetPill?.dismiss()
         dialogBuilder.singleChoiceBottomSheet?.dismiss()
         dialogBuilder.colorPickerBottomSheet?.dismiss()

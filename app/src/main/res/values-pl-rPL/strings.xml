@@ -7,7 +7,6 @@
     <string name="show_work_apps">Wyszukaj aplikacje do pracy</string>
     <string name="show_contacts">Wyszukaj kontakty</string>
     <string name="welcome_to_launcher">Witamy w %1$s</string>
-    <string name="continue_by_you_agree">Kontynuując zgadzasz się na %1$s</string>
     <string name="usage_access_permission">Uprawnienia dostępu do użytkowania</string>
     <string name="location_access_permission">Uprawnienia dostępu do lokalizacji</string>
     <string name="accessibility_access_permission">Uprawnienia dostępności</string>
@@ -79,7 +78,6 @@
     <string name="alarm_settings">Alarm</string>
     <string name="bedtime_start_time">Czas rozpoczęcia snu</string>
     <string name="bedtime_end_time">Czas zakończenia snu</string>
-    <string name="show_daily_word">Pokaż codzienne słowo</string>
     <string name="show_battery">Pokaż baterię</string>
     <string name="show_battery_icon">Pokaż ikonę baterii</string>
     <string name="show_private_spaces">Pokaż ikonę przestrzeni prywatnych</string>
@@ -96,7 +94,6 @@
     <string name="date_text_size">Rozmiar tekstu daty</string>
     <string name="clock_text_size">Rozmiar tekstu zegara</string>
     <string name="alarm_text_size">Rozmiar tekstu alarmu</string>
-    <string name="daily_word_text_size">Rozmiar tekstu dziennego</string>
     <string name="battery_text_size">Rozmiar tekstu baterii</string>
     <string name="layout_positioning">Układ &amp; Pozycjonowanie</string>
     <string name="app_padding_size">Rozmiar wypełnienia</string>
@@ -119,7 +116,6 @@
     <string name="date_alignment">Data</string>
     <string name="clock_alignment">Zegar</string>
     <string name="alarm_alignment">Alarm</string>
-    <string name="daily_word_alignment">Słowo codzienne</string>
     <string name="home_alignment">Aplikacje domowe</string>
     <string name="drawer_alignment">Aplikacje szufladowe</string>
     <string name="element_colors">Kolory elementów</string>
@@ -128,7 +124,6 @@
     <string name="clock_color">Zegar</string>
     <string name="date_color">Data</string>
     <string name="alarm_color">Alarm</string>
-    <string name="daily_word_color">Słowo codzienne</string>
     <string name="battery_color">Bateria</string>
     <string name="rainbow_shortcuts">Skróty tęczy</string>
     <string name="shortcuts_color">Skróty</string>
@@ -196,19 +191,11 @@
     <string name="advanced_settings_backup_restore_clear_description">Czy na pewno chcesz to zrobić?</string>
     <string name="advanced_settings_theme_title">Kreacje tematyczne</string>
     <string name="advanced_settings_theme_description">Dostosuj motywy do swoich potrzeb.</string>
-    <string name="advanced_settings_theme_download">Pobierać</string>
     <string name="advanced_settings_theme_export">Eksport</string>
     <string name="advanced_settings_theme_import">Import</string>
     <string name="advanced_settings_theme_clear">Jasne</string>
     <string name="advanced_settings_theme_clear_title">Zresetuj motyw</string>
     <string name="advanced_settings_theme_clear_description">Czy na pewno chcesz zresetować wszystkie ustawienia motywu?</string>
-    <string name="advanced_settings_wotd_title">Słowo dnia</string>
-    <string name="advanced_settings_wotd_description">Importuj niestandardową listę Słów dnia.</string>
-    <string name="advanced_settings_wotd_download">Pobierać</string>
-    <string name="advanced_settings_wotd_import">Import</string>
-    <string name="advanced_settings_wotd_clear">Jasne</string>
-    <string name="advanced_settings_wotd_clear_title">Zresetuj Słowo Dnia</string>
-    <string name="advanced_settings_wotd_clear_description">Czy na pewno chcesz zresetować tablicę Słowa Dnia?</string>
     <string name="advanced_settings_clear_yes">Tak</string>
     <string name="advanced_settings_clear_no">NIE</string>
     <string name="advanced_settings_help_feedback_title">Pomoc &amp; Opinia</string>

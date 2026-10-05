@@ -7,7 +7,6 @@
     <string name="show_work_apps">搜索工作应用</string>
     <string name="show_contacts">搜索联系人</string>
     <string name="welcome_to_launcher">欢迎使用 %1$s</string>
-    <string name="continue_by_you_agree">继续即表示你同意 %1$s</string>
     <string name="usage_access_permission">使用情况访问权限</string>
     <string name="location_access_permission">位置访问权限</string>
     <string name="accessibility_access_permission">无障碍权限</string>
@@ -76,7 +75,6 @@
     <string name="show_date">显示日期</string>
     <string name="show_day_of_year">显示一年中的第几天</string>
     <string name="show_alarm">显示闹钟</string>
-    <string name="show_daily_word">显示每日一词</string>
     <string name="show_battery">显示电量</string>
     <string name="show_battery_icon">显示电量图标</string>
     <string name="show_private_spaces">显示私密空间图标</string>
@@ -93,7 +91,6 @@
     <string name="date_text_size">日期文字大小</string>
     <string name="clock_text_size">时钟文字大小</string>
     <string name="alarm_text_size">闹钟文字大小</string>
-    <string name="daily_word_text_size">每日一词文字大小</string>
     <string name="battery_text_size">电量文字大小</string>
     <string name="layout_positioning">布局与位置</string>
     <string name="app_padding_size">内边距大小</string>
@@ -116,7 +113,6 @@
     <string name="date_alignment">日期</string>
     <string name="clock_alignment">时钟</string>
     <string name="alarm_alignment">闹钟</string>
-    <string name="daily_word_alignment">每日一词</string>
     <string name="home_alignment">主屏幕应用</string>
     <string name="drawer_alignment">抽屉应用</string>
     <string name="element_colors">元素颜色</string>
@@ -125,7 +121,6 @@
     <string name="clock_color">时钟</string>
     <string name="date_color">日期</string>
     <string name="alarm_color">闹钟</string>
-    <string name="daily_word_color">每日一词</string>
     <string name="battery_color">电量</string>
     <string name="rainbow_shortcuts">彩虹快捷方式</string>
     <string name="shortcuts_color">快捷方式</string>
@@ -193,19 +188,11 @@
     <string name="advanced_settings_backup_restore_clear_description">确定要这样做吗？</string>
     <string name="advanced_settings_theme_title">主题创作</string>
     <string name="advanced_settings_theme_description">按你的喜好自定义主题。</string>
-    <string name="advanced_settings_theme_download">下载</string>
     <string name="advanced_settings_theme_export">导出</string>
     <string name="advanced_settings_theme_import">导入</string>
     <string name="advanced_settings_theme_clear">清除</string>
     <string name="advanced_settings_theme_clear_title">重置主题</string>
     <string name="advanced_settings_theme_clear_description">确定要重置所有主题设置吗？</string>
-    <string name="advanced_settings_wotd_title">每日一词</string>
-    <string name="advanced_settings_wotd_description">导入自定义每日一词列表。</string>
-    <string name="advanced_settings_wotd_download">下载</string>
-    <string name="advanced_settings_wotd_import">导入</string>
-    <string name="advanced_settings_wotd_clear">清除</string>
-    <string name="advanced_settings_wotd_clear_title">重置每日一词</string>
-    <string name="advanced_settings_wotd_clear_description">确定要重置每日一词列表吗？</string>
     <string name="advanced_settings_clear_yes">是</string>
     <string name="advanced_settings_clear_no">否</string>
     <string name="advanced_settings_help_feedback_title">帮助与反馈</string>

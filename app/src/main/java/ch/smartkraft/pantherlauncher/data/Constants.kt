@@ -35,8 +35,6 @@ object Constants {
     const val MIN_ALARM_SIZE = 10
     const val MAX_ALARM_SIZE = 120
 
-    const val MIN_DAILY_WORD_SIZE = 10
-    const val MAX_DAILY_WORD_SIZE = 120
 
     const val MIN_BATTERY_SIZE = 10
     const val MAX_BATTERY_SIZE = 75

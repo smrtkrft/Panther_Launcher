@@ -7,7 +7,6 @@
     <string name="show_work_apps">Vyhľadávanie pracovných aplikácií</string>
     <string name="show_contacts">Vyhľadávanie kontaktov</string>
     <string name="welcome_to_launcher">Vitajte v %1$s</string>
-    <string name="continue_by_you_agree">Pokračovaním súhlasíte s %1$s</string>
     <string name="usage_access_permission">Prístupové povolenia na používanie</string>
     <string name="location_access_permission">Povolenia na prístup k polohe</string>
     <string name="accessibility_access_permission">Povolenia na prístupnosť</string>
@@ -79,7 +78,6 @@
     <string name="alarm_settings">Budík</string>
     <string name="bedtime_start_time">Čas začiatku večerky</string>
     <string name="bedtime_end_time">Čas ukončenia večerky</string>
-    <string name="show_daily_word">Zobraziť denné slovo</string>
     <string name="show_battery">Zobraziť batériu</string>
     <string name="show_battery_icon">Zobraziť ikonu batérie</string>
     <string name="show_private_spaces">Ikona Zobraziť súkromné priestory</string>
@@ -96,7 +94,6 @@
     <string name="date_text_size">Veľkosť textu dátumu</string>
     <string name="clock_text_size">Veľkosť textu hodín</string>
     <string name="alarm_text_size">Veľkosť textu budíka</string>
-    <string name="daily_word_text_size">Veľkosť textu denného slova</string>
     <string name="battery_text_size">Veľkosť textu batérie</string>
     <string name="layout_positioning">Rozloženie &amp; Umiestnenie</string>
     <string name="app_padding_size">Veľkosť odsadenia</string>
@@ -119,7 +116,6 @@
     <string name="date_alignment">Dátum</string>
     <string name="clock_alignment">Hodiny</string>
     <string name="alarm_alignment">Budík</string>
-    <string name="daily_word_alignment">Slovo na každý deň</string>
     <string name="home_alignment">Domáce aplikácie</string>
     <string name="drawer_alignment">Zásuvkové aplikácie</string>
     <string name="element_colors">Farby prvkov</string>
@@ -128,7 +124,6 @@
     <string name="clock_color">Hodiny</string>
     <string name="date_color">Dátum</string>
     <string name="alarm_color">Budík</string>
-    <string name="daily_word_color">Slovo na každý deň</string>
     <string name="battery_color">Batéria</string>
     <string name="rainbow_shortcuts">Dúhové skratky</string>
     <string name="shortcuts_color">Skratky</string>
@@ -196,19 +191,11 @@
     <string name="advanced_settings_backup_restore_clear_description">Naozaj to chcete urobiť?</string>
     <string name="advanced_settings_theme_title">Témové výtvory</string>
     <string name="advanced_settings_theme_description">Prispôsobte si témy tak, aby vám vyhovovali.</string>
-    <string name="advanced_settings_theme_download">Stiahnuť</string>
     <string name="advanced_settings_theme_export">Exportovať</string>
     <string name="advanced_settings_theme_import">Importovať</string>
     <string name="advanced_settings_theme_clear">Jasné</string>
     <string name="advanced_settings_theme_clear_title">Obnoviť tému</string>
     <string name="advanced_settings_theme_clear_description">Naozaj chcete obnoviť všetky nastavenia témy?</string>
-    <string name="advanced_settings_wotd_title">Slovo dňa</string>
-    <string name="advanced_settings_wotd_description">Importujte vlastný zoznam Slov dňa.</string>
-    <string name="advanced_settings_wotd_download">Stiahnuť</string>
-    <string name="advanced_settings_wotd_import">Importovať</string>
-    <string name="advanced_settings_wotd_clear">Jasné</string>
-    <string name="advanced_settings_wotd_clear_title">Obnoviť slovo dňa</string>
-    <string name="advanced_settings_wotd_clear_description">Naozaj chcete resetovať pole Slov dňa?</string>
     <string name="advanced_settings_clear_yes">Áno</string>
     <string name="advanced_settings_clear_no">Nie</string>
     <string name="advanced_settings_help_feedback_title">Pomoc &amp; Spätná väzba</string>

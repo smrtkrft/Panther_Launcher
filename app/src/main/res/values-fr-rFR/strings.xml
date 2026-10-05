@@ -7,7 +7,6 @@
     <string name="show_work_apps">Recherche d\'applications professionnelles</string>
     <string name="show_contacts">Rechercher des contacts</string>
     <string name="welcome_to_launcher">Bienvenue à %1$s</string>
-    <string name="continue_by_you_agree">En continuant, vous acceptez %1$s</string>
     <string name="usage_access_permission">Autorisations d\'accès à l\'utilisation</string>
     <string name="location_access_permission">Autorisations d\'accès à la localisation</string>
     <string name="accessibility_access_permission">Autorisations d\'accessibilité</string>
@@ -79,7 +78,6 @@
     <string name="alarm_settings">Alarme</string>
     <string name="bedtime_start_time">Heure de début du coucher</string>
     <string name="bedtime_end_time">Heure du coucher Fin de l\'heure</string>
-    <string name="show_daily_word">Afficher le mot du jour</string>
     <string name="show_battery">Afficher la batterie</string>
     <string name="show_battery_icon">Afficher l\'icône de la batterie</string>
     <string name="show_private_spaces">Afficher l\'icône Espaces privés</string>
@@ -96,7 +94,6 @@
     <string name="date_text_size">Taille du texte de la date</string>
     <string name="clock_text_size">Taille du texte de l\'horloge</string>
     <string name="alarm_text_size">Taille du texte d\'alarme</string>
-    <string name="daily_word_text_size">Taille du texte du mot quotidien</string>
     <string name="battery_text_size">Taille du texte de la batterie</string>
     <string name="layout_positioning">Disposition &amp; Positionnement</string>
     <string name="app_padding_size">Taille de rembourrage</string>
@@ -119,7 +116,6 @@
     <string name="date_alignment">Date</string>
     <string name="clock_alignment">Horloge</string>
     <string name="alarm_alignment">Alarme</string>
-    <string name="daily_word_alignment">Mot du jour</string>
     <string name="home_alignment">Applications pour la maison</string>
     <string name="drawer_alignment">Applications du tiroir</string>
     <string name="element_colors">Couleurs élémentaires</string>
@@ -128,7 +124,6 @@
     <string name="clock_color">Horloge</string>
     <string name="date_color">Date</string>
     <string name="alarm_color">Alarme</string>
-    <string name="daily_word_color">Mot du jour</string>
     <string name="battery_color">Batterie</string>
     <string name="rainbow_shortcuts">Raccourcis arc-en-ciel</string>
     <string name="shortcuts_color">Raccourcis</string>
@@ -196,19 +191,11 @@
     <string name="advanced_settings_backup_restore_clear_description">Êtes-vous sûr de vouloir faire cela ?</string>
     <string name="advanced_settings_theme_title">Créations de thèmes</string>
     <string name="advanced_settings_theme_description">Personnalisez les thèmes selon vos préférences.</string>
-    <string name="advanced_settings_theme_download">Télécharger</string>
     <string name="advanced_settings_theme_export">Exporter</string>
     <string name="advanced_settings_theme_import">Importer</string>
     <string name="advanced_settings_theme_clear">Clair</string>
     <string name="advanced_settings_theme_clear_title">Réinitialiser le thème</string>
     <string name="advanced_settings_theme_clear_description">Êtes-vous sûr de vouloir réinitialiser tous les paramètres du thème ?</string>
-    <string name="advanced_settings_wotd_title">Mot du jour</string>
-    <string name="advanced_settings_wotd_description">Importer une liste personnalisée du mot du jour.</string>
-    <string name="advanced_settings_wotd_download">Télécharger</string>
-    <string name="advanced_settings_wotd_import">Importer</string>
-    <string name="advanced_settings_wotd_clear">Effacer</string>
-    <string name="advanced_settings_wotd_clear_title">Réinitialiser le mot du jour</string>
-    <string name="advanced_settings_wotd_clear_description">Êtes-vous sûr de vouloir réinitialiser le tableau du mot du jour ?</string>
     <string name="advanced_settings_clear_yes">Oui</string>
     <string name="advanced_settings_clear_no">Non</string>
     <string name="advanced_settings_help_feedback_title">Aide &amp; Commentaires</string>

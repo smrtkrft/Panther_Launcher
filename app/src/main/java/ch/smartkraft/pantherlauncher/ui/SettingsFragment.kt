@@ -218,7 +218,6 @@ class SettingsFragment : BaseFragment() {
         var bedtimeStartMinute by remember { mutableIntStateOf(prefs.bedtimeStartMinute) }
         var bedtimeEndHour by remember { mutableIntStateOf(prefs.bedtimeEndHour) }
         var bedtimeEndMinute by remember { mutableIntStateOf(prefs.bedtimeEndMinute) }
-        var toggledShowDailyWord by remember { mutableStateOf(prefs.showDailyWord) }
         var toggledShowBattery by remember { mutableStateOf(prefs.showBattery) }
         var toggledShowBatteryIcon by remember { mutableStateOf(prefs.showBatteryIcon) }
         var toggledShowWeather by remember { mutableStateOf(prefs.showWeather) }
@@ -257,7 +256,6 @@ class SettingsFragment : BaseFragment() {
         var selectedDateSize by remember { mutableIntStateOf(prefs.dateSize) }
         var selectedClockSize by remember { mutableIntStateOf(prefs.clockSize) }
         var selectedAlarmSize by remember { mutableIntStateOf(prefs.alarmSize) }
-        var selectedDailyWordSize by remember { mutableIntStateOf(prefs.dailyWordSize) }
         var selectedBatterySize by remember { mutableIntStateOf(prefs.batterySize) }
 
         var selectedPaddingSize by remember { mutableIntStateOf(prefs.textPaddingSize) }
@@ -278,7 +276,6 @@ class SettingsFragment : BaseFragment() {
         var selectedClockAlignment by remember { mutableStateOf(prefs.clockAlignment) }
         var selectedDateAlignment by remember { mutableStateOf(prefs.dateAlignment) }
         var selectedAlarmAlignment by remember { mutableStateOf(prefs.alarmAlignment) }
-        var selectedDailyWordAlignment by remember { mutableStateOf(prefs.dailyWordAlignment) }
         var selectedDrawAlignment by remember { mutableStateOf(prefs.drawerAlignment) }
 
         var selectedBackgroundColor by remember { mutableIntStateOf(prefs.backgroundColor) }
@@ -286,7 +283,6 @@ class SettingsFragment : BaseFragment() {
         var selectedDateColor by remember { mutableIntStateOf(prefs.dateColor) }
         var selectedClockColor by remember { mutableIntStateOf(prefs.clockColor) }
         var selectedAlarmColor by remember { mutableIntStateOf(prefs.alarmClockColor) }
-        var selectedDailyWordColor by remember { mutableIntStateOf(prefs.dailyWordColor) }
         var selectedBatteryColor by remember { mutableIntStateOf(prefs.batteryColor) }
         var toggledIconRainbowColors by remember { mutableStateOf(prefs.iconRainbowColors) }
         var selectedShortcutIconsColor by remember { mutableIntStateOf(prefs.shortcutIconsColor) }
@@ -1100,17 +1096,6 @@ class SettingsFragment : BaseFragment() {
                     )
 
                     SettingsSwitch(
-                        text = getLocalizedString(R.string.show_daily_word),
-                        fontSize = titleFontSize,
-                        defaultState = toggledShowDailyWord,
-                        onCheckedChange = {
-                            toggledShowDailyWord = !prefs.showDailyWord
-                            prefs.showDailyWord = toggledShowDailyWord
-                            viewModel.setShowDailyWord(prefs.showDailyWord)
-                        }
-                    )
-
-                    SettingsSwitch(
                         text = getLocalizedString(R.string.show_battery),
                         fontSize = titleFontSize,
                         defaultState = toggledShowBattery,
@@ -1535,30 +1520,6 @@ class SettingsFragment : BaseFragment() {
                     )
 
                     SettingsSelect(
-                        title = getLocalizedString(R.string.daily_word_alignment),
-                        option = selectedDailyWordAlignment.string(),
-                        fontSize = titleFontSize,
-                        onClick = {
-                            val gravityOptions = Constants.Gravity.entries.toTypedArray()
-                            val selectedIndex = gravityOptions.indexOf(selectedDailyWordAlignment)
-                                .takeIf { it >= 0 } ?: 1
-
-                            dialogBuilder.showSingleChoiceBottomSheetPill(
-                                context = requireContext(),
-                                options = Constants.Gravity.entries.toTypedArray(),
-                                title = getLocalizedString(R.string.daily_word_alignment),
-                                selectedIndex = selectedIndex,
-                                onItemSelected = { newGravity ->
-                                    selectedDailyWordAlignment = newGravity // Update state
-                                    prefs.dailyWordAlignment =
-                                        newGravity // Persist selection in preferences
-                                    viewModel.updateDailyWordAlignment(newGravity)
-                                }
-                            )
-                        }
-                    )
-
-                    SettingsSelect(
                         title = getLocalizedString(R.string.home_alignment),
                         option = selectedHomeAlignment.string(),
                         fontSize = titleFontSize,
@@ -1709,25 +1670,6 @@ class SettingsFragment : BaseFragment() {
                                 onItemSelected = { selectedColor ->
                                     selectedAlarmColor = selectedColor
                                     prefs.alarmClockColor = selectedColor
-                                })
-                        }
-                    )
-
-                    val hexDailyWordColor =
-                        String.format("#%06X", (0xFFFFFF and selectedDailyWordColor))
-                    SettingsSelect(
-                        title = getLocalizedString(R.string.daily_word_color),
-                        option = hexDailyWordColor,
-                        fontSize = titleFontSize,
-                        optionColor = Color(hexDailyWordColor.toColorInt()),
-                        onClick = {
-                            dialogBuilder.showColorPickerBottomSheet(
-                                context = requireContext(),
-                                color = selectedDailyWordColor,
-                                title = getLocalizedString(R.string.daily_word_color),
-                                onItemSelected = { selectedColor ->
-                                    selectedDailyWordColor = selectedColor
-                                    prefs.dailyWordColor = selectedColor
                                 })
                         }
                     )
@@ -1959,26 +1901,6 @@ class SettingsFragment : BaseFragment() {
                                 onValueSelected = { newDateSize ->
                                     selectedAlarmSize = newDateSize.toInt() // Update state
                                     prefs.alarmSize =
-                                        newDateSize.toInt() // Persist selection in preferences
-                                }
-                            )
-                        }
-                    )
-
-                    SettingsSelect(
-                        title = getLocalizedString(R.string.daily_word_text_size),
-                        option = selectedDailyWordSize.toString(),
-                        fontSize = titleFontSize,
-                        onClick = {
-                            dialogBuilder.showSliderBottomSheet(
-                                context = requireContext(),
-                                title = getLocalizedString(R.string.daily_word_text_size),
-                                minValue = Constants.MIN_DAILY_WORD_SIZE,
-                                maxValue = Constants.MAX_DAILY_WORD_SIZE,
-                                currentValue = prefs.dailyWordSize,
-                                onValueSelected = { newDateSize ->
-                                    selectedDailyWordSize = newDateSize.toInt() // Update state
-                                    prefs.dailyWordSize =
                                         newDateSize.toInt() // Persist selection in preferences
                                 }
                             )
@@ -2776,18 +2698,6 @@ class SettingsFragment : BaseFragment() {
                         }
                     )
 
-                    SettingsHomeItem(
-                        title = getLocalizedString(R.string.advanced_settings_wotd_title),
-                        description = getLocalizedString(R.string.advanced_settings_wotd_description),
-                        iconRes = R.drawable.ic_word_of_the_day,
-                        titleFontSize = titleFontSize,
-                        descriptionFontSize = descriptionFontSize,
-                        iconSize = iconSize,
-                        onClick = {
-                            dialogBuilder.showSaveDownloadWOTDBottomSheet()
-                        }
-                    )
-
                     Spacer(modifier = Modifier.weight(1f))
 
                     SettingsHomeItem(
@@ -2861,8 +2771,7 @@ class SettingsFragment : BaseFragment() {
                         title = getLocalizedString(R.string.settings_credits),
                         descriptions = listOf(
                             getLocalizedString(R.string.weather_link),
-                            getLocalizedString(R.string.forked_link),
-                            getLocalizedString(R.string.privacy_policy_link)
+                            getLocalizedString(R.string.forked_link)
                         ),
                         titleFontSize = titleFontSize,
                         descriptionFontSize = descriptionFontSize,
@@ -2990,7 +2899,6 @@ class SettingsFragment : BaseFragment() {
     private fun dismissDialogs() {
         dialogBuilder.backupRestoreBottomSheet?.dismiss()
         dialogBuilder.saveLoadThemeBottomSheet?.dismiss()
-        dialogBuilder.saveDownloadWOTDBottomSheet?.dismiss()
         dialogBuilder.singleChoiceBottomSheetPill?.dismiss()
         dialogBuilder.singleChoiceBottomSheet?.dismiss()
         dialogBuilder.colorPickerBottomSheet?.dismiss()

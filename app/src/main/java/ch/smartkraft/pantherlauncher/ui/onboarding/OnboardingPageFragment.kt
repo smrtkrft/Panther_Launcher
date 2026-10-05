@@ -9,16 +9,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -109,29 +104,6 @@ class OnboardingPageFragment : Fragment() {
             is FragmentOnboardingPageOneBinding -> {
                 val appName = getString(R.string.app_name)
                 binding.title.text = getLocalizedString(R.string.welcome_to_launcher, appName)
-
-                val privacyPolicyText = getLocalizedString(
-                    R.string.continue_by_you_agree,
-                    getString(R.string.privacy_policy)
-                )
-                val clickableText = getString(R.string.privacy_policy)
-
-                val spannable = SpannableString(privacyPolicyText)
-                val start = privacyPolicyText.indexOf(clickableText)
-                val end = start + clickableText.length
-
-                if (start >= 0) {
-                    val span = object : ClickableSpan() {
-                        override fun onClick(widget: View) {
-                            val intent = Intent(Intent.ACTION_VIEW, getString(R.string.privacy_policy_url).toUri())
-                            context?.startActivity(intent)
-                        }
-                    }
-                    spannable.setSpan(span, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                }
-
-                binding.description.text = spannable
-                binding.description.movementMethod = LinkMovementMethod.getInstance()
 
                 handler.removeCallbacks(usagePermissionCheckRunnable)
                 handler.post(launcherDefaultCheckRunnable)

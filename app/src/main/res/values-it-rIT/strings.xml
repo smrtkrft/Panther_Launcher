@@ -7,7 +7,6 @@
     <string name="show_work_apps">Cerca app di lavoro</string>
     <string name="show_contacts">Cerca contatti</string>
     <string name="welcome_to_launcher">Benvenuti su %1$s</string>
-    <string name="continue_by_you_agree">Continuando accetti %1$s</string>
     <string name="usage_access_permission">Permessi di accesso all\'utilizzo</string>
     <string name="location_access_permission">Autorizzazioni di accesso alla posizione</string>
     <string name="accessibility_access_permission">Autorizzazioni di accessibilità</string>
@@ -79,7 +78,6 @@
     <string name="alarm_settings">Allarme</string>
     <string name="bedtime_start_time">Ora di inizio dell\'ora di andare a letto</string>
     <string name="bedtime_end_time">Ora di fine dell\'ora di andare a letto</string>
-    <string name="show_daily_word">Mostra la Parola del Giorno</string>
     <string name="show_battery">Mostra batteria</string>
     <string name="show_battery_icon">Mostra l\'icona della batteria</string>
     <string name="show_private_spaces">Mostra l\'icona degli spazi privati</string>
@@ -96,7 +94,6 @@
     <string name="date_text_size">Dimensioni del testo della data</string>
     <string name="clock_text_size">Dimensioni del testo dell\'orologio</string>
     <string name="alarm_text_size">Dimensioni del testo dell\'allarme</string>
-    <string name="daily_word_text_size">Dimensione del testo di Daily Word</string>
     <string name="battery_text_size">Dimensioni del testo della batteria</string>
     <string name="layout_positioning">Layout &amp; Posizionamento</string>
     <string name="app_padding_size">Dimensione della spaziatura</string>
@@ -119,7 +116,6 @@
     <string name="date_alignment">Data</string>
     <string name="clock_alignment">Orologio</string>
     <string name="alarm_alignment">Allarme</string>
-    <string name="daily_word_alignment">Parola del giorno</string>
     <string name="home_alignment">App per la casa</string>
     <string name="drawer_alignment">App per il cassetto</string>
     <string name="element_colors">Colori degli elementi</string>
@@ -128,7 +124,6 @@
     <string name="clock_color">Orologio</string>
     <string name="date_color">Data</string>
     <string name="alarm_color">Allarme</string>
-    <string name="daily_word_color">Parola del giorno</string>
     <string name="battery_color">Batteria</string>
     <string name="rainbow_shortcuts">Scorciatoie dell\'arcobaleno</string>
     <string name="shortcuts_color">Scorciatoie</string>
@@ -196,19 +191,11 @@
     <string name="advanced_settings_backup_restore_clear_description">Sei sicuro di volerlo fare?</string>
     <string name="advanced_settings_theme_title">Creazione di temi</string>
     <string name="advanced_settings_theme_description">Personalizza i temi in base alle tue esigenze.</string>
-    <string name="advanced_settings_theme_download">Scaricamento</string>
     <string name="advanced_settings_theme_export">Esportare</string>
     <string name="advanced_settings_theme_import">Importare</string>
     <string name="advanced_settings_theme_clear">Chiaro</string>
     <string name="advanced_settings_theme_clear_title">Ripristina il tema</string>
     <string name="advanced_settings_theme_clear_description">Sei sicuro di voler ripristinare tutte le impostazioni del tema?</string>
-    <string name="advanced_settings_wotd_title">Parola del giorno</string>
-    <string name="advanced_settings_wotd_description">Importa un elenco personalizzato di \"Parola del giorno\".</string>
-    <string name="advanced_settings_wotd_download">Scaricamento</string>
-    <string name="advanced_settings_wotd_import">Importare</string>
-    <string name="advanced_settings_wotd_clear">Chiaro</string>
-    <string name="advanced_settings_wotd_clear_title">Ripristina la parola del giorno</string>
-    <string name="advanced_settings_wotd_clear_description">Sei sicuro di voler reimpostare la selezione della Parola del Giorno?</string>
     <string name="advanced_settings_clear_yes">SÌ</string>
     <string name="advanced_settings_clear_no">NO</string>
     <string name="advanced_settings_help_feedback_title">Aiuto &amp; Feedback</string>

@@ -46,7 +46,6 @@ import ch.smartkraft.common.AppLogger
 import ch.smartkraft.common.ColorIconsExtensions
 import ch.smartkraft.common.CrashHandler
 import ch.smartkraft.common.getLocalizedString
-import ch.smartkraft.common.getLocalizedStringArray
 import ch.smartkraft.common.openAccessibilitySettings
 import ch.smartkraft.common.requestUsagePermission
 import ch.smartkraft.common.showLongToast
@@ -58,7 +57,6 @@ import ch.smartkraft.pantherlauncher.data.Prefs
 import ch.smartkraft.pantherlauncher.helper.utils.packageNames
 import ch.smartkraft.pantherlauncher.services.ActionService
 import ch.smartkraft.pantherlauncher.ui.widgets.home.HomeAppsWidgetProvider
-import ch.smartkraft.pantherlauncher.ui.widgets.wordoftheday.WordOfTheDayWidget
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -268,14 +266,6 @@ private fun isSleepModeAlarm(alarmClock: AlarmManager.AlarmClockInfo, prefs: Pre
     }
 }
 
-fun wordOfTheDay(prefs: Prefs): String {
-    val dailyWordsArray = loadWordList(prefs)
-    val dayOfYear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR)
-    val wordIndex =
-        (dayOfYear - 1) % dailyWordsArray.size // Subtracting 1 to align with array indexing
-    return dailyWordsArray[wordIndex]
-}
-
 fun isPantherLauncherDefault(context: Context): Boolean {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
         val roleManager = context.getSystemService(RoleManager::class.java)
@@ -298,19 +288,7 @@ fun reloadLauncher() {
 }
 
 fun helpFeedbackButton(context: Context) {
-    val uri = "https://github.com/smrtkrft".toUri()
-    val intent = Intent(Intent.ACTION_VIEW, uri)
-    context.startActivity(intent)
-}
-
-fun themeDownloadButton(context: Context) {
-    val uri = "https://mlauncher.5646316.xyz/themes.html#themes".toUri()
-    val intent = Intent(Intent.ACTION_VIEW, uri)
-    context.startActivity(intent)
-}
-
-fun wordofthedayDownloadButton(context: Context) {
-    val uri = "https://mlauncher.5646316.xyz/themes.html#word-of-the-day".toUri()
+    val uri = "https://github.com/smrtkrft/Panther_Launcher".toUri()
     val intent = Intent(Intent.ACTION_VIEW, uri)
     context.startActivity(intent)
 }
@@ -434,17 +412,6 @@ fun sp2px(resources: Resources, sp: Float): Float {
         sp,
         resources.displayMetrics
     )
-}
-
-
-fun loadWordList(prefs: Prefs): List<String> {
-    val customWordListString = prefs.wordList
-    // If the user has imported their own list, use it
-    return if (customWordListString != emptyString()) {
-        prefs.wordList.split("||")
-    } else {
-        getLocalizedStringArray(R.array.word_of_the_day).toList()
-    }
 }
 
 
@@ -875,7 +842,6 @@ fun getSystemIcons(
 
 fun updateAllWidgets(context: Context) {
     updateHomeWidget(context)
-    updateWordWidget(context)
     updateFabWidget(context)
 }
 
@@ -885,18 +851,6 @@ fun updateHomeWidget(context: Context) {
     val appWidgetIds = appWidgetManager.getAppWidgetIds(componentName)
 
     val intent = Intent(context, HomeAppsWidgetProvider::class.java).apply {
-        action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
-        putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds)
-    }
-    context.sendBroadcast(intent)
-}
-
-fun updateWordWidget(context: Context) {
-    val appWidgetManager = AppWidgetManager.getInstance(context)
-    val componentName = ComponentName(context, WordOfTheDayWidget::class.java)
-    val appWidgetIds = appWidgetManager.getAppWidgetIds(componentName)
-
-    val intent = Intent(context, WordOfTheDayWidget::class.java).apply {
         action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
         putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds)
     }

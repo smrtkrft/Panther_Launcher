@@ -7,7 +7,6 @@
     <string name="show_work_apps">Ieškoti darbo programėlių</string>
     <string name="show_contacts">Ieškoti kontaktų</string>
     <string name="welcome_to_launcher">Sveiki atvykę į %1$s</string>
-    <string name="continue_by_you_agree">Tęsdami sutinkate su %1$s</string>
     <string name="usage_access_permission">Naudojimo prieigos leidimai</string>
     <string name="location_access_permission">Vietos prieigos leidimai</string>
     <string name="accessibility_access_permission">Prieinamumo leidimai</string>
@@ -79,7 +78,6 @@
     <string name="alarm_settings">Signalizacija</string>
     <string name="bedtime_start_time">Miego pradžios laikas</string>
     <string name="bedtime_end_time">Miego pabaigos laikas</string>
-    <string name="show_daily_word">Rodyti kasdienį žodį</string>
     <string name="show_battery">Rodyti bateriją</string>
     <string name="show_battery_icon">Rodyti akumuliatoriaus piktogramą</string>
     <string name="show_private_spaces">Rodyti privačių erdvių piktogramą</string>
@@ -96,7 +94,6 @@
     <string name="date_text_size">Datos Šrifto dydis</string>
     <string name="clock_text_size">Laikrodžio teksto dydis</string>
     <string name="alarm_text_size">Signalo teksto dydis</string>
-    <string name="daily_word_text_size">Dienos žodžio teksto dydis</string>
     <string name="battery_text_size">Baterijos Šrifto dydis</string>
     <string name="layout_positioning">Išdėstymas &amp; Padėties nustatymas</string>
     <string name="app_padding_size">Užpildymo Dydis</string>
@@ -119,7 +116,6 @@
     <string name="date_alignment">Data</string>
     <string name="clock_alignment">Laikrodis</string>
     <string name="alarm_alignment">Signalizacija</string>
-    <string name="daily_word_alignment">Dienos žodis</string>
     <string name="home_alignment">Namų programos</string>
     <string name="drawer_alignment">Stalčių programos</string>
     <string name="element_colors">Elementų spalvos</string>
@@ -128,7 +124,6 @@
     <string name="clock_color">Laikrodis</string>
     <string name="date_color">Data</string>
     <string name="alarm_color">Signalizacija</string>
-    <string name="daily_word_color">Dienos žodis</string>
     <string name="battery_color">Baterija</string>
     <string name="rainbow_shortcuts">Vaivorykštės spartieji klavišai</string>
     <string name="shortcuts_color">Spartieji klavišai</string>
@@ -196,19 +191,11 @@
     <string name="advanced_settings_backup_restore_clear_description">Ar tikrai norite tai padaryti?</string>
     <string name="advanced_settings_theme_title">Temos kūriniai</string>
     <string name="advanced_settings_theme_description">Tinkinkite jums tinkančias temas.</string>
-    <string name="advanced_settings_theme_download">Atsisiųsti</string>
     <string name="advanced_settings_theme_export">Eksportuoti</string>
     <string name="advanced_settings_theme_import">Importuoti</string>
     <string name="advanced_settings_theme_clear">Išvalyti</string>
     <string name="advanced_settings_theme_clear_title">Atkurti temą</string>
     <string name="advanced_settings_theme_clear_description">Ar tikrai norite atkurti visus temos nustatymus?</string>
-    <string name="advanced_settings_wotd_title">Dienos žodis</string>
-    <string name="advanced_settings_wotd_description">Importuokite pasirinktinį dienos žodžio sąrašą.</string>
-    <string name="advanced_settings_wotd_download">Atsisiųsti</string>
-    <string name="advanced_settings_wotd_import">Importuoti</string>
-    <string name="advanced_settings_wotd_clear">Išvalyti</string>
-    <string name="advanced_settings_wotd_clear_title">Atstatyti dienos žodį</string>
-    <string name="advanced_settings_wotd_clear_description">Ar tikrai norite iš naujo nustatyti „Dienos žodžio“ masyvą?</string>
     <string name="advanced_settings_clear_yes">Taip</string>
     <string name="advanced_settings_clear_no">Ne</string>
     <string name="advanced_settings_help_feedback_title">Pagalba &amp; Atsiliepimai</string>

@@ -7,7 +7,6 @@
     <string name="show_work_apps">Pesquisar aplicações de trabalho</string>
     <string name="show_contacts">Pesquisar contactos</string>
     <string name="welcome_to_launcher">Bem-vindo(a) ao %1$s</string>
-    <string name="continue_by_you_agree">Ao continuar, concorda com %1$s</string>
     <string name="usage_access_permission">Permissões de acesso de utilização</string>
     <string name="location_access_permission">Permissões de acesso à localização</string>
     <string name="accessibility_access_permission">Permissões de acessibilidade</string>
@@ -79,7 +78,6 @@
     <string name="alarm_settings">Alarme</string>
     <string name="bedtime_start_time">Hora de começar a dormir</string>
     <string name="bedtime_end_time">Hora de dormir</string>
-    <string name="show_daily_word">Mostrar Palavra Diária</string>
     <string name="show_battery">Mostrar bateria</string>
     <string name="show_battery_icon">Mostrar ícone da bateria</string>
     <string name="show_private_spaces">Ícone Mostrar Espaços Privados</string>
@@ -96,7 +94,6 @@
     <string name="date_text_size">Tamanho do texto da data</string>
     <string name="clock_text_size">Tamanho do texto do relógio</string>
     <string name="alarm_text_size">Tamanho do texto do alarme</string>
-    <string name="daily_word_text_size">Tamanho do texto da palavra diária</string>
     <string name="battery_text_size">Tamanho do texto da bateria</string>
     <string name="layout_positioning">Layout &amp; Posicionamento</string>
     <string name="app_padding_size">Tamanho do Preenchimento</string>
@@ -119,7 +116,6 @@
     <string name="date_alignment">Data</string>
     <string name="clock_alignment">Relógio</string>
     <string name="alarm_alignment">Alarme</string>
-    <string name="daily_word_alignment">Palavra do dia</string>
     <string name="home_alignment">Aplicações da página inicial</string>
     <string name="drawer_alignment">Aplicativos de gaveta</string>
     <string name="element_colors">Cores dos Elementos</string>
@@ -128,7 +124,6 @@
     <string name="clock_color">Relógio</string>
     <string name="date_color">Data</string>
     <string name="alarm_color">Alarme</string>
-    <string name="daily_word_color">Palavra do dia</string>
     <string name="battery_color">Bateria</string>
     <string name="rainbow_shortcuts">Atalhos do Arco-Íris</string>
     <string name="shortcuts_color">Atalhos</string>
@@ -196,19 +191,11 @@
     <string name="advanced_settings_backup_restore_clear_description">Tem a certeza de que deseja fazê-lo?</string>
     <string name="advanced_settings_theme_title">Criações de temas</string>
     <string name="advanced_settings_theme_description">Personalize os temas de acordo com as suas preferências.</string>
-    <string name="advanced_settings_theme_download">Transferir</string>
     <string name="advanced_settings_theme_export">Exportar</string>
     <string name="advanced_settings_theme_import">Importação</string>
     <string name="advanced_settings_theme_clear">Claro</string>
     <string name="advanced_settings_theme_clear_title">Redefinir tema</string>
     <string name="advanced_settings_theme_clear_description">Tem a certeza de que pretende repor todas as definições do tema?</string>
-    <string name="advanced_settings_wotd_title">Palavra do dia</string>
-    <string name="advanced_settings_wotd_description">Importe uma lista personalizada da Palavra do Dia.</string>
-    <string name="advanced_settings_wotd_download">Transferir</string>
-    <string name="advanced_settings_wotd_import">Importação</string>
-    <string name="advanced_settings_wotd_clear">Claro</string>
-    <string name="advanced_settings_wotd_clear_title">Reiniciar Palavra do Dia</string>
-    <string name="advanced_settings_wotd_clear_description">Tem a certeza de que pretende repor a lista da Palavra do Dia?</string>
     <string name="advanced_settings_clear_yes">Sim</string>
     <string name="advanced_settings_clear_no">Não</string>
     <string name="advanced_settings_help_feedback_title">Ajuda &amp; Feedback</string>

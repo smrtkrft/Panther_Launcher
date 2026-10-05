@@ -7,7 +7,6 @@
     <string name="show_work_apps">Arbeits-Apps suchen</string>
     <string name="show_contacts">Kontakte suchen</string>
     <string name="welcome_to_launcher">Willkommen bei %1$s</string>
-    <string name="continue_by_you_agree">Indem Sie fortfahren, stimmen Sie %1$s zu.</string>
     <string name="usage_access_permission">Nutzungszugriffsberechtigungen</string>
     <string name="location_access_permission">Standortzugriffsberechtigungen</string>
     <string name="accessibility_access_permission">Zugriffsberechtigungen</string>
@@ -79,7 +78,6 @@
     <string name="alarm_settings">Alarm</string>
     <string name="bedtime_start_time">Schlafenszeitbeginn</string>
     <string name="bedtime_end_time">Schlafenszeit Ende</string>
-    <string name="show_daily_word">Tägliches Wort anzeigen</string>
     <string name="show_battery">Batterie anzeigen</string>
     <string name="show_battery_icon">Akkusymbol anzeigen</string>
     <string name="show_private_spaces">Symbol für private Bereiche anzeigen</string>
@@ -96,7 +94,6 @@
     <string name="date_text_size">Textgröße des Datums</string>
     <string name="clock_text_size">Uhrtextgröße</string>
     <string name="alarm_text_size">Alarmtextgröße</string>
-    <string name="daily_word_text_size">Tägliche Worttextgröße</string>
     <string name="battery_text_size">Textgröße der Akkuanzeige</string>
     <string name="layout_positioning">Layout &amp; Positionierung</string>
     <string name="app_padding_size">Polstergröße</string>
@@ -119,7 +116,6 @@
     <string name="date_alignment">Datum</string>
     <string name="clock_alignment">Uhr</string>
     <string name="alarm_alignment">Alarm</string>
-    <string name="daily_word_alignment">Tageswort</string>
     <string name="home_alignment">Startseite Apps</string>
     <string name="drawer_alignment">Drawer-Apps</string>
     <string name="element_colors">Elementfarben</string>
@@ -128,7 +124,6 @@
     <string name="clock_color">Uhr</string>
     <string name="date_color">Datum</string>
     <string name="alarm_color">Alarm</string>
-    <string name="daily_word_color">Tageswort</string>
     <string name="battery_color">Batterie</string>
     <string name="rainbow_shortcuts">Regenbogen-Abkürzungen</string>
     <string name="shortcuts_color">Abkürzungen</string>
@@ -196,19 +191,11 @@
     <string name="advanced_settings_backup_restore_clear_description">Bist du dir sicher, dass du das tun willst?</string>
     <string name="advanced_settings_theme_title">Themenkreationen</string>
     <string name="advanced_settings_theme_description">Passen Sie die Designs Ihren Wünschen an.</string>
-    <string name="advanced_settings_theme_download">Herunterladen</string>
     <string name="advanced_settings_theme_export">Export</string>
     <string name="advanced_settings_theme_import">Import</string>
     <string name="advanced_settings_theme_clear">Klar</string>
     <string name="advanced_settings_theme_clear_title">Design zurücksetzen</string>
     <string name="advanced_settings_theme_clear_description">Möchten Sie wirklich alle Designeinstellungen zurücksetzen?</string>
-    <string name="advanced_settings_wotd_title">Wort des Tages</string>
-    <string name="advanced_settings_wotd_description">Importieren Sie eine benutzerdefinierte Wort-des-Tages-Liste.</string>
-    <string name="advanced_settings_wotd_download">Herunterladen</string>
-    <string name="advanced_settings_wotd_import">Import</string>
-    <string name="advanced_settings_wotd_clear">Klar</string>
-    <string name="advanced_settings_wotd_clear_title">Wort des Tages zurücksetzen</string>
-    <string name="advanced_settings_wotd_clear_description">Möchten Sie das Array „Wort des Tages“ wirklich zurücksetzen?</string>
     <string name="advanced_settings_clear_yes">Ja</string>
     <string name="advanced_settings_clear_no">NEIN</string>
     <string name="advanced_settings_help_feedback_title">Hilfe &amp; Feedback</string>

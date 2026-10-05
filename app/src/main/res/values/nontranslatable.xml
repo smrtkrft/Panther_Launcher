@@ -4,15 +4,12 @@
         log has been attached as a file for your reference. We would appreciate your assistance in resolving this issue.\n\nDevice
         Information:\n\n%1$s\n\nYour prompt
         attention to this matter is greatly appreciated.\n\nThank you.\n</string>
-    <string name="privacy_policy" translatable="false">Privacy Policy</string>
-    <string name="privacy_policy_url" translatable="false">https://mlauncher.5646316.xyz/privacy.html</string>
 
     <string name="created_by" translatable="false"><![CDATA[by <a href="https://github.com/smrtkrft">SmartKraft // seu</a>]]></string>
-    <string name="github_link" translatable="false"><![CDATA[<a href="https://github.com/smrtkrft">GitHub</a>]]></string>
+    <string name="github_link" translatable="false"><![CDATA[<a href="https://github.com/smrtkrft/Panther_Launcher">GitHub</a>]]></string>
     <string name="source_link" translatable="false"><![CDATA[Based on <a href="https://github.com/CodeWorksCreativeHub/mLauncher">mLauncher (Multi Launcher)</a>]]></string>
     <string name="weather_link" translatable="false"><![CDATA[Weather data by <a href="https://open-meteo.com/">Open-Meteo.com</a> (<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>)]]></string>
     <string name="forked_link" translatable="false"><![CDATA[Forked from <a href="https://github.com/tanujnotes/Olauncher">Olauncher</a> (<a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GPL-3.0</a>)]]></string>
-    <string name="privacy_policy_link" translatable="false"><![CDATA[Privacy Policy by <a href="https://mlauncher.5646316.xyz/privacy.html">5646316.xyz</a>]]></string>
 
     <!-- Font Stings -->
     <string name="settings_font_bitter" translatable="false">Bitter</string>
@@ -46,7 +43,6 @@
     <string name="app_icons_niagara_dots" translatable="false">Niagara Dots</string>
     <string name="app_icons_spinner_dots" translatable="false">Spinner Dots</string>
 
-    <string name="widget_wotd_name" translatable="false">Word Of The Day Widget</string>
     <string name="widget_fab_name" translatable="false">Fab Widget</string>
     <string name="widget_home_name" translatable="false">Home Widget</string>
 </resources>

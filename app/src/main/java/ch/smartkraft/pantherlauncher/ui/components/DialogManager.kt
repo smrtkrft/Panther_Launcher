@@ -37,9 +37,7 @@ import ch.smartkraft.pantherlauncher.data.Constants
 import ch.smartkraft.pantherlauncher.data.Prefs
 import ch.smartkraft.pantherlauncher.helper.getDeviceInfo
 import ch.smartkraft.pantherlauncher.helper.hasContactsPermission
-import ch.smartkraft.pantherlauncher.helper.themeDownloadButton
 import ch.smartkraft.pantherlauncher.helper.utils.AppReloader
-import ch.smartkraft.pantherlauncher.helper.wordofthedayDownloadButton
 import ch.smartkraft.pantherlauncher.services.HapticFeedbackService
 import ch.smartkraft.components.views.FontBottomSheetDialogLocked
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -162,11 +160,6 @@ class DialogManager(val context: Context, val activity: Activity) {
             }
         }
 
-        // Add Download Option
-        layout.addView(createItem(getLocalizedString(R.string.advanced_settings_theme_download)) {
-            themeDownloadButton(context)
-        })
-
         // Add Export and Import options
         layout.addView(createItem(getLocalizedString(R.string.advanced_settings_theme_export)) {
             (activity as MainActivity).createThemeBackup()
@@ -208,7 +201,6 @@ class DialogManager(val context: Context, val activity: Activity) {
             "ALARM_CLOCK_COLOR",
             "CLOCK_COLOR",
             "BATTERY_COLOR",
-            "DAILY_WORD_COLOR",
             "NOTES_BACKGROUND_COLOR",
             "BUBBLE_BACKGROUND_COLOR",
             "BUBBLE_MESSAGE_COLOR",
@@ -219,84 +211,6 @@ class DialogManager(val context: Context, val activity: Activity) {
 
         )
         keys.forEach { prefs.remove(it) }
-        if (context is Activity) {
-            context.recreate()
-        }
-    }
-
-    var saveDownloadWOTDBottomSheet: FontBottomSheetDialogLocked? = null
-
-    fun showSaveDownloadWOTDBottomSheet() {
-        // Dismiss any existing bottom sheet
-        saveDownloadWOTDBottomSheet?.dismiss()
-
-        HapticFeedbackService.trigger(
-            context,
-            HapticFeedbackService.EffectType.CLICK
-        )
-
-        // Create vertical layout
-        val layout = LinearLayout(context).apply {
-            orientation = LinearLayout.VERTICAL
-            setPadding(48, 24, 48, 24)
-            gravity = Gravity.CENTER_HORIZONTAL
-        }
-
-        // Utility function to create clickable items
-        fun createItem(text: String, onClick: () -> Unit): TextView {
-            return TextView(context).apply {
-                this.text = text
-                textSize = 16f
-                setPadding(0, 32, 0, 32)
-                isClickable = true
-                isFocusable = true
-                setOnClickListener {
-                    onClick()
-                    HapticFeedbackService.trigger(
-                        context,
-                        HapticFeedbackService.EffectType.SAVE
-                    )
-                    saveDownloadWOTDBottomSheet?.dismiss()
-                }
-            }
-        }
-
-        // Add Download Option
-        layout.addView(createItem(getLocalizedString(R.string.advanced_settings_wotd_download)) {
-            wordofthedayDownloadButton(context)
-        })
-
-        // Add Import options
-        layout.addView(createItem(getLocalizedString(R.string.advanced_settings_wotd_import)) {
-            (activity as MainActivity).restoreWordsBackup()
-        })
-
-        // Add Clear Option
-        layout.addView(createItem(getLocalizedString(R.string.advanced_settings_wotd_clear)) {
-            confirmClearWOTD()
-        })
-
-        // Create and show the LockedBottomSheetDialog
-        saveDownloadWOTDBottomSheet = FontBottomSheetDialogLocked(context).apply {
-            setContentView(layout)
-        }
-        saveDownloadWOTDBottomSheet?.show()
-    }
-
-    private fun confirmClearWOTD() {
-        MaterialAlertDialogBuilder(context)
-            .setTitle(getLocalizedString(R.string.advanced_settings_wotd_clear_title))
-            .setMessage(getLocalizedString(R.string.advanced_settings_wotd_clear_description))
-            .setPositiveButton(getLocalizedString(R.string.advanced_settings_clear_yes)) { _, _ ->
-                clearWOTD()
-            }
-            .setNegativeButton(getLocalizedString(R.string.advanced_settings_clear_no), null)
-            .show()
-    }
-
-    fun clearWOTD() {
-        val prefs = Prefs(context)
-        prefs.remove("WORD_LIST")
         if (context is Activity) {
             context.recreate()
         }

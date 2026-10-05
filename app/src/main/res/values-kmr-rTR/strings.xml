@@ -7,7 +7,6 @@
     <string name="show_work_apps">Sepanên kar nîşan bide</string>
     <string name="show_contacts">Di nav têkiliyan de bigere</string>
     <string name="welcome_to_launcher">Bi xêr hatî bo %1$s</string>
-    <string name="continue_by_you_agree">Bi domandinê tu %1$s diperjînî</string>
     <string name="usage_access_permission">Mafê gihîştina bikaranînê</string>
     <string name="location_access_permission">Mafê gihîştina cihê</string>
     <string name="accessibility_access_permission">Mafên gihîştinê</string>
@@ -79,7 +78,6 @@
     <string name="alarm_settings">Alarm</string>
     <string name="bedtime_start_time">Bedtime Start Time</string>
     <string name="bedtime_end_time">Bedtime End Time</string>
-    <string name="show_daily_word">Peyva rojê nîşan bide</string>
     <string name="show_battery">Betariyê nîşan bide</string>
     <string name="show_battery_icon">Îkona betariyê nîşan bide</string>
     <string name="show_private_spaces">Show Private Spaces Icon</string>
@@ -96,7 +94,6 @@
     <string name="date_text_size">Mezinahiya nivîsa dîrokê</string>
     <string name="clock_text_size">Mezinahiya nivîsa demjimêrê</string>
     <string name="alarm_text_size">Mezinahiya nivîsa alarmê</string>
-    <string name="daily_word_text_size">Mezinahiya nivîsa peyva rojê</string>
     <string name="battery_text_size">Mezinahiya nivîsa betariyê</string>
     <string name="layout_positioning">Awa &amp; Bicihkirin</string>
     <string name="app_padding_size">Mezinahiya valahiyê</string>
@@ -119,7 +116,6 @@
     <string name="date_alignment">Dîrok</string>
     <string name="clock_alignment">Demjimêr</string>
     <string name="alarm_alignment">Alarm</string>
-    <string name="daily_word_alignment">Peyva rojê</string>
     <string name="home_alignment">Sepanên dîmendera sereke</string>
     <string name="drawer_alignment">Şemtokê sepanan</string>
     <string name="element_colors">Rengên hêmanan</string>
@@ -128,7 +124,6 @@
     <string name="clock_color">Demjimêr</string>
     <string name="date_color">Dîrok</string>
     <string name="alarm_color">Alarm</string>
-    <string name="daily_word_color">Peyva rojê</string>
     <string name="battery_color">Betarî</string>
     <string name="rainbow_shortcuts">Kurterêyên bûka baranê</string>
     <string name="shortcuts_color">Kurterê</string>
@@ -196,19 +191,11 @@
     <string name="advanced_settings_backup_restore_clear_description">Tu bawer î ku tu dixwazî vê yekê bikî?</string>
     <string name="advanced_settings_theme_title">Afirandina rûkaranan</string>
     <string name="advanced_settings_theme_description">Rûkaran li gorî dilê xwe kesane bike.</string>
-    <string name="advanced_settings_theme_download">Daxîne</string>
     <string name="advanced_settings_theme_export">Derxîne</string>
     <string name="advanced_settings_theme_import">Têxîne</string>
     <string name="advanced_settings_theme_clear">Pak bike</string>
     <string name="advanced_settings_theme_clear_title">Rûkarê ji nû ve saz bike</string>
     <string name="advanced_settings_theme_clear_description">Tu bawer î ku tu dixwazî hemû sazkariyên rûkarê ji nû ve saz bikî?</string>
-    <string name="advanced_settings_wotd_title">Peyva rojê</string>
-    <string name="advanced_settings_wotd_description">Lîsteya peyva rojê ya taybet bîne.</string>
-    <string name="advanced_settings_wotd_download">Daxîne</string>
-    <string name="advanced_settings_wotd_import">Têxîne</string>
-    <string name="advanced_settings_wotd_clear">Pak bike</string>
-    <string name="advanced_settings_wotd_clear_title">Peyva rojê ji nû ve saz bike</string>
-    <string name="advanced_settings_wotd_clear_description">Tu bawer î ku tu dixwazî lîsteya peyva rojê ji nû ve saz bikî?</string>
     <string name="advanced_settings_clear_yes">Erê</string>
     <string name="advanced_settings_clear_no">Na</string>
     <string name="advanced_settings_help_feedback_title">Alîkarî &amp; Nirxandin</string>

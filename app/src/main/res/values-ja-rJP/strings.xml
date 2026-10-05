@@ -7,7 +7,6 @@
     <string name="show_work_apps">仕事のアプリを探す</string>
     <string name="show_contacts">連絡先を検索</string>
     <string name="welcome_to_launcher">%1$sへようこそ</string>
-    <string name="continue_by_you_agree">続行すると、 %1$s に同意したことになります。</string>
     <string name="usage_access_permission">使用状況アクセス権限</string>
     <string name="location_access_permission">位置情報へのアクセス権限</string>
     <string name="accessibility_access_permission">アクセシビリティ権限</string>
@@ -76,7 +75,6 @@
     <string name="show_date">日付を表示</string>
     <string name="show_day_of_year">年間ショー開催日</string>
     <string name="show_alarm">アラームを表示</string>
-    <string name="show_daily_word">今日の単語を見る</string>
     <string name="show_battery">バッテリーを表示</string>
     <string name="show_battery_icon">バッテリーアイコンを表示</string>
     <string name="show_private_spaces">プライベートスペースアイコンを表示</string>
@@ -93,7 +91,6 @@
     <string name="date_text_size">日付のテキストサイズ</string>
     <string name="clock_text_size">時計の文字サイズ</string>
     <string name="alarm_text_size">アラームのテキストサイズ</string>
-    <string name="daily_word_text_size">デイリーワードのテキストサイズ</string>
     <string name="battery_text_size">バッテリーのテキストサイズ</string>
     <string name="layout_positioning">レイアウト &amp; 位置</string>
     <string name="app_padding_size">パッドサイズ</string>
@@ -116,7 +113,6 @@
     <string name="date_alignment">日付</string>
     <string name="clock_alignment">クロック</string>
     <string name="alarm_alignment">アラーム</string>
-    <string name="daily_word_alignment">デイリーワード</string>
     <string name="home_alignment">ホーム アプリ</string>
     <string name="drawer_alignment">ドロワーアプリ</string>
     <string name="element_colors">要素の色</string>
@@ -125,7 +121,6 @@
     <string name="clock_color">クロック</string>
     <string name="date_color">日付</string>
     <string name="alarm_color">アラーム</string>
-    <string name="daily_word_color">デイリーワード</string>
     <string name="battery_color">バッテリー</string>
     <string name="rainbow_shortcuts">レインボーショートカット</string>
     <string name="shortcuts_color">ショートカット</string>
@@ -193,19 +188,11 @@
     <string name="advanced_settings_backup_restore_clear_description">本当にこれをやりたいのですか？</string>
     <string name="advanced_settings_theme_title">テーマ作成</string>
     <string name="advanced_settings_theme_description">自分好みにテーマをカスタマイズしましょう。</string>
-    <string name="advanced_settings_theme_download">ダウンロード</string>
     <string name="advanced_settings_theme_export">輸出</string>
     <string name="advanced_settings_theme_import">輸入</string>
     <string name="advanced_settings_theme_clear">クリア</string>
     <string name="advanced_settings_theme_clear_title">テーマをリセット</string>
     <string name="advanced_settings_theme_clear_description">テーマ設定をすべてリセットしてもよろしいですか？</string>
-    <string name="advanced_settings_wotd_title">今日の単語</string>
-    <string name="advanced_settings_wotd_description">カスタムの「今日の単語」リストをインポートします。</string>
-    <string name="advanced_settings_wotd_download">ダウンロード</string>
-    <string name="advanced_settings_wotd_import">輸入</string>
-    <string name="advanced_settings_wotd_clear">クリア</string>
-    <string name="advanced_settings_wotd_clear_title">リセット 今日の単語</string>
-    <string name="advanced_settings_wotd_clear_description">「今日の単語」の配列をリセットしてもよろしいですか？</string>
     <string name="advanced_settings_clear_yes">はい</string>
     <string name="advanced_settings_clear_no">いいえ</string>
     <string name="advanced_settings_help_feedback_title">ヘルプ &amp; フィードバック</string>

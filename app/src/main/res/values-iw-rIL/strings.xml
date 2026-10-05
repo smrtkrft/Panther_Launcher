@@ -7,7 +7,6 @@
     <string name="show_work_apps">חיפוש אפליקציות עבודה</string>
     <string name="show_contacts">חיפוש אנשי קשר</string>
     <string name="welcome_to_launcher">ברוך בואך אל %1$s</string>
-    <string name="continue_by_you_agree">על ידי המשך ניתנה הסכמתך ל %1$s</string>
     <string name="usage_access_permission">הרשאות גישה לנתוני שימוש</string>
     <string name="location_access_permission">הרשאות גישה למיקום</string>
     <string name="accessibility_access_permission">הרשאות נגישות</string>
@@ -79,7 +78,6 @@
     <string name="alarm_settings">אַזעָקָה</string>
     <string name="bedtime_start_time">שעת תחילת שעת השינה</string>
     <string name="bedtime_end_time">שעת סיום שעת השינה</string>
-    <string name="show_daily_word">הצג מסר יומי</string>
     <string name="show_battery">הצג סוללה</string>
     <string name="show_battery_icon">הצגת סמליל סוללה</string>
     <string name="show_private_spaces">סמל הצג מרחבים פרטיים</string>
@@ -96,7 +94,6 @@
     <string name="date_text_size">גודל הטקסט של התאריך</string>
     <string name="clock_text_size">גודל טקסט שעון</string>
     <string name="alarm_text_size">גודל טקסט שעון מעורר</string>
-    <string name="daily_word_text_size">גודל טקסט המסר היומי</string>
     <string name="battery_text_size">גודל הטקסט של הסוללה</string>
     <string name="layout_positioning">פריסה &amp; מיקום</string>
     <string name="app_padding_size">גודל ריפוד</string>
@@ -119,7 +116,6 @@
     <string name="date_alignment">תאריך</string>
     <string name="clock_alignment">שעון</string>
     <string name="alarm_alignment">שעון מעורר</string>
-    <string name="daily_word_alignment">מסר יומי</string>
     <string name="home_alignment">יישומי דף הבית</string>
     <string name="drawer_alignment">יישומי מגירה</string>
     <string name="element_colors">צבעי אלמנט</string>
@@ -128,7 +124,6 @@
     <string name="clock_color">שעון</string>
     <string name="date_color">תאריך</string>
     <string name="alarm_color">שעון מעורר</string>
-    <string name="daily_word_color">מסר יומי</string>
     <string name="battery_color">סוללה</string>
     <string name="rainbow_shortcuts">קיצורי קשת בענן</string>
     <string name="shortcuts_color">קיצורי דרך</string>
@@ -196,19 +191,11 @@
     <string name="advanced_settings_backup_restore_clear_description">האם אתה בטוח שאתה רוצה לעשות זאת?</string>
     <string name="advanced_settings_theme_title">יצירות ערכות נושא</string>
     <string name="advanced_settings_theme_description">התאם אישית ערכות נושא שיתאימו לך.</string>
-    <string name="advanced_settings_theme_download">הורדה</string>
     <string name="advanced_settings_theme_export">ייצוא</string>
     <string name="advanced_settings_theme_import">ייבוא</string>
     <string name="advanced_settings_theme_clear">בָּרוּר</string>
     <string name="advanced_settings_theme_clear_title">איפוס ערכת נושא</string>
     <string name="advanced_settings_theme_clear_description">האם אתה בטוח שברצונך לאפס את כל הגדרות העיצוב?</string>
-    <string name="advanced_settings_wotd_title">מסר יומי</string>
-    <string name="advanced_settings_wotd_description">ייבוא רשימת מסרים יומיים מותאמת אישית.</string>
-    <string name="advanced_settings_wotd_download">הורדה</string>
-    <string name="advanced_settings_wotd_import">יְבוּא</string>
-    <string name="advanced_settings_wotd_clear">בָּרוּר</string>
-    <string name="advanced_settings_wotd_clear_title">איפוס מילת היום</string>
-    <string name="advanced_settings_wotd_clear_description">האם אתה בטוח שברצונך לאפס את מערך מילת היום?</string>
     <string name="advanced_settings_clear_yes">כֵּן</string>
     <string name="advanced_settings_clear_no">לֹא</string>
     <string name="advanced_settings_help_feedback_title">עזרה &amp; משוב</string>

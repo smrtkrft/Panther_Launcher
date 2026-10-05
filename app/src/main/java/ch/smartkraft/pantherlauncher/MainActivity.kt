@@ -36,14 +36,11 @@ import ch.smartkraft.pantherlauncher.helper.isPantherLauncherDefault
 import ch.smartkraft.pantherlauncher.helper.utils.AppReloader
 import ch.smartkraft.pantherlauncher.helper.utils.SystemBarObserver
 import ch.smartkraft.pantherlauncher.ui.onboarding.OnboardingActivity
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
 import org.xmlpull.v1.XmlPullParser
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
-import java.io.InputStream
 import java.io.InputStreamReader
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -64,7 +61,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var performThemeBackup: ActivityResultLauncher<Intent>
     private lateinit var performThemeRestore: ActivityResultLauncher<Intent>
 
-    private lateinit var performWordsRestore: ActivityResultLauncher<Intent>
 
     private lateinit var pickCustomFont: ActivityResultLauncher<Array<String>>
 
@@ -316,24 +312,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        performWordsRestore = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                result.data?.data?.let { uri ->
-                    // Handle the imported file
-                    try {
-                        contentResolver.openInputStream(uri)?.use { inputStream ->
-                            val importedWords = readWordsFromFile(inputStream)
-                            saveCustomWordList(importedWords)
-                            AppReloader.restartApp(applicationContext)
-                        } ?: showLongToast("Unable to open file")
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        showLongToast("Failed to restore words")
-                    }
-                }
-            }
-        }
-
         setDefaultHomeScreenLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { _ ->
                 val isDefault = isPantherLauncherDefault(this) // Check again if the app is now default
@@ -483,48 +461,6 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(Settings.ACTION_HOME_SETTINGS)
         setDefaultHomeScreenLauncher.launch(intent)
 
-    }
-
-    fun restoreWordsBackup() {
-        val openFileIntent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-            addCategory(Intent.CATEGORY_OPENABLE)
-            type = "application/json"
-        }
-        performWordsRestore.launch(openFileIntent)
-    }
-
-    private fun readWordsFromFile(inputStream: InputStream?): List<String> {
-        val words = mutableListOf<String>()
-
-        inputStream?.let {
-            try {
-                val json = it.bufferedReader().use { reader -> reader.readText() }
-
-                val moshi = Moshi.Builder().build()
-
-                val type = Types.newParameterizedType(
-                    Map::class.java,
-                    String::class.java,
-                    Types.newParameterizedType(List::class.java, String::class.java)
-                )
-                val adapter = moshi.adapter<Map<String, List<String>>>(type)
-
-                val jsonMap = adapter.fromJson(json) // ✅ Now passing a String
-
-                words.addAll(jsonMap?.get("word_of_the_day") ?: emptyList())
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-
-        return words
-    }
-
-
-    private fun saveCustomWordList(words: List<String>) {
-        val wordList = words.joinToString("||")
-        prefs.wordList = wordList
     }
 
     override fun onStop() {

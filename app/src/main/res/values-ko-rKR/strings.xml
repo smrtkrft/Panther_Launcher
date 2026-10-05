@@ -7,7 +7,6 @@
     <string name="show_work_apps">검색 작업 앱</string>
     <string name="show_contacts">연락처 검색</string>
     <string name="welcome_to_launcher">%1$s에 오신 것을 환영합니다</string>
-    <string name="continue_by_you_agree">계속 진행하시면 %1$s에 동의하시는 것입니다.</string>
     <string name="usage_access_permission">사용 접근 권한</string>
     <string name="location_access_permission">위치 접근 권한</string>
     <string name="accessibility_access_permission">접근성 권한</string>
@@ -79,7 +78,6 @@
     <string name="alarm_settings">경보</string>
     <string name="bedtime_start_time">취침 시작 시간</string>
     <string name="bedtime_end_time">취침 종료 시간</string>
-    <string name="show_daily_word">오늘의 단어 보기</string>
     <string name="show_battery">배터리 표시</string>
     <string name="show_battery_icon">배터리 아이콘 표시</string>
     <string name="show_private_spaces">개인 공간 표시 아이콘</string>
@@ -96,7 +94,6 @@
     <string name="date_text_size">날짜 텍스트 크기</string>
     <string name="clock_text_size">시계 텍스트 크기</string>
     <string name="alarm_text_size">알람 텍스트 크기</string>
-    <string name="daily_word_text_size">일일 단어 텍스트 크기</string>
     <string name="battery_text_size">배터리 텍스트 크기</string>
     <string name="layout_positioning">레이아웃 &amp; 위치 지정</string>
     <string name="app_padding_size">패딩 사이즈</string>
@@ -119,7 +116,6 @@
     <string name="date_alignment">날짜</string>
     <string name="clock_alignment">시계</string>
     <string name="alarm_alignment">경보</string>
-    <string name="daily_word_alignment">오늘의 말씀</string>
     <string name="home_alignment">홈 앱</string>
     <string name="drawer_alignment">서랍 앱</string>
     <string name="element_colors">요소 색상</string>
@@ -128,7 +124,6 @@
     <string name="clock_color">시계</string>
     <string name="date_color">날짜</string>
     <string name="alarm_color">경보</string>
-    <string name="daily_word_color">오늘의 말씀</string>
     <string name="battery_color">배터리</string>
     <string name="rainbow_shortcuts">레인보우 바로가기</string>
     <string name="shortcuts_color">바로가기</string>
@@ -196,19 +191,11 @@
     <string name="advanced_settings_backup_restore_clear_description">정말 이렇게 하시겠어요?</string>
     <string name="advanced_settings_theme_title">테마 제작</string>
     <string name="advanced_settings_theme_description">원하는 대로 테마를 맞춤 설정하세요.</string>
-    <string name="advanced_settings_theme_download">다운로드</string>
     <string name="advanced_settings_theme_export">내보내다</string>
     <string name="advanced_settings_theme_import">수입</string>
     <string name="advanced_settings_theme_clear">분명한</string>
     <string name="advanced_settings_theme_clear_title">테마 초기화</string>
     <string name="advanced_settings_theme_clear_description">테마 설정을 모두 초기화하시겠습니까?</string>
-    <string name="advanced_settings_wotd_title">오늘의 단어</string>
-    <string name="advanced_settings_wotd_description">오늘의 단어 목록을 직접 만들어서 가져옵니다.</string>
-    <string name="advanced_settings_wotd_download">다운로드</string>
-    <string name="advanced_settings_wotd_import">수입</string>
-    <string name="advanced_settings_wotd_clear">분명한</string>
-    <string name="advanced_settings_wotd_clear_title">오늘의 단어 재설정</string>
-    <string name="advanced_settings_wotd_clear_description">오늘의 단어 목록을 초기화하시겠습니까?</string>
     <string name="advanced_settings_clear_yes">예</string>
     <string name="advanced_settings_clear_no">아니요</string>
     <string name="advanced_settings_help_feedback_title">도움말 &amp; 피드백</string>

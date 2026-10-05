@@ -7,7 +7,6 @@
     <string name="show_work_apps">İş Uygulamalarını Ara</string>
     <string name="show_contacts">Kişileri Ara</string>
     <string name="welcome_to_launcher">%1$s\'a hoş geldiniz</string>
-    <string name="continue_by_you_agree">Devam ederek %1$s\'yi kabul etmiş oluyorsunuz.</string>
     <string name="usage_access_permission">Kullanım Erişim İzinleri</string>
     <string name="location_access_permission">Konum izni</string>
     <string name="accessibility_access_permission">Erişilebilirlik İzinleri</string>
@@ -79,7 +78,6 @@
     <string name="alarm_settings">Alarm</string>
     <string name="bedtime_start_time">Uyku saati başlangıcı</string>
     <string name="bedtime_end_time">Uyku saati bitişi</string>
-    <string name="show_daily_word">Günün kelimesini göster</string>
     <string name="show_battery">Pil\'i göster</string>
     <string name="show_battery_icon">Pil simgesini göster</string>
     <string name="show_private_spaces">Özel Alanlar Simgesini Göster</string>
@@ -96,7 +94,6 @@
     <string name="date_text_size">Tarih Metin Boyutu</string>
     <string name="clock_text_size">Saat Metin Boyutu</string>
     <string name="alarm_text_size">Alarm Metni Boyutu</string>
-    <string name="daily_word_text_size">Günün kelimesi metin boyutu</string>
     <string name="battery_text_size">Pil Metin Boyutu</string>
     <string name="layout_positioning">Yerleşim ve konum</string>
     <string name="app_padding_size">Boşluk Boyutu</string>
@@ -119,7 +116,6 @@
     <string name="date_alignment">Tarih</string>
     <string name="clock_alignment">Saat</string>
     <string name="alarm_alignment">Alarm</string>
-    <string name="daily_word_alignment">Günün kelimesi</string>
     <string name="home_alignment">Ana ekran uygulamaları</string>
     <string name="drawer_alignment">Çekmece Uygulamaları</string>
     <string name="element_colors">Öğe renkleri</string>
@@ -128,7 +124,6 @@
     <string name="clock_color">Saat</string>
     <string name="date_color">Tarih</string>
     <string name="alarm_color">Alarm</string>
-    <string name="daily_word_color">Günün kelimesi</string>
     <string name="battery_color">Pil</string>
     <string name="rainbow_shortcuts">Renkli kısayol düğmeleri</string>
     <string name="shortcuts_color">Kısayollar</string>
@@ -196,19 +191,11 @@
     <string name="advanced_settings_backup_restore_clear_description">Bunu gerçekten yapmak istediğinizden emin misiniz?</string>
     <string name="advanced_settings_theme_title">Temalar</string>
     <string name="advanced_settings_theme_description">Temaları size uygun şekilde özelleştirin.</string>
-    <string name="advanced_settings_theme_download">İndir</string>
     <string name="advanced_settings_theme_export">Dışa aktar</string>
     <string name="advanced_settings_theme_import">İçe aktar</string>
     <string name="advanced_settings_theme_clear">Temizle</string>
     <string name="advanced_settings_theme_clear_title">Temayı Sıfırla</string>
     <string name="advanced_settings_theme_clear_description">Tüm tema ayarlarını sıfırlamak istediğinizden emin misiniz?</string>
-    <string name="advanced_settings_wotd_title">Günün Kelimesi</string>
-    <string name="advanced_settings_wotd_description">Günün Kelimesi listesini içe aktarın.</string>
-    <string name="advanced_settings_wotd_download">İndir</string>
-    <string name="advanced_settings_wotd_import">İçe aktar</string>
-    <string name="advanced_settings_wotd_clear">Temizle</string>
-    <string name="advanced_settings_wotd_clear_title">Günün Kelimesini Sıfırla</string>
-    <string name="advanced_settings_wotd_clear_description">Günün Kelimesi dizisini sıfırlamak istediğinizden emin misiniz?</string>
     <string name="advanced_settings_clear_yes">Evet</string>
     <string name="advanced_settings_clear_no">Hayır</string>
     <string name="advanced_settings_help_feedback_title">Yardım &amp; Geri Bildirim</string>

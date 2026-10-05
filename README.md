@@ -31,7 +31,7 @@ Kolay gelsin.
 
 ### About this project (English)
 
-This project is developed by **SmartKraft // seu** at my own discretion and solely for my own use, with no intention of distributing it.
+This project is developed by **SmartKraft //SEU ** at my own discretion and solely for my own use, with no intention of distributing it.
 
 - Anyone is welcome to fork it and use it themselves.
 - Nothing other than an APK will be distributed; the app is not published on any store.
@@ -51,9 +51,9 @@ This project is developed by **SmartKraft // seu** at my own discretion and sole
 ./gradlew assembleProdRelease
 ```
 
-## Temalar ve Günün Sözü
+## Temalar
 
-Hazır temalar [themes/](themes/), Günün Sözü dosyaları [wordoftheday/](wordoftheday/) klasöründedir.
+Hazır temalar [themes/](themes/) klasöründedir.
 
 ## Emeği geçenler
 

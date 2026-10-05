@@ -7,7 +7,6 @@
     <string name="show_work_apps">Căutați aplicații de lucru</string>
     <string name="show_contacts">Căutare Contacte</string>
     <string name="welcome_to_launcher">Bun venit la %1$s</string>
-    <string name="continue_by_you_agree">Prin continuare, sunteți de acord cu %1$s</string>
     <string name="usage_access_permission">Permisiuni de acces la utilizare</string>
     <string name="location_access_permission">Permisiuni de acces la locație</string>
     <string name="accessibility_access_permission">Permisiuni de accesibilitate</string>
@@ -79,7 +78,6 @@
     <string name="alarm_settings">Alarma</string>
     <string name="bedtime_start_time">Ora de începere a orei de culcare</string>
     <string name="bedtime_end_time">Ora de încheiere a orei de culcare</string>
-    <string name="show_daily_word">Afișează Cuvântul Zilnic</string>
     <string name="show_battery">Afișați bateria</string>
     <string name="show_battery_icon">Afișează pictograma bateriei</string>
     <string name="show_private_spaces">Pictogramă Afișare spații private</string>
@@ -96,7 +94,6 @@
     <string name="date_text_size">Dimensiunea textului datei</string>
     <string name="clock_text_size">Dimensiunea textului ceasului</string>
     <string name="alarm_text_size">Dimensiunea textului de alarmă</string>
-    <string name="daily_word_text_size">Dimensiunea textului zilnic</string>
     <string name="battery_text_size">Dimensiunea textului bateriei</string>
     <string name="layout_positioning">Aspect &amp; Poziționare</string>
     <string name="app_padding_size">Dimensiunea umpluturii</string>
@@ -119,7 +116,6 @@
     <string name="date_alignment">Data</string>
     <string name="clock_alignment">Ceas</string>
     <string name="alarm_alignment">Alarma</string>
-    <string name="daily_word_alignment">Cuvântul zilnic</string>
     <string name="home_alignment">Aplicații pentru acasă</string>
     <string name="drawer_alignment">Aplicații în sertar</string>
     <string name="element_colors">Culorile elementelor</string>
@@ -128,7 +124,6 @@
     <string name="clock_color">Ceas</string>
     <string name="date_color">Data</string>
     <string name="alarm_color">Alarma</string>
-    <string name="daily_word_color">Cuvântul zilnic</string>
     <string name="battery_color">Baterie</string>
     <string name="rainbow_shortcuts">Scurtături curcubeu</string>
     <string name="shortcuts_color">Scurtături</string>
@@ -196,19 +191,11 @@
     <string name="advanced_settings_backup_restore_clear_description">Sigur vrei să faci asta?</string>
     <string name="advanced_settings_theme_title">Creații tematice</string>
     <string name="advanced_settings_theme_description">Personalizează temele care să ți se potrivească.</string>
-    <string name="advanced_settings_theme_download">Descărcare</string>
     <string name="advanced_settings_theme_export">Export</string>
     <string name="advanced_settings_theme_import">Import</string>
     <string name="advanced_settings_theme_clear">Clar</string>
     <string name="advanced_settings_theme_clear_title">Resetează tema</string>
     <string name="advanced_settings_theme_clear_description">Sigur vrei să resetezi toate setările temei?</string>
-    <string name="advanced_settings_wotd_title">Cuvântul zilei</string>
-    <string name="advanced_settings_wotd_description">Importați o listă personalizată Cuvântul zilei.</string>
-    <string name="advanced_settings_wotd_download">Descărcare</string>
-    <string name="advanced_settings_wotd_import">Import</string>
-    <string name="advanced_settings_wotd_clear">Clar</string>
-    <string name="advanced_settings_wotd_clear_title">Resetează Cuvântul Zilei</string>
-    <string name="advanced_settings_wotd_clear_description">Sigur vrei să resetezi matricea Cuvântul zilei?</string>
     <string name="advanced_settings_clear_yes">Da</string>
     <string name="advanced_settings_clear_no">Nu</string>
     <string name="advanced_settings_help_feedback_title">Ajutor &amp; Feedback</string>

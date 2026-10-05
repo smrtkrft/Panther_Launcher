@@ -7,7 +7,6 @@
     <string name="show_work_apps">Buscar aplicaciones de trabajo</string>
     <string name="show_contacts">Buscar contactos</string>
     <string name="welcome_to_launcher">Bienvenido a %1$s</string>
-    <string name="continue_by_you_agree">Al continuar, aceptas %1$s</string>
     <string name="usage_access_permission">Permisos de acceso y uso</string>
     <string name="location_access_permission">Permisos de acceso a la ubicación</string>
     <string name="accessibility_access_permission">Permisos de accesibilidad</string>
@@ -79,7 +78,6 @@
     <string name="alarm_settings">Alarma</string>
     <string name="bedtime_start_time">Hora de inicio de la hora de acostarse</string>
     <string name="bedtime_end_time">Hora de acostarse Fin de la hora</string>
-    <string name="show_daily_word">Mostrar palabra diaria</string>
     <string name="show_battery">Mostrar nivel de batería</string>
     <string name="show_battery_icon">Mostrar icono de batería</string>
     <string name="show_private_spaces">Mostrar iconos de espacios privados</string>
@@ -96,7 +94,6 @@
     <string name="date_text_size">Tamaño del texto de la fecha</string>
     <string name="clock_text_size">Tamaño del texto del reloj</string>
     <string name="alarm_text_size">Tamaño del texto de la alarma</string>
-    <string name="daily_word_text_size">Tamaño de texto de palabras diarias</string>
     <string name="battery_text_size">Tamaño del texto de la batería</string>
     <string name="layout_positioning">Diseño &amp; Posicionamiento</string>
     <string name="app_padding_size">Interlineado</string>
@@ -119,7 +116,6 @@
     <string name="date_alignment">Fecha</string>
     <string name="clock_alignment">Reloj</string>
     <string name="alarm_alignment">Alarma</string>
-    <string name="daily_word_alignment">Palabra diaria</string>
     <string name="home_alignment">Aplicaciones de inicio</string>
     <string name="drawer_alignment">Aplicaciones del cajón</string>
     <string name="element_colors">Colores de los elementos</string>
@@ -128,7 +124,6 @@
     <string name="clock_color">Reloj</string>
     <string name="date_color">Fecha</string>
     <string name="alarm_color">Alarma</string>
-    <string name="daily_word_color">Palabra diaria</string>
     <string name="battery_color">Batería</string>
     <string name="rainbow_shortcuts">Atajos arcoíris</string>
     <string name="shortcuts_color">Atajos</string>
@@ -196,19 +191,11 @@
     <string name="advanced_settings_backup_restore_clear_description">¿Estás seguro de que quieres hacer esto?</string>
     <string name="advanced_settings_theme_title">Creaciones temáticas</string>
     <string name="advanced_settings_theme_description">Personaliza los temas a tu gusto.</string>
-    <string name="advanced_settings_theme_download">Descargar</string>
     <string name="advanced_settings_theme_export">Exportar</string>
     <string name="advanced_settings_theme_import">Importar</string>
     <string name="advanced_settings_theme_clear">Claro</string>
     <string name="advanced_settings_theme_clear_title">Restablecer tema</string>
     <string name="advanced_settings_theme_clear_description">¿Estás seguro de que quieres restablecer todos los ajustes del tema?</string>
-    <string name="advanced_settings_wotd_title">Palabra del día</string>
-    <string name="advanced_settings_wotd_description">Importa una lista personalizada de la Palabra del Día.</string>
-    <string name="advanced_settings_wotd_download">Descargar</string>
-    <string name="advanced_settings_wotd_import">Importar</string>
-    <string name="advanced_settings_wotd_clear">Claro</string>
-    <string name="advanced_settings_wotd_clear_title">Restablecer Palabra del día</string>
-    <string name="advanced_settings_wotd_clear_description">¿Está seguro de que desea restablecer la matriz de la Palabra del Día?</string>
     <string name="advanced_settings_clear_yes">Sí</string>
     <string name="advanced_settings_clear_no">No</string>
     <string name="advanced_settings_help_feedback_title">Ayuda &amp; Comentarios</string>
