@@ -13,6 +13,13 @@ class Migration(val context: Context) {
 
         AppLogger.d("PrefsMigration", "Starting migration: savedVersion=$savedVersionCode, currentVersion=$currentVersionCode")
 
+        // Before an update touches anything, keep a copy of every setting. A migration that goes
+        // wrong can then be undone from Settings > Backup/Restore. Rule for new migrations: a key
+        // is moved to its replacement or left alone, never just deleted.
+        if (savedVersionCode != -1 && savedVersionCode != currentVersionCode) {
+            SettingsSnapshots.save(context, prefs, savedVersionCode)
+        }
+
         // Map of version code -> preferences to clear (wildcards allowed)
         val versionCleanupMap = mapOf(
             171 to listOf(

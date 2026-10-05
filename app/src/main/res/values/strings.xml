@@ -155,6 +155,10 @@
     <string name="category_show_count">Show app count in categories</string>
     <string name="drawer_search_height">Search Area Height</string>
     <string name="drawer_search_spacing">Space Below Search</string>
+    <string name="advanced_settings_backup_restore_snapshot">Restore automatic backup</string>
+    <string name="advanced_settings_backup_restore_snapshot_item">Settings of %1$s, %2$s</string>
+    <string name="advanced_settings_backup_restore_snapshot_confirm">All current settings will be replaced with this copy.</string>
+    <string name="advanced_settings_backup_restore_snapshot_failed">This backup could not be read.</string>
     <string name="smart_search">Smart Search</string>
     <string name="enable_filter_strength">Enable Fuzzy Finder</string>
     <string name="filter_strength">Fuzzy Finder Strength</string>

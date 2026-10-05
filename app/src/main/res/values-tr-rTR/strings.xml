@@ -117,6 +117,10 @@
     <string name="category_show_count">Kategorilerde uygulama sayısını göster</string>
     <string name="drawer_search_height">Arama alanı yüksekliği</string>
     <string name="drawer_search_spacing">Aramanın altındaki boşluk</string>
+    <string name="advanced_settings_backup_restore_snapshot">Otomatik yedeği geri yükle</string>
+    <string name="advanced_settings_backup_restore_snapshot_item">%1$s sürümünün ayarları, %2$s</string>
+    <string name="advanced_settings_backup_restore_snapshot_confirm">Mevcut tüm ayarlar bu kopyayla değiştirilecek.</string>
+    <string name="advanced_settings_backup_restore_snapshot_failed">Bu yedek okunamadı.</string>
     <string name="smart_search">Akıllı arama</string>
     <string name="enable_filter_strength">Esnek aramayı aç</string>
     <string name="filter_strength">Esnek arama hassasiyeti</string>

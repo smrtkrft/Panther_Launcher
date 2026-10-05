@@ -32,9 +32,14 @@ import ch.smartkraft.common.getSdCardInfo
 import ch.smartkraft.common.getStorageInfo
 import ch.smartkraft.common.requestRuntimePermission
 import ch.smartkraft.pantherlauncher.MainActivity
+import ch.smartkraft.pantherlauncher.BuildConfig
 import ch.smartkraft.pantherlauncher.R
 import ch.smartkraft.pantherlauncher.data.Constants
 import ch.smartkraft.pantherlauncher.data.Prefs
+import ch.smartkraft.common.AppLogger
+import ch.smartkraft.common.showLongToast
+import java.text.DateFormat
+import ch.smartkraft.pantherlauncher.data.SettingsSnapshots
 import ch.smartkraft.pantherlauncher.helper.getDeviceInfo
 import ch.smartkraft.pantherlauncher.helper.hasContactsPermission
 import ch.smartkraft.pantherlauncher.helper.utils.AppReloader
@@ -48,6 +53,47 @@ class DialogManager(val context: Context, val activity: Activity) {
     val selectedColor: Int = ContextCompat.getColor(context, R.color.colorSelected)
 
     var backupRestoreBottomSheet: FontBottomSheetDialogLocked? = null
+
+    /** Lists the automatic settings copies, newest first, and restores the chosen one after confirmation. */
+    private fun showSnapshotPicker() {
+        val snapshots = SettingsSnapshots.list(context)
+        if (snapshots.isEmpty()) return
+        val dateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT)
+        val labels = snapshots.map { snapshot ->
+            getLocalizedString(R.string.advanced_settings_backup_restore_snapshot_item, versionNameOf(snapshot.versionCode), dateFormat.format(snapshot.takenAt))
+        }
+        MaterialAlertDialogBuilder(context)
+            .setTitle(getLocalizedString(R.string.advanced_settings_backup_restore_snapshot))
+            .setItems(labels.toTypedArray()) { _, index ->
+                val snapshot = snapshots[index]
+                MaterialAlertDialogBuilder(context)
+                    .setTitle(labels[index])
+                    .setMessage(getLocalizedString(R.string.advanced_settings_backup_restore_snapshot_confirm))
+                    .setPositiveButton(getLocalizedString(R.string.advanced_settings_backup_restore_restore)) { _, _ ->
+                        val restored = try {
+                            Prefs(context).loadFromString(snapshot.file.readText())
+                        } catch (e: Exception) {
+                            AppLogger.e("SettingsSnapshots", "Could not read ${snapshot.file.name}", e)
+                            false
+                        }
+                        if (restored) {
+                            // The copy carries the old version number; the update it came from is already done
+                            Prefs(context).appVersion = BuildConfig.VERSION_CODE
+                            AppReloader.restartApp(context)
+                        } else {
+                            context.showLongToast(getLocalizedString(R.string.advanced_settings_backup_restore_snapshot_failed))
+                        }
+                    }
+                    .setNegativeButton(getLocalizedString(R.string.cancel), null)
+                    .show()
+            }
+            .setNegativeButton(getLocalizedString(R.string.cancel), null)
+            .show()
+    }
+
+    /** "1.12.2.0" for a version code of the form MMmmppbb. */
+    private fun versionNameOf(code: Int): String =
+        listOf(code / 1_000_000, code / 10_000 % 100, code / 100 % 100, code % 100).joinToString(".")
 
     fun showBackupRestoreBottomSheet() {
         // Dismiss existing bottom sheet if it's showing
@@ -92,6 +138,13 @@ class DialogManager(val context: Context, val activity: Activity) {
         layout.addView(createItem(getLocalizedString(R.string.advanced_settings_backup_restore_restore)) {
             (activity as MainActivity).restoreFullBackup()
         })
+
+        // Copies taken automatically before app updates
+        if (SettingsSnapshots.list(context).isNotEmpty()) {
+            layout.addView(createItem(getLocalizedString(R.string.advanced_settings_backup_restore_snapshot)) {
+                showSnapshotPicker()
+            })
+        }
 
         layout.addView(createItem(getLocalizedString(R.string.advanced_settings_backup_restore_clear)) {
             confirmClearData()

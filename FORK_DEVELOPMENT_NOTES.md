@@ -44,6 +44,7 @@ Bu dosya, Panther Launcher'ın kaynağı olan [mLauncher (Multi Launcher)](https
 - "Sistemi izle" teması, koyu mod zamanlanmış ya da otomatik olduğunda da doğru çalışıyor.
 - Gizlenen uygulamalar, "Son kullanılanları göster" açıkken artık çekmecede ve aramada görünmüyor.
 - Türkçe çevirideki 349 metnin 106'sı düzeltildi.
+- Her uygulama güncellemesinden önce tüm ayarların otomatik bir kopyası alınıyor (son 5 tanesi saklanır) ve Ayarlar → Yedekle/Geri yükle altından geri yüklenebiliyor; kaynak projede güncellemeler ayarları silebiliyordu.
 - Widget'ların yeri ve boyutu yalnızca ızgara hücresi olarak saklanıyor; her açılışta kayma, ekran döndürmede bozulma ve eski boyutun kaydedilmesi giderildi.
 - Widget'lar üst üste binmiyor ve sayfanın dışına taşmıyor; dolu yere bırakılan widget eski yerine dönüyor, sayfa doluyken uyarı çıkıyor.
 - Yeni widget, uygulamasının istediği boyutla ekleniyor ve gerçek boyutu kendisine doğru bildiriliyor; varsayılanın altına da küçültülebiliyor.
@@ -118,6 +119,7 @@ This file summarises where Panther Launcher departs from its source, [mLauncher 
 - The "follow system" theme now also works when dark mode is scheduled or automatic.
 - Hidden apps no longer appear in the drawer or in search when "Show recent apps" is on.
 - 106 of the 349 strings in the Turkish translation were corrected.
+- Before every app update an automatic copy of all settings is taken (the last 5 are kept) and can be restored under Settings → Backup/Restore; in the source project updates could wipe the settings.
 - A widget's place and size are stored as grid cells only; drifting on every open, breaking on rotation and saving the old size are fixed.
 - Widgets no longer overlap or leave the page; a widget dropped on taken cells returns to its place, and a warning is shown when the page is full.
 - A new widget is added at the size its app asks for and is told its real size correctly; it can also be made smaller than its default.
