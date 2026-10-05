@@ -6,6 +6,7 @@
     <color colorName="ALARM_CLOCK_COLOR" />
     <color colorName="CLOCK_COLOR" />
     <color colorName="BATTERY_COLOR" />
+    <color colorName="CATEGORY_COLOR" />
 
     <color colorName="NOTES_BACKGROUND_COLOR" />
     <color colorName="BUBBLE_BACKGROUND_COLOR" />

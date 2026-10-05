@@ -39,6 +39,15 @@ object Constants {
     const val MIN_BATTERY_SIZE = 10
     const val MAX_BATTERY_SIZE = 75
 
+    const val MIN_CATEGORY_SIZE = 8
+    const val MAX_CATEGORY_SIZE = 40
+
+    // Drawer search area, in dp
+    const val MIN_SEARCH_SPACING = 0
+    const val MAX_SEARCH_SPACING = 64
+    const val MIN_SEARCH_HEIGHT = 0
+    const val MAX_SEARCH_HEIGHT = 40
+
     const val MIN_TEXT_PADDING = 0
     const val MAX_TEXT_PADDING = 50
 

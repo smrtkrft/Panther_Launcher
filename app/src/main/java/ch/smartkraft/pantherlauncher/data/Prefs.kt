@@ -471,6 +471,43 @@ class Prefs(val context: Context) {
         get() = getSetting(HAPTIC_FEEDBACK, true)
         set(value) = prefsNormal.edit { putBoolean(HAPTIC_FEEDBACK, value) }
 
+    /** Drawer shows apps grouped into categories (one open at a time) instead of one A-Z list. */
+    var drawerCategories: Boolean
+        get() = getSetting(DRAWER_CATEGORIES, true)
+        set(value) = prefsNormal.edit { putBoolean(DRAWER_CATEGORIES, value) }
+
+    /** The category that was open last, so the drawer comes back the way it was left. */
+    var openDrawerCategory: String
+        get() = getSetting(OPEN_DRAWER_CATEGORY, emptyString())
+        set(value) = prefsNormal.edit { putString(OPEN_DRAWER_CATEGORY, value) }
+
+    // Look of the category headers
+    var categorySize: Int
+        get() = getSetting(CATEGORY_SIZE_TEXT, 14)
+        set(value) = prefsNormal.edit { putInt(CATEGORY_SIZE_TEXT, value) }
+
+    var categoryColor: Int
+        get() = getSetting(CATEGORY_COLOR, getColor(context, getColorInt("txt")))
+        set(value) = prefsNormal.edit { putInt(CATEGORY_COLOR, value) }
+
+    var categoryUppercase: Boolean
+        get() = getSetting(CATEGORY_UPPERCASE, true)
+        set(value) = prefsNormal.edit { putBoolean(CATEGORY_UPPERCASE, value) }
+
+    var categoryShowCount: Boolean
+        get() = getSetting(CATEGORY_SHOW_COUNT, true)
+        set(value) = prefsNormal.edit { putBoolean(CATEGORY_SHOW_COUNT, value) }
+
+    /** Gap between the drawer's search area and the list, in dp. */
+    var searchSpacing: Int
+        get() = getSetting(SEARCH_SPACING, 16)
+        set(value) = prefsNormal.edit { putInt(SEARCH_SPACING, value) }
+
+    /** Padding above and below the drawer's search field, in dp. */
+    var searchHeight: Int
+        get() = getSetting(SEARCH_HEIGHT, 10)
+        set(value) = prefsNormal.edit { putInt(SEARCH_HEIGHT, value) }
+
     var showAZSidebar: Boolean
         get() = getSetting(SHOW_AZSIDEBAR, false)
         set(value) = prefsNormal.edit { putBoolean(SHOW_AZSIDEBAR, value) }

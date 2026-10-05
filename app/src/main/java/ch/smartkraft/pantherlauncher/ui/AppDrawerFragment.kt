@@ -107,6 +107,14 @@ class AppDrawerFragment : BaseFragment() {
             insets
         }
 
+        // Height of the search area and the gap below it come from the settings
+        val density = resources.displayMetrics.density
+        binding.searchContainer.apply {
+            val vertical = (prefs.searchHeight * density).toInt()
+            setPadding(paddingLeft, vertical, paddingRight, vertical)
+        }
+        (binding.menuView.layoutParams as ViewGroup.MarginLayoutParams).topMargin = (prefs.searchSpacing * density).toInt()
+
         // Check if device is using gesture navigation or 3-button navigation
         val isGestureNav = isGestureNavigationEnabled(requireContext())
 
@@ -706,7 +714,7 @@ class AppDrawerFragment : BaseFragment() {
                 if (skipCondition() || newList == currentList) return@observe
                 newList?.let {
                     binding.listEmptyHint.isVisible = it.isEmpty()
-                    binding.sidebarContainer.isVisible = prefs.showAZSidebar
+                    binding.sidebarContainer.isVisible = prefs.showAZSidebar && !(flag == AppDrawerFlag.LaunchApp && prefs.drawerCategories)
                     onPopulate(it)
                 }
             }
@@ -757,7 +765,7 @@ class AppDrawerFragment : BaseFragment() {
                 AppLogger.d("AppMerge", "Final merged list (${mergedList.size} apps)")
 
                 binding.listEmptyHint.isVisible = mergedList.isEmpty()
-                binding.sidebarContainer.isVisible = prefs.showAZSidebar
+                binding.sidebarContainer.isVisible = prefs.showAZSidebar && !(flag == AppDrawerFlag.LaunchApp && prefs.drawerCategories)
                 populateAppList(mergedList, appAdapter)
             }
         }

@@ -109,6 +109,14 @@
     <string name="select_app_list_icons">Uygulama Listesi Simge Paketini Seçin</string>
     <string name="app_lock_needs_screen_lock">Uygulama kilidini kullanmak için bu cihazda ekran kilidi ayarlayın.</string>
     <string name="widgets_no_space">Widget sayfasında yer kalmadı. Önce bir widget\'ı küçültün ya da kaldırın.</string>
+    <string name="drawer_categories">Uygulamaları kategoriye göre grupla</string>
+    <string name="category_other">Diğer</string>
+    <string name="category_text_size">Kategori Metin Boyutu</string>
+    <string name="category_color">Kategori</string>
+    <string name="category_uppercase">Kategori adları büyük harfle</string>
+    <string name="category_show_count">Kategorilerde uygulama sayısını göster</string>
+    <string name="drawer_search_height">Arama alanı yüksekliği</string>
+    <string name="drawer_search_spacing">Aramanın altındaki boşluk</string>
     <string name="smart_search">Akıllı arama</string>
     <string name="enable_filter_strength">Esnek aramayı aç</string>
     <string name="filter_strength">Esnek arama hassasiyeti</string>

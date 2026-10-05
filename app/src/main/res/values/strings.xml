@@ -147,6 +147,14 @@
     <string name="app_lock_needs_screen_lock">Set a screen lock on this device to use the app lock.</string>
     <string name="widgets_size_label" translatable="false">%1$d × %2$d</string>
     <string name="widgets_no_space">No room left on the widget page. Resize or remove a widget first.</string>
+    <string name="drawer_categories">Group apps by category</string>
+    <string name="category_other">Other</string>
+    <string name="category_text_size">Category Text Size</string>
+    <string name="category_color">Category</string>
+    <string name="category_uppercase">Uppercase category names</string>
+    <string name="category_show_count">Show app count in categories</string>
+    <string name="drawer_search_height">Search Area Height</string>
+    <string name="drawer_search_spacing">Space Below Search</string>
     <string name="smart_search">Smart Search</string>
     <string name="enable_filter_strength">Enable Fuzzy Finder</string>
     <string name="filter_strength">Fuzzy Finder Strength</string>

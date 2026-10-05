@@ -5,6 +5,11 @@
 package ch.smartkraft.pantherlauncher.ui.adapter
 
 import android.annotation.SuppressLint
+import ch.smartkraft.pantherlauncher.databinding.AdapterAppCategoryBinding
+import ch.smartkraft.pantherlauncher.data.CATEGORY_PREFIX
+import android.view.Gravity
+import android.os.Process
+import android.content.pm.ApplicationInfo
 import android.app.Activity
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -66,7 +71,7 @@ class AppDrawerAdapter(
     private val appTagListener: (String, String, UserHandle) -> Unit,
     private val appHideListener: (AppDrawerFlag, AppListItem) -> Unit,
     private val appInfoListener: (AppListItem) -> Unit
-) : RecyclerView.Adapter<AppDrawerAdapter.ViewHolder>(), Filterable {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
 
     private lateinit var prefs: Prefs
     private var appFilter = createAppFilter()
@@ -80,9 +85,100 @@ class AppDrawerAdapter(
     private val iconCache = ConcurrentHashMap<String, Drawable>()
     private val iconLoadingScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
+    private companion object {
+        const val TYPE_APP = 0
+        const val TYPE_CATEGORY = 1
+    }
+
     private var isBangSearch = false
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    // ---- Category view -------------------------------------------------------------------
+    private val settings by lazy { Prefs(context) }
+    private var currentQuery = ""
+    private val headers = HashMap<String, DrawerRow.Header>()
+    private val systemCategories = HashMap<String, String?>()
+
+    /** The category view is only used for the plain app drawer, not for pickers or hidden apps. */
+    private val categoryMode: Boolean
+        get() = flag == AppDrawerFlag.LaunchApp && settings.drawerCategories
+
+    /** The category an app declares to Android, as the system names it; null when it declares none. */
+    private fun systemCategoryOf(packageName: String): String? = systemCategories.getOrPut(packageName) {
+        try {
+            val info = context.packageManager.getApplicationInfo(packageName, 0)
+            ApplicationInfo.getCategoryTitle(context, info.category)?.toString()
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    /** What is shown without a search: the grouped rows in category view, otherwise every app. */
+    private fun listWithoutSearch(): MutableList<AppListItem> {
+        if (!categoryMode) return appsList
+        val pinned = settings.pinnedApps
+        val rows = AppGrouping.rows(
+            apps = appsList,
+            isPinned = { it.settingsKey in pinned },
+            tagOf = { it.tag },
+            systemCategoryOf = { systemCategoryOf(it.activityPackage) },
+            otherName = getLocalizedString(R.string.category_other),
+            openCategory = settings.openDrawerCategory
+        )
+        headers.clear()
+        return rows.map { row ->
+            when (row) {
+                is DrawerRow.App -> row.item
+                is DrawerRow.Header -> {
+                    headers[row.name] = row
+                    AppListItem(row.name, "", CATEGORY_PREFIX + row.name, Process.myUserHandle(), customTag = "")
+                }
+            }
+        }.toMutableList()
+    }
+
+    /** Opens a category and closes the one that was open; tapping the open one closes it. */
+    @SuppressLint("NotifyDataSetChanged")
+    private fun toggleCategory(name: String) {
+        settings.openDrawerCategory = if (settings.openDrawerCategory.equals(name, ignoreCase = true)) "" else name
+        appFilteredList = listWithoutSearch()
+        notifyDataSetChanged()
+    }
+
+    override fun getItemViewType(position: Int): Int =
+        if (appFilteredList.getOrNull(position)?.isCategoryHeader == true) TYPE_CATEGORY else TYPE_APP
+
+    inner class CategoryHolder(val row: AdapterAppCategoryBinding) : RecyclerView.ViewHolder(row.root)
+
+    private fun bindCategory(holder: CategoryHolder, item: AppListItem) {
+        val header = headers[item.activityLabel]
+        val labelSize = settings.categorySize.toFloat()
+        val color = settings.categoryColor
+        holder.row.categoryRow.gravity = gravity or Gravity.CENTER_VERTICAL
+        holder.row.categoryName.apply {
+            isAllCaps = settings.categoryUppercase
+            text = item.activityLabel
+            textSize = labelSize
+            setTextColor(color)
+        }
+        holder.row.categoryCount.apply {
+            isVisible = settings.categoryShowCount
+            text = (header?.count ?: 0).toString()
+            textSize = labelSize
+            setTextColor(color)
+        }
+        holder.row.categoryChevron.apply {
+            textSize = labelSize
+            setTextColor(color)
+            rotation = if (header?.expanded == true) 90f else 0f
+        }
+        holder.row.root.setOnClickListener { toggleCategory(item.activityLabel) }
+    }
+    // ----------------------------------------------------------------------------------------
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        if (viewType == TYPE_CATEGORY) {
+            return CategoryHolder(AdapterAppCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        }
         binding = AdapterAppDrawerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         prefs = Prefs(parent.context)
         biometricHelper = BiometricHelper(fragment.requireActivity())
@@ -95,16 +191,20 @@ class AppDrawerAdapter(
         return ViewHolder(binding)
     }
 
-    fun getItemAt(position: Int): AppListItem? {
-        return if (position in appsList.indices) appsList[position] else null
-    }
+    /** The app shown at [position]; null for a category header. */
+    fun getItemAt(position: Int): AppListItem? = appFilteredList.getOrNull(position)?.takeUnless { it.isCategoryHeader }
 
     @SuppressLint("RecyclerView")
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         if (appFilteredList.isEmpty() || position !in appFilteredList.indices) {
             AppLogger.d("AppListDebug", "⚠️ onBindViewHolder called but appFilteredList is empty or position out of bounds")
             return
         }
+        if (viewHolder is CategoryHolder) {
+            bindCategory(viewHolder, appFilteredList[position])
+            return
+        }
+        val holder = viewHolder as ViewHolder
 
         val appModel = appFilteredList[holder.absoluteAdapterPosition]
         AppLogger.d("AppListDebug", "🔧 Binding position=$position, label=${appModel.activityLabel}, package=${appModel.activityPackage}")
@@ -205,6 +305,7 @@ class AppDrawerAdapter(
         return object : Filter() {
             override fun performFiltering(charSearch: CharSequence?): FilterResults {
                 val searchChars = charSearch.toString().trim().lowercase()
+                currentQuery = searchChars
                 val isTagSearch = searchChars.startsWith("#")
                 val query = if (isTagSearch) searchChars.substringAfter("#") else searchChars
 
@@ -232,7 +333,8 @@ class AppDrawerAdapter(
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
                 if (results?.values is MutableList<*>) {
-                    appFilteredList = results.values as MutableList<AppListItem>
+                    // Without a search the category view shows its groups; a search always gives a flat list
+                    appFilteredList = if (constraint.isNullOrBlank()) listWithoutSearch() else results.values as MutableList<AppListItem>
                     notifyDataSetChanged()
                 } else {
                     return
@@ -242,7 +344,7 @@ class AppDrawerAdapter(
     }
 
     private fun autoLaunch(position: Int) {
-        val lastMatch = itemCount == 1
+        val lastMatch = itemCount == 1 && appFilteredList.firstOrNull()?.isCategoryHeader == false
         val openApp = flag == AppDrawerFlag.LaunchApp
         val autoOpenApp = prefs.autoOpenApp
         if (lastMatch && openApp && autoOpenApp) {
@@ -257,25 +359,20 @@ class AppDrawerAdapter(
     @SuppressLint("NotifyDataSetChanged")
     fun setAppList(appsList: MutableList<AppListItem>) {
         this.appsList = appsList
-        this.appFilteredList = appsList
+        this.appFilteredList = if (currentQuery.isEmpty()) listWithoutSearch() else appsList
         notifyDataSetChanged()
     }
 
     fun launchFirstInList() {
-        if (appFilteredList.isNotEmpty())
-            appClickListener(appFilteredList[0])
+        appFilteredList.firstOrNull { !it.isCategoryHeader }?.let { appClickListener(it) }
     }
 
-    fun getFirstInList(): String? {
-        if (appFilteredList.isNotEmpty())
-            return appFilteredList[0].activityLabel
-        return null
-    }
+    fun getFirstInList(): String? = appFilteredList.firstOrNull { !it.isCategoryHeader }?.activityLabel
 
-    override fun onViewRecycled(holder: ViewHolder) {
+    override fun onViewRecycled(holder: RecyclerView.ViewHolder) {
         super.onViewRecycled(holder)
         // Optionally clear icon to avoid wrong icons on recycled views
-        holder.clearIcon()
+        (holder as? ViewHolder)?.clearIcon()
     }
 
     inner class ViewHolder(

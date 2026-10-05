@@ -201,6 +201,7 @@ class DialogManager(val context: Context, val activity: Activity) {
             "ALARM_CLOCK_COLOR",
             "CLOCK_COLOR",
             "BATTERY_COLOR",
+            "CATEGORY_COLOR",
             "NOTES_BACKGROUND_COLOR",
             "BUBBLE_BACKGROUND_COLOR",
             "BUBBLE_MESSAGE_COLOR",

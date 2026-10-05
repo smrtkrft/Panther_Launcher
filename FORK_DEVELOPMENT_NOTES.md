@@ -54,6 +54,9 @@ Bu dosya, Panther Launcher'ın kaynağı olan [mLauncher (Multi Launcher)](https
 
 - Adın uzunluğuna bağlı olmayan, kelime başlarını ve tek harflik yazım hatalarını eşleştiren "Akıllı arama" eklendi; kapatılınca eski arama geri geliyor.
 - Çekmecedeki arama alanı büyütüldü ve listeyle arasına boşluk eklendi.
+- Çekmeceye kategori görünümü eklendi: sabitlenmiş uygulamalar üstte, diğerleri aynı anda yalnızca biri açılan kategorilerde; her uygulama tek yerde görünür ve kapatılınca A–Z listesi geri gelir.
+- Kategoriler önce uygulamaya verilen etiketten, yoksa uygulamanın Android'e bildirdiği kategoriden oluşur; kalanlar "Diğer"e girer.
+- Kategori başlıklarının boyutu, rengi, büyük harf ve sayı gösterimi ile arama alanının yüksekliği ve altındaki boşluk ayarlardan değiştirilebilir.
 - Günün Sözü tüm parçalarıyla kaldırıldı.
 - Uygulamanın adı "Panther Launcher", kimliği `app.pantherlauncher` oldu.
 - Yeni logo: siyah üzerine beyaz, Cormorant Garamond (açık lisanslı) ile yazılmış "PanTher"; uyarlanabilir uygulama simgesi olarak da kullanılıyor.
@@ -114,6 +117,9 @@ This file summarises where Panther Launcher departs from its source, [mLauncher 
 
 - "Smart Search" was added: it does not depend on the length of the name and matches word beginnings and single-letter typos; switching it off brings back the previous search.
 - The search area in the drawer was enlarged and a gap was added between it and the list.
+- A category view was added to the drawer: pinned apps on top, the rest in categories of which only one is open at a time; every app appears in one place, and switching it off brings back the A–Z list.
+- Categories come from the tag given to an app, otherwise from the category the app declares to Android; what is left goes to "Other".
+- The size, colour, capitalisation and app count of the category headers, and the height of the search area and the space below it, can be changed in the settings.
 - Word of the Day was removed with all its parts.
 - The app is now named "Panther Launcher" with the ID `app.pantherlauncher`.
 - New logo: "PanTher" in white on black, set in Cormorant Garamond (open licence); it is also used as an adaptive app icon.

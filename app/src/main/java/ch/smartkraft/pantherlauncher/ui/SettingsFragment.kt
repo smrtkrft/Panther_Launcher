@@ -201,6 +201,13 @@ class SettingsFragment : BaseFragment() {
         var toggledSearchFromStart by remember { mutableStateOf(prefs.searchFromStart) }
         var toggledEnableFilterStrength by remember { mutableStateOf(prefs.enableFilterStrength) }
         var toggledSmartSearch by remember { mutableStateOf(prefs.smartSearch) }
+        var toggledDrawerCategories by remember { mutableStateOf(prefs.drawerCategories) }
+        var toggledCategoryUppercase by remember { mutableStateOf(prefs.categoryUppercase) }
+        var toggledCategoryShowCount by remember { mutableStateOf(prefs.categoryShowCount) }
+        var selectedCategorySize by remember { mutableIntStateOf(prefs.categorySize) }
+        var selectedCategoryColor by remember { mutableIntStateOf(prefs.categoryColor) }
+        var selectedSearchSpacing by remember { mutableIntStateOf(prefs.searchSpacing) }
+        var selectedSearchHeight by remember { mutableIntStateOf(prefs.searchHeight) }
         var selectedFilterStrength by remember { mutableIntStateOf(prefs.filterStrength) }
 
         var toggledAutoOpenApp by remember { mutableStateOf(prefs.autoOpenApp) }
@@ -752,6 +759,76 @@ class SettingsFragment : BaseFragment() {
                             }
                         )
                     }
+
+                    SettingsSwitch(
+                        text = getLocalizedString(R.string.drawer_categories),
+                        fontSize = titleFontSize,
+                        defaultState = toggledDrawerCategories,
+                        onCheckedChange = {
+                            toggledDrawerCategories = !prefs.drawerCategories
+                            prefs.drawerCategories = toggledDrawerCategories
+                        }
+                    )
+
+                    if (toggledDrawerCategories) {
+                        SettingsSwitch(
+                            text = getLocalizedString(R.string.category_uppercase),
+                            fontSize = titleFontSize,
+                            defaultState = toggledCategoryUppercase,
+                            onCheckedChange = {
+                                toggledCategoryUppercase = !prefs.categoryUppercase
+                                prefs.categoryUppercase = toggledCategoryUppercase
+                            }
+                        )
+
+                        SettingsSwitch(
+                            text = getLocalizedString(R.string.category_show_count),
+                            fontSize = titleFontSize,
+                            defaultState = toggledCategoryShowCount,
+                            onCheckedChange = {
+                                toggledCategoryShowCount = !prefs.categoryShowCount
+                                prefs.categoryShowCount = toggledCategoryShowCount
+                            }
+                        )
+                    }
+
+                    SettingsSelect(
+                        title = getLocalizedString(R.string.drawer_search_height),
+                        option = selectedSearchHeight.toString(),
+                        fontSize = titleFontSize,
+                        onClick = {
+                            dialogBuilder.showSliderBottomSheet(
+                                context = requireContext(),
+                                title = getLocalizedString(R.string.drawer_search_height),
+                                minValue = Constants.MIN_SEARCH_HEIGHT,
+                                maxValue = Constants.MAX_SEARCH_HEIGHT,
+                                currentValue = prefs.searchHeight,
+                                onValueSelected = { newValue ->
+                                    selectedSearchHeight = newValue.toInt()
+                                    prefs.searchHeight = newValue.toInt()
+                                }
+                            )
+                        }
+                    )
+
+                    SettingsSelect(
+                        title = getLocalizedString(R.string.drawer_search_spacing),
+                        option = selectedSearchSpacing.toString(),
+                        fontSize = titleFontSize,
+                        onClick = {
+                            dialogBuilder.showSliderBottomSheet(
+                                context = requireContext(),
+                                title = getLocalizedString(R.string.drawer_search_spacing),
+                                minValue = Constants.MIN_SEARCH_SPACING,
+                                maxValue = Constants.MAX_SEARCH_SPACING,
+                                currentValue = prefs.searchSpacing,
+                                onValueSelected = { newValue ->
+                                    selectedSearchSpacing = newValue.toInt()
+                                    prefs.searchSpacing = newValue.toInt()
+                                }
+                            )
+                        }
+                    )
 
                     SettingsSwitch(
                         text = getLocalizedString(R.string.smart_search),
@@ -1704,6 +1781,25 @@ class SettingsFragment : BaseFragment() {
                         }
                     )
 
+                    val hexCategoryColor =
+                        String.format("#%06X", (0xFFFFFF and selectedCategoryColor))
+                    SettingsSelect(
+                        title = getLocalizedString(R.string.category_color),
+                        option = hexCategoryColor,
+                        fontSize = titleFontSize,
+                        optionColor = Color(hexCategoryColor.toColorInt()),
+                        onClick = {
+                            dialogBuilder.showColorPickerBottomSheet(
+                                context = requireContext(),
+                                color = selectedCategoryColor,
+                                title = getLocalizedString(R.string.category_color),
+                                onItemSelected = { selectedColor ->
+                                    selectedCategoryColor = selectedColor
+                                    prefs.categoryColor = selectedColor
+                                })
+                        }
+                    )
+
                     SettingsSwitch(
                         text = getLocalizedString(R.string.rainbow_shortcuts),
                         fontSize = titleFontSize,
@@ -1933,6 +2029,25 @@ class SettingsFragment : BaseFragment() {
                                     selectedBatterySize = newBatterySize.toInt() // Update state
                                     prefs.batterySize =
                                         newBatterySize.toInt() // Persist selection in preferences
+                                }
+                            )
+                        }
+                    )
+
+                    SettingsSelect(
+                        title = getLocalizedString(R.string.category_text_size),
+                        option = selectedCategorySize.toString(),
+                        fontSize = titleFontSize,
+                        onClick = {
+                            dialogBuilder.showSliderBottomSheet(
+                                context = requireContext(),
+                                title = getLocalizedString(R.string.category_text_size),
+                                minValue = Constants.MIN_CATEGORY_SIZE,
+                                maxValue = Constants.MAX_CATEGORY_SIZE,
+                                currentValue = prefs.categorySize,
+                                onValueSelected = { newValue ->
+                                    selectedCategorySize = newValue.toInt()
+                                    prefs.categorySize = newValue.toInt()
                                 }
                             )
                         }

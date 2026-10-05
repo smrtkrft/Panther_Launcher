@@ -44,6 +44,10 @@ data class AppListItem(
     val isShortcut: Boolean
         get() = activityClass.startsWith(SHORTCUT_PREFIX)
 
+    /** A row of the category view that stands for a category, not for an app. */
+    val isCategoryHeader: Boolean
+        get() = activityPackage.isEmpty() && activityClass.startsWith(CATEGORY_PREFIX)
+
     val shortcutId: String
         get() = activityClass.removePrefix(SHORTCUT_PREFIX)
 
@@ -63,6 +67,7 @@ data class AppListItem(
 }
 
 const val SHORTCUT_PREFIX = "shortcut:"
+const val CATEGORY_PREFIX = "category:"
 
 /** See [AppListItem.settingsKey]. */
 fun settingsKeyOf(packageName: String, activityClass: String): String =
