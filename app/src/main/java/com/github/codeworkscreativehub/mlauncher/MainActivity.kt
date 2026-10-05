@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.provider.OpenableColumns
 import android.provider.Settings
 import android.view.KeyEvent
+import android.view.MotionEvent
 import android.view.WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
@@ -20,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import com.github.codeworkscreativehub.common.AppLogger
 import com.github.codeworkscreativehub.common.CrashHandler
 import com.github.codeworkscreativehub.common.LauncherLocaleManager
 import com.github.codeworkscreativehub.common.showLongToast
@@ -531,13 +533,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
+        recoverLostDestination()
         backToHomeScreen()
         super.onResume()
+    }
+
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+        if (event.actionMasked == MotionEvent.ACTION_DOWN) recoverLostDestination()
+        return super.dispatchTouchEvent(event)
     }
 
     override fun onUserLeaveHint() {
         backToHomeScreen()
         super.onUserLeaveHint()
+    }
+
+    /**
+     * If the home screen itself was popped, it stays visible but is no longer the current
+     * destination, so nothing can be opened from it. Go back to the home screen in that case.
+     */
+    private fun recoverLostDestination() {
+        if (navController.currentDestination == null) {
+            AppLogger.d("MainActivity", "No current destination, returning to the home screen")
+            navController.navigate(R.id.mainFragment)
+        }
     }
 
     private fun backToHomeScreen() {

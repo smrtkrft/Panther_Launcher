@@ -330,7 +330,7 @@ class AppDrawerFragment : BaseFragment() {
                             }
                         }
                         if (onTop && !recyclerView.canScrollVertically(1)) {
-                            findNavController().popBackStack()
+                            closeDrawer()
                         }
                     }
 
@@ -339,7 +339,7 @@ class AppDrawerFragment : BaseFragment() {
                             binding.search.hideKeyboard()
                         } else if (!recyclerView.canScrollVertically(-1)) {
                             if (onTop) {
-                                findNavController().popBackStack()
+                                closeDrawer()
                             } else {
                                 if (requireContext().hasSoftKeyboard()) {
                                     binding.search.showKeyboard()
@@ -393,7 +393,7 @@ class AppDrawerFragment : BaseFragment() {
                             }
                         }
                         if (onTop && !recyclerView.canScrollVertically(1)) {
-                            findNavController().popBackStack()
+                            closeDrawer()
                         }
                     }
 
@@ -402,7 +402,7 @@ class AppDrawerFragment : BaseFragment() {
                             binding.search.hideKeyboard()
                         } else if (!recyclerView.canScrollVertically(-1)) {
                             if (onTop) {
-                                findNavController().popBackStack()
+                                closeDrawer()
                             } else {
                                 if (requireContext().hasSoftKeyboard()) {
                                     binding.search.showKeyboard()
@@ -829,6 +829,17 @@ class AppDrawerFragment : BaseFragment() {
         updateAZSidebarForContacts(contacts)
     }
 
+    /**
+     * Closes the drawer. Does nothing when the drawer is no longer the current destination,
+     * so a second call before the fragment is removed cannot pop the home screen as well.
+     */
+    private fun closeDrawer() {
+        val navController = findNavController()
+        if (navController.currentDestination?.id == R.id.appListFragment) {
+            navController.popBackStack()
+        }
+    }
+
     private fun appClickListener(
         viewModel: MainViewModel,
         flag: AppDrawerFlag,
@@ -838,13 +849,13 @@ class AppDrawerFragment : BaseFragment() {
         if (flag == AppDrawerFlag.LaunchApp || flag == AppDrawerFlag.HiddenApps)
             findNavController().popBackStack(R.id.mainFragment, false)
         else
-            findNavController().popBackStack()
+            closeDrawer()
     }
 
     private fun appDeleteListener(): (appListItem: AppListItem) -> Unit = { appModel ->
         if (appModel.isShortcut) {
             viewModel.removeShortcut(appModel)
-            findNavController().popBackStack()
+            closeDrawer()
         } else if (requireContext().isSystemApp(appModel.activityPackage))
             showShortToast(getLocalizedString(R.string.can_not_delete_system_apps))
         else {
@@ -860,14 +871,14 @@ class AppDrawerFragment : BaseFragment() {
         { appPackage, appAlias ->
             val prefs = Prefs(requireContext())
             prefs.setAppAlias(appPackage, appAlias)
-            findNavController().popBackStack()
+            closeDrawer()
         }
 
     private fun appTagListener(): (appPackage: String, appTag: String, appUser: UserHandle) -> Unit =
         { appPackage, appTag, appUser ->
             val prefs = Prefs(requireContext())
             prefs.setAppTag(appPackage, appTag, appUser)
-            findNavController().popBackStack()
+            closeDrawer()
         }
 
     private fun appShowHideListener(): (flag: AppDrawerFlag, appListItem: AppListItem) -> Unit =
@@ -886,7 +897,7 @@ class AppDrawerFragment : BaseFragment() {
 
             prefs.hiddenApps = newSet
 
-            if (newSet.isEmpty()) findNavController().popBackStack()
+            if (newSet.isEmpty()) closeDrawer()
         }
 
     private fun appInfoListener(): (appListItem: AppListItem) -> Unit = { appModel ->
@@ -905,7 +916,7 @@ class AppDrawerFragment : BaseFragment() {
     ): (contactItem: ContactListItem) -> Unit = { contactModel ->
         viewModel.selectedContact(this, contactModel, n)
         // Close the drawer or fragment after selection
-        findNavController().popBackStack()
+        closeDrawer()
     }
 
     private fun updateAZSidebarForApps(apps: List<AppListItem>) {
@@ -1087,7 +1098,7 @@ class AppDrawerFragment : BaseFragment() {
                 textSize = prefs.appSize.toFloat()
                 setOnClickListener {
                     prefs.setHomeAppModel(position, createClearApp())
-                    findNavController().popBackStack()
+                    closeDrawer()
                 }
             }
         }
