@@ -120,11 +120,11 @@ object SmartSearch {
     }
 
     /**
-     * One wrong, missing, extra or swapped letter is accepted from three typed letters on,
+     * One wrong, missing, extra or swapped letter is accepted from four typed letters on,
      * two from seven on. The first letter has to be right.
      */
     private fun matchesWithTypo(words: List<String>, needle: String): Boolean {
-        if (needle.length < 3) return false
+        if (needle.length < 4) return false
         val allowed = if (needle.length >= 7) 2 else 1
         val candidates = words + words.joinToString("")
         return candidates.any { word ->

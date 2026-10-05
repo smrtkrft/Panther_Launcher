@@ -1,6 +1,8 @@
 # Panther Launcher
 
 > **Bu bir dağıtım değildir.** mLauncher üzerinde, yalnızca kendi kullanımım için APK olarak yaptığım kişisel bir düzenlemedir.
+>
+> **This is not a distribution.** It is a personal modification of mLauncher that I build as an APK for my own use only.
 
 Sade ve dağınıklıktan uzak bir Android başlatıcısı.
 
@@ -44,11 +46,7 @@ Hazır temalar [themes/](themes/) klasöründedir.
 
 ## Emeği geçenler
 
-Panther Launcher, aşağıdaki projelerin üzerine kuruludur:
-
-- [mLauncher (Multi Launcher)](https://github.com/CodeWorksCreativeHub/mLauncher) — bu deponun doğrudan kaynağı
-- [OlauncherCF](https://github.com/OlauncherCF/OlauncherCF)
-- [Olauncher](https://github.com/tanujnotes/Olauncher)
+Panther Launcher, [mLauncher (Multi Launcher)](https://github.com/CodeWorksCreativeHub/mLauncher) projesinin üzerine kuruludur.
 
 Çatallanma noktasına kadarki değişiklik geçmişi [CHANGELOG.md](CHANGELOG.md) dosyasındadır.
 

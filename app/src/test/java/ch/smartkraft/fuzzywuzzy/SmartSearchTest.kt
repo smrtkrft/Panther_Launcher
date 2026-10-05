@@ -60,6 +60,7 @@ class SmartSearchTest {
         assertTrue(SmartSearch.score("Telegram", "telr") > 0)      // missing letter
         assertTrue(SmartSearch.score("Spotify", "sptoi") > 0)      // swapped letters
         assertEquals(0, SmartSearch.score("Spotify", "sxz"))
+        assertEquals(0, SmartSearch.score("Clock", "cal"))         // too short to guess a typo
         assertEquals(0, SmartSearch.score("Spotify", "xpot"))      // first letter has to be right
     }
 

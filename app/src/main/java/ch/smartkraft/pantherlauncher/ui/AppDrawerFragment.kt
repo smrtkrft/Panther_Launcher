@@ -17,6 +17,7 @@ import android.text.style.ForegroundColorSpan
 import android.view.Gravity
 import android.view.KeyEvent
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
@@ -282,8 +283,11 @@ class AppDrawerFragment : BaseFragment() {
 
         var lastSectionLetter: String? = null
 
+        val appsRecyclerViewPull = PullDirectionTracker()
+        binding.appsRecyclerView.addOnItemTouchListener(appsRecyclerViewPull)
         binding.appsRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             var onTop = false
+            var pulledDown = false
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 val layoutManager = recyclerView.layoutManager as? LinearLayoutManager ?: return
@@ -324,12 +328,13 @@ class AppDrawerFragment : BaseFragment() {
                 when (newState) {
                     RecyclerView.SCROLL_STATE_DRAGGING -> {
                         onTop = !recyclerView.canScrollVertically(-1)
+                        pulledDown = appsRecyclerViewPull.isPullingDown
                         if (onTop) {
                             if (requireContext().hasSoftKeyboard()) {
                                 binding.search.hideKeyboard()
                             }
                         }
-                        if (onTop && !recyclerView.canScrollVertically(1)) {
+                        if (onTop && pulledDown && !recyclerView.canScrollVertically(1)) {
                             closeDrawer()
                         }
                     }
@@ -338,7 +343,7 @@ class AppDrawerFragment : BaseFragment() {
                         if (!recyclerView.canScrollVertically(1)) {
                             binding.search.hideKeyboard()
                         } else if (!recyclerView.canScrollVertically(-1)) {
-                            if (onTop) {
+                            if (onTop && pulledDown) {
                                 closeDrawer()
                             } else {
                                 if (requireContext().hasSoftKeyboard()) {
@@ -351,8 +356,11 @@ class AppDrawerFragment : BaseFragment() {
             }
         })
 
+        val contactsRecyclerViewPull = PullDirectionTracker()
+        binding.contactsRecyclerView.addOnItemTouchListener(contactsRecyclerViewPull)
         binding.contactsRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             var onTop = false
+            var pulledDown = false
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 val layoutManager = recyclerView.layoutManager as? LinearLayoutManager ?: return
@@ -387,12 +395,13 @@ class AppDrawerFragment : BaseFragment() {
 
                     RecyclerView.SCROLL_STATE_DRAGGING -> {
                         onTop = !recyclerView.canScrollVertically(-1)
+                        pulledDown = contactsRecyclerViewPull.isPullingDown
                         if (onTop) {
                             if (requireContext().hasSoftKeyboard()) {
                                 binding.search.hideKeyboard()
                             }
                         }
-                        if (onTop && !recyclerView.canScrollVertically(1)) {
+                        if (onTop && pulledDown && !recyclerView.canScrollVertically(1)) {
                             closeDrawer()
                         }
                     }
@@ -401,7 +410,7 @@ class AppDrawerFragment : BaseFragment() {
                         if (!recyclerView.canScrollVertically(1)) {
                             binding.search.hideKeyboard()
                         } else if (!recyclerView.canScrollVertically(-1)) {
-                            if (onTop) {
+                            if (onTop && pulledDown) {
                                 closeDrawer()
                             } else {
                                 if (requireContext().hasSoftKeyboard()) {
@@ -827,6 +836,23 @@ class AppDrawerFragment : BaseFragment() {
 
         // ✅ ENABLE dynamic AZ letters
         updateAZSidebarForContacts(contacts)
+    }
+
+    /**
+     * Remembers whether the current touch moves down. The drawer is only closed by pulling down,
+     * so an upward swipe (such as the rest of the gesture that opened it) leaves it open.
+     */
+    private class PullDirectionTracker : RecyclerView.SimpleOnItemTouchListener() {
+        private var downY = 0f
+        private var lastY = 0f
+
+        val isPullingDown: Boolean get() = lastY > downY
+
+        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+            if (e.actionMasked == MotionEvent.ACTION_DOWN) downY = e.y
+            lastY = e.y
+            return false
+        }
     }
 
     /**
