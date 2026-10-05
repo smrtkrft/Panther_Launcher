@@ -159,6 +159,7 @@
     <string name="advanced_settings_backup_restore_snapshot_item">Settings of %1$s, %2$s</string>
     <string name="advanced_settings_backup_restore_snapshot_confirm">All current settings will be replaced with this copy.</string>
     <string name="advanced_settings_backup_restore_snapshot_failed">This backup could not be read.</string>
+    <string name="widgets_app_not_opened_yet">%1$s has not been opened yet. Android keeps such apps stopped, so this widget may stay empty or say \"open the app first\" until you open %1$s once. Open it now?</string>
     <string name="smart_search">Smart Search</string>
     <string name="enable_filter_strength">Enable Fuzzy Finder</string>
     <string name="filter_strength">Fuzzy Finder Strength</string>

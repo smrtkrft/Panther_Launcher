@@ -49,6 +49,7 @@ Bu dosya, Panther Launcher'ın kaynağı olan [mLauncher (Multi Launcher)](https
 - Widget'lar üst üste binmiyor ve sayfanın dışına taşmıyor; dolu yere bırakılan widget eski yerine dönüyor, sayfa doluyken uyarı çıkıyor.
 - Yeni widget, uygulamasının istediği boyutla ekleniyor ve gerçek boyutu kendisine doğru bildiriliyor; varsayılanın altına da küçültülebiliyor.
 - "Tüm widget'ları kaldır" çökmesi, boyutlandırmadan çıkışta sayfanın yeniden başlaması ve yavaş sürüklerken menünün açılması giderildi.
+- Hiç açılmamış bir uygulamanın widget'ı eklenirken, Android bu uygulamaları durdurulmuş saydığı için widget'ın boş kalabileceği söyleniyor ve uygulama tek dokunuşla açılabiliyor.
 - Widget seçici tüm widget'ları listeliyor, ayar ekranları Android'in widget'lar için ayırdığı yoldan açılıyor ve widget kimliği artık uygulamanın adına bağlı değil.
 
 ### C – Keyfî GUI tasarımı
@@ -124,6 +125,7 @@ This file summarises where Panther Launcher departs from its source, [mLauncher 
 - Widgets no longer overlap or leave the page; a widget dropped on taken cells returns to its place, and a warning is shown when the page is full.
 - A new widget is added at the size its app asks for and is told its real size correctly; it can also be made smaller than its default.
 - The "Remove all Widgets" crash, the page restart when leaving resize mode and the menu opening during a slow drag are fixed.
+- When a widget of an app that has never been opened is added, the launcher explains that Android keeps such apps stopped and the widget may stay empty, and offers to open the app.
 - The widget picker lists every widget, configure screens are opened the way Android intends for widgets, and the widget host id no longer depends on the app's name.
 
 ### C – Discretionary GUI design

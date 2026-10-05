@@ -3,6 +3,8 @@ package ch.smartkraft.pantherlauncher.ui.widgets
 import android.app.Activity
 import android.appwidget.AppWidgetHost
 import android.appwidget.AppWidgetManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import android.content.pm.ApplicationInfo
 import android.appwidget.AppWidgetHostView
 import android.os.Build
 import android.appwidget.AppWidgetProviderInfo
@@ -540,6 +542,35 @@ class WidgetFragment : Fragment() {
         }
     }
 
+    /**
+     * An app that has never been opened (or was force-stopped) is in Android's "stopped" state: it
+     * gets no broadcasts and runs nothing in the background, so its widget stays at the placeholder
+     * the app ships ("open the app first"). Only the user can change that, so say so and offer it.
+     */
+    private fun offerToOpenStoppedApp(widgetInfo: AppWidgetProviderInfo) {
+        val packageName = widgetInfo.provider.packageName
+        val pm = requireContext().packageManager
+        val stopped = try {
+            pm.getApplicationInfo(packageName, 0).flags and ApplicationInfo.FLAG_STOPPED != 0
+        } catch (_: Exception) {
+            false
+        }
+        if (!stopped) return
+        val appName = try {
+            pm.getApplicationLabel(pm.getApplicationInfo(packageName, 0)).toString()
+        } catch (_: Exception) {
+            packageName
+        }
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(appName)
+            .setMessage(getLocalizedString(R.string.widgets_app_not_opened_yet, appName))
+            .setPositiveButton(getLocalizedString(R.string.widgets_open)) { _, _ ->
+                pm.getLaunchIntentForPackage(packageName)?.let { startActivity(it) }
+            }
+            .setNegativeButton(getLocalizedString(R.string.cancel), null)
+            .show()
+    }
+
     /** Widgets may declare that they work without being configured first (Android 12+). */
     private fun isConfigurationOptional(widgetInfo: AppWidgetProviderInfo): Boolean {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return false
@@ -626,6 +657,7 @@ class WidgetFragment : Fragment() {
 
         if (!addWrapperToGrid(wrapper)) return
         AppLogger.i(TAG, "✅ Wrapper created for widgetId=$appWidgetId")
+        offerToOpenStoppedApp(widgetInfo)
         updateEmptyPlaceholder(widgetWrappers)
         saveWidgets()
         logGridSnapshot()

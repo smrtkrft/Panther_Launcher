@@ -121,6 +121,7 @@
     <string name="advanced_settings_backup_restore_snapshot_item">%1$s sürümünün ayarları, %2$s</string>
     <string name="advanced_settings_backup_restore_snapshot_confirm">Mevcut tüm ayarlar bu kopyayla değiştirilecek.</string>
     <string name="advanced_settings_backup_restore_snapshot_failed">Bu yedek okunamadı.</string>
+    <string name="widgets_app_not_opened_yet">%1$s henüz hiç açılmadı. Android böyle uygulamaları durdurulmuş sayar; bu yüzden widget, %1$s bir kez açılana kadar boş kalabilir ya da \"önce uygulamayı açın\" diyebilir. Şimdi açılsın mı?</string>
     <string name="smart_search">Akıllı arama</string>
     <string name="enable_filter_strength">Esnek aramayı aç</string>
     <string name="filter_strength">Esnek arama hassasiyeti</string>
