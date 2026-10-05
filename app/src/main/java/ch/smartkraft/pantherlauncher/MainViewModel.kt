@@ -304,6 +304,29 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    /** Asks for authentication before a quick action opens the locked app [packageName]. */
+    fun authenticateForPackage(packageName: String, fragment: Fragment, onSuccess: () -> Unit) {
+        val label = try {
+            val pm = appContext.packageManager
+            pm.getApplicationLabel(pm.getApplicationInfo(packageName, 0)).toString()
+        } catch (_: Exception) {
+            packageName
+        }
+        val lockedApp = AppListItem(label, packageName, "", Process.myUserHandle(), customTag = "")
+
+        BiometricHelper(fragment.requireActivity()).startBiometricAuth(lockedApp, object : BiometricHelper.CallbackApp {
+            override fun onAuthenticationSucceeded(appListItem: AppListItem) = onSuccess()
+
+            override fun onAuthenticationFailed() {
+                AppLogger.e("Authentication", getLocalizedString(R.string.text_authentication_failed))
+            }
+
+            override fun onAuthenticationError(errorCode: Int, errorMessage: CharSequence?) {
+                AppLogger.e("Authentication", getLocalizedString(R.string.text_authentication_error).format(errorMessage, errorCode))
+            }
+        })
+    }
+
     /** Unpins a shortcut, forgets its settings and drops it from the app list. */
     fun removeShortcut(shortcut: AppListItem) {
         viewModelScope.launch(Dispatchers.IO) {

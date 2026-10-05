@@ -82,6 +82,7 @@ import ch.smartkraft.pantherlauncher.helper.receivers.PrivateSpaceReceiver
 import ch.smartkraft.pantherlauncher.helper.setTopPadding
 import ch.smartkraft.pantherlauncher.helper.showPermissionDialog
 import ch.smartkraft.pantherlauncher.helper.utils.AppReloader
+import ch.smartkraft.pantherlauncher.helper.utils.LockGuardContext
 import ch.smartkraft.pantherlauncher.helper.utils.BiometricHelper
 import ch.smartkraft.pantherlauncher.helper.utils.PrivateSpaceManager
 import ch.smartkraft.pantherlauncher.listener.GestureAdapter
@@ -373,32 +374,32 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
             }
 
             R.id.weather -> {
-                context?.openFirstWeatherApp()
+                lockGuard().openFirstWeatherApp()
                 CrashHandler.logUserAction("Weather Clicked")
             }
 
             R.id.fabPhone -> {
-                context?.openDialerApp()
+                lockGuard().openDialerApp()
                 CrashHandler.logUserAction("fabPhone Clicked")
             }
 
             R.id.fabMessages -> {
-                context?.openTextMessagesApp()
+                lockGuard().openTextMessagesApp()
                 CrashHandler.logUserAction("fabMessages Clicked")
             }
 
             R.id.fabCamera -> {
-                context?.openCameraApp()
+                lockGuard().openCameraApp()
                 CrashHandler.logUserAction("fabCamera Clicked")
             }
 
             R.id.fabPhotos -> {
-                context?.openPhotosApp()
+                lockGuard().openPhotosApp()
                 CrashHandler.logUserAction("fabPhotos Clicked")
             }
 
             R.id.fabBrowser -> {
-                context?.openWebBrowser()
+                lockGuard().openWebBrowser()
                 CrashHandler.logUserAction("fabBrowser Clicked")
             }
 
@@ -634,6 +635,11 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         CrashHandler.logUserAction("Expand Quick Settings")
     }
 
+    /** Context for quick actions that open an app indirectly: a locked app asks for authentication first. */
+    private fun lockGuard() = LockGuardContext(requireContext()) { packageName, launch ->
+        viewModel.authenticateForPackage(packageName, this, launch)
+    }
+
     private fun openSwipeUpApp() {
         CrashHandler.logUserAction("Open Swipe Up App")
         if (prefs.appShortSwipeUp.activityPackage.isNotEmpty())
@@ -647,7 +653,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         if (prefs.appShortSwipeDown.activityPackage.isNotEmpty())
             viewModel.launchApp(prefs.appShortSwipeDown, this)
         else
-            requireContext().openDialerApp()
+            lockGuard().openDialerApp()
     }
 
     private fun openSwipeLeftApp() {
@@ -663,7 +669,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         if (prefs.appShortSwipeRight.activityPackage.isNotEmpty())
             viewModel.launchApp(prefs.appShortSwipeRight, this)
         else
-            requireContext().openDialerApp()
+            lockGuard().openDialerApp()
     }
 
     private fun openLongSwipeUpApp() {
@@ -679,7 +685,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         if (prefs.appLongSwipeDown.activityPackage.isNotEmpty())
             viewModel.launchApp(prefs.appLongSwipeDown, this)
         else
-            requireContext().openDialerApp()
+            lockGuard().openDialerApp()
     }
 
     private fun openLongSwipeLeftApp() {
@@ -695,7 +701,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         if (prefs.appLongSwipeRight.activityPackage.isNotEmpty())
             viewModel.launchApp(prefs.appLongSwipeRight, this)
         else
-            requireContext().openDialerApp()
+            lockGuard().openDialerApp()
     }
 
     private fun openClickClockApp() {
@@ -703,7 +709,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         if (prefs.appClickClock.activityPackage.isNotEmpty())
             viewModel.launchApp(prefs.appClickClock, this)
         else
-            requireContext().openAlarmApp()
+            lockGuard().openAlarmApp()
     }
 
     private fun openClickUsageApp() {
@@ -719,7 +725,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         if (prefs.appClickDate.activityPackage.isNotEmpty())
             viewModel.launchApp(prefs.appClickDate, this)
         else
-            requireContext().launchCalendar()
+            lockGuard().launchCalendar()
     }
 
     private fun openDoubleTapApp() {

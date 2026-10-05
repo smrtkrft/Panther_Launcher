@@ -19,6 +19,7 @@ import ch.smartkraft.common.openWebBrowser
 import ch.smartkraft.pantherlauncher.R
 import ch.smartkraft.pantherlauncher.data.Prefs
 import ch.smartkraft.pantherlauncher.helper.utils.AppReloader
+import ch.smartkraft.pantherlauncher.helper.utils.LockGuardContext
 
 class FabWidget : AppWidgetProvider() {
 
@@ -122,12 +123,14 @@ class FabClickReceiver : BroadcastReceiver() {
         val action = intent.action
 
         AppLogger.d("FabClickReceiver", "onReceive: $action")
+        // A widget cannot ask for authentication, so a locked app is opened through the launcher
+        val guarded = LockGuardContext(context) { _, _ -> AppReloader.startApp(context) }
         when (action) {
-            "ch.smartkraft.pantherlauncher.ui.widgets.fab.FAB_PHONE" -> context.openDialerApp()
-            "ch.smartkraft.pantherlauncher.ui.widgets.fab.FAB_MESSAGES" -> context.openTextMessagesApp()
-            "ch.smartkraft.pantherlauncher.ui.widgets.fab.FAB_CAMERA" -> context.openCameraApp()
-            "ch.smartkraft.pantherlauncher.ui.widgets.fab.FAB_PHOTOS" -> context.openPhotosApp()
-            "ch.smartkraft.pantherlauncher.ui.widgets.fab.FAB_BROWSER" -> context.openWebBrowser()
+            "ch.smartkraft.pantherlauncher.ui.widgets.fab.FAB_PHONE" -> guarded.openDialerApp()
+            "ch.smartkraft.pantherlauncher.ui.widgets.fab.FAB_MESSAGES" -> guarded.openTextMessagesApp()
+            "ch.smartkraft.pantherlauncher.ui.widgets.fab.FAB_CAMERA" -> guarded.openCameraApp()
+            "ch.smartkraft.pantherlauncher.ui.widgets.fab.FAB_PHOTOS" -> guarded.openPhotosApp()
+            "ch.smartkraft.pantherlauncher.ui.widgets.fab.FAB_BROWSER" -> guarded.openWebBrowser()
             "ch.smartkraft.pantherlauncher.ui.widgets.fab.FAB_SETTINGS" -> context.openDeviceSettings()
             "ch.smartkraft.pantherlauncher.ui.widgets.fab.FAB_ACTION" -> AppReloader.startApp(context)
             // handle other buttons...

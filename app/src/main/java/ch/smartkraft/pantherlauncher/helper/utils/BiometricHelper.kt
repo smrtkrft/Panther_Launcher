@@ -5,6 +5,7 @@ import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import ch.smartkraft.common.getLocalizedString
+import ch.smartkraft.common.showLongToast
 import ch.smartkraft.pantherlauncher.R
 import ch.smartkraft.pantherlauncher.data.AppListItem
 
@@ -58,7 +59,17 @@ class BiometricHelper(private val activity: FragmentActivity) {
 
         if (canAuthenticate == BiometricManager.BIOMETRIC_SUCCESS) {
             biometricPrompt.authenticate(promptInfo)
+        } else {
+            // Without a screen lock nothing can be confirmed, so say why the app stays closed
+            activity.showLongToast(getLocalizedString(R.string.app_lock_needs_screen_lock))
         }
+    }
+
+    /** False when the device has neither a screen lock nor a biometric to confirm the user with. */
+    fun canAuthenticate(): Boolean {
+        val authenticators =
+            BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL
+        return BiometricManager.from(activity).canAuthenticate(authenticators) == BiometricManager.BIOMETRIC_SUCCESS
     }
 
     fun startBiometricSettingsAuth(callbackApp: CallbackSettings) {

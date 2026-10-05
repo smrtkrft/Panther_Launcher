@@ -599,25 +599,27 @@ class Prefs(val context: Context) {
         }
         set(value) = prefsNormal.edit { putString(LAUNCHER_FONT, value.name) }
 
+    // The string sets below are returned as copies: SharedPreferences hands out its own set, and
+    // writing that same instance back after changing it is treated as "no change" and never saved.
     var hiddenApps: MutableSet<String>
-        get() = prefsNormal.getStringSet(HIDDEN_APPS, mutableSetOf()) as MutableSet<String>
+        get() = prefsNormal.getStringSet(HIDDEN_APPS, null).orEmpty().toMutableSet()
         set(value) = prefsNormal.edit { putStringSet(HIDDEN_APPS, value) }
 
     var lockedApps: MutableSet<String>
-        get() = prefsNormal.getStringSet(LOCKED_APPS, mutableSetOf()) as MutableSet<String>
+        get() = prefsNormal.getStringSet(LOCKED_APPS, null).orEmpty().toMutableSet()
         set(value) = prefsNormal.edit { putStringSet(LOCKED_APPS, value) }
 
     var pinnedApps: Set<String>
-        get() = prefsNormal.getStringSet(PINNED_APPS, emptySet()) as Set<String>
+        get() = prefsNormal.getStringSet(PINNED_APPS, null).orEmpty().toSet()
         set(value) = prefsNormal.edit { putStringSet(PINNED_APPS, value) }
 
 
     var hiddenContacts: MutableSet<String>
-        get() = prefsNormal.getStringSet(HIDDEN_CONTACTS, mutableSetOf()) as MutableSet<String>
+        get() = prefsNormal.getStringSet(HIDDEN_CONTACTS, null).orEmpty().toMutableSet()
         set(value) = prefsNormal.edit { putStringSet(HIDDEN_CONTACTS, value) }
 
     var pinnedContacts: Set<String>
-        get() = prefsNormal.getStringSet(PINNED_CONTACTS, emptySet()) as Set<String>
+        get() = prefsNormal.getStringSet(PINNED_CONTACTS, null).orEmpty().toSet()
         set(value) = prefsNormal.edit { putStringSet(PINNED_CONTACTS, value) }
 
     var enableExpertOptions: Boolean

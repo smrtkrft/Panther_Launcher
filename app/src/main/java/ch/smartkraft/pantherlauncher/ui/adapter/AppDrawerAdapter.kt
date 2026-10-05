@@ -30,6 +30,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import ch.smartkraft.common.AppLogger
 import ch.smartkraft.common.getLocalizedString
+import ch.smartkraft.common.showLongToast
 import ch.smartkraft.common.isSystemApp
 import ch.smartkraft.common.showKeyboard
 import ch.smartkraft.fuzzywuzzy.FuzzyFinder
@@ -124,17 +125,15 @@ class AppDrawerAdapter(
 
         holder.appLock.setOnClickListener {
             val appName = appModel.settingsKey
-            val currentLockedApps = prefs.lockedApps
 
-            if (currentLockedApps.contains(appName)) {
+            if (prefs.lockedApps.contains(appName)) {
+                // Removing a lock needs authentication
                 biometricHelper.startBiometricAuth(appModel, object : BiometricHelper.CallbackApp {
                     override fun onAuthenticationSucceeded(appListItem: AppListItem) {
                         AppLogger.d("AppListDebug", "🔓 Auth succeeded for $appName - unlocking")
                         holder.appLock.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.padlock_off, 0, 0)
                         holder.appLock.text = getLocalizedString(R.string.lock)
-                        currentLockedApps.remove(appName)
-                        prefs.lockedApps = currentLockedApps
-                        AppLogger.d("AppListDebug", "🔐 Updated lockedApps: $currentLockedApps")
+                        prefs.lockedApps = prefs.lockedApps.apply { remove(appName) }
                     }
 
                     override fun onAuthenticationFailed() {
@@ -149,16 +148,15 @@ class AppDrawerAdapter(
                         AppLogger.e("Authentication", msg)
                     }
                 })
+            } else if (!biometricHelper.canAuthenticate()) {
+                // A lock that can never be confirmed would only make the app unreachable
+                context.showLongToast(getLocalizedString(R.string.app_lock_needs_screen_lock))
             } else {
                 AppLogger.d("AppListDebug", "🔒 Locking $appName")
                 holder.appLock.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.padlock, 0, 0)
                 holder.appLock.text = getLocalizedString(R.string.unlock)
-                currentLockedApps.add(appName)
+                prefs.lockedApps = prefs.lockedApps.apply { add(appName) }
             }
-
-            // Update the lockedApps value (save the updated set back to prefs)
-            prefs.lockedApps = currentLockedApps
-            AppLogger.d("lockedApps", prefs.lockedApps.toString())
         }
 
         holder.appSaveRename.setOnClickListener {
@@ -501,11 +499,6 @@ class AppDrawerAdapter(
 
             // ----------------------------
             // 8️⃣ Lock/Pin toggle actions
-            appLock.setOnClickListener {
-                val updated = prefs.lockedApps.toMutableSet()
-                if (isLocked) updated.remove(settingsKey) else updated.add(settingsKey)
-                prefs.lockedApps = updated
-            }
             appPin.setOnClickListener {
                 val updated = prefs.pinnedApps.toMutableSet()
                 if (isPinned) updated.remove(settingsKey) else updated.add(settingsKey)

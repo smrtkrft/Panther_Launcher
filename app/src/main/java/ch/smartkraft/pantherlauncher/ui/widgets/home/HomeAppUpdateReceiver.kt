@@ -45,6 +45,12 @@ class HomeAppUpdateReceiver : BroadcastReceiver() {
                 return
             }
 
+            // A locked app needs authentication, which only the launcher can ask for
+            if (packageName in prefs.lockedApps) {
+                AppReloader.startApp(context)
+                return
+            }
+
             val launchIntent = context.packageManager.getLaunchIntentForPackage(packageName)
             if (launchIntent != null) {
                 launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

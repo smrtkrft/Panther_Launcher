@@ -21,6 +21,9 @@ Bu dosya, Panther Launcher'ın kaynağı olan [mLauncher (Multi Launcher)](https
 - Çökme kaydını `crash.5646316.xyz` sunucusuna gönderen, devre dışı duran kod tamamen silindi.
 - Çökme raporu e-postası artık kaynak projenin geliştiricisine gitmiyor; alıcıyı kullanıcı yazar.
 - Eski alan adına (`5646316.xyz`) giden tema indirme ve gizlilik politikası bağlantıları kaldırıldı.
+- Uygulama kilidi artık kalıcı: ilkinden sonraki kilit değişiklikleri kaydedilmiyor, launcher yeniden başlayınca kayboluyordu.
+- Kilitli uygulamalar ana ekrandaki hızlı erişim düğmeleri ve tarih dokunuşu üzerinden doğrulamasız açılamıyor.
+- Cihazda ekran kilidi yoksa uygulama kilitlenemiyor; önceden böyle kilitlenen uygulama sessizce açılmaz hale geliyordu.
 
 ### B – Hata düzeltmeleri
 
@@ -60,6 +63,9 @@ This file summarises where Panther Launcher departs from its source, [mLauncher 
 - The disabled code that uploaded crash logs to the `crash.5646316.xyz` server was deleted entirely.
 - The crash report e-mail no longer goes to the source project's developer; the user enters the recipient.
 - The theme download and privacy policy links to the old domain (`5646316.xyz`) were removed.
+- The app lock is now persistent: lock changes after the first one were not saved and were lost when the launcher restarted.
+- Locked apps can no longer be opened without authentication through the home screen quick-action buttons or the date tap.
+- An app cannot be locked when the device has no screen lock; previously an app locked that way silently became impossible to open.
 
 ### B – Bug fixes
 
