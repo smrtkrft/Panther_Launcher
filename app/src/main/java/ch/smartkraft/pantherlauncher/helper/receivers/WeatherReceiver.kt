@@ -1,5 +1,8 @@
 package ch.smartkraft.pantherlauncher.helper.receivers
 
+import android.net.Uri
+import ch.smartkraft.common.AppLogger
+import java.util.Locale
 import android.content.Context
 import ch.smartkraft.pantherlauncher.data.Prefs
 import com.squareup.moshi.Json
@@ -8,6 +11,9 @@ import com.squareup.moshi.Moshi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.net.URL
+
+/** A coordinate with two decimals (about 1 km), written with a dot whatever the device language is. */
+internal fun coarseCoordinate(value: Double): String = String.format(Locale.US, "%.2f", value)
 
 class WeatherReceiver(context: Context) {
 
@@ -29,13 +35,15 @@ class WeatherReceiver(context: Context) {
         return withContext(Dispatchers.IO) {
             try {
                 val tempUnit = prefs.tempUnit.toString().lowercase() // "celsius" or "fahrenheit"
+                // About a kilometre is plenty for a forecast; the exact position stays on the device
                 val urlStr =
-                    "https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&temperature_unit=${tempUnit}"
+                    "https://api.open-meteo.com/v1/forecast?latitude=${coarseCoordinate(latitude)}&longitude=${coarseCoordinate(longitude)}&current_weather=true&temperature_unit=${tempUnit}"
                 val response = URL(urlStr).readText()
                 val weather = weatherAdapter.fromJson(response)
                 cachedWeather = weather // update cache
             } catch (e: Exception) {
-                e.printStackTrace()
+                // Not the stack trace: an HTTP error message contains the URL, and with it the coordinates
+                AppLogger.w("WeatherReceiver", "Weather request failed: ${e.javaClass.simpleName}")
             }
             cachedWeather
         }
@@ -62,12 +70,12 @@ class WeatherReceiver(context: Context) {
     suspend fun searchLocation(query: String): List<LocationResult> {
         return withContext(Dispatchers.IO) {
             try {
-                val urlStr = "https://geocoding-api.open-meteo.com/v1/search?name=${query}"
+                val urlStr = "https://geocoding-api.open-meteo.com/v1/search?name=${Uri.encode(query)}"
                 val response = URL(urlStr).readText()
                 val geocodingResponse = geocodingAdapter.fromJson(response)
                 geocodingResponse?.results ?: emptyList()
             } catch (e: Exception) {
-                e.printStackTrace()
+                AppLogger.w("WeatherReceiver", "Location search failed: ${e.javaClass.simpleName}")
                 emptyList()
             }
         }

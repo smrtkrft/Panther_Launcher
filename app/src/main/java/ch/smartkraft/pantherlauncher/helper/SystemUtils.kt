@@ -51,6 +51,7 @@ import ch.smartkraft.common.requestUsagePermission
 import ch.smartkraft.common.showLongToast
 import ch.smartkraft.pantherlauncher.BuildConfig
 import ch.smartkraft.pantherlauncher.R
+import ch.smartkraft.pantherlauncher.helper.receivers.coarseCoordinate
 import ch.smartkraft.pantherlauncher.data.Constants
 import ch.smartkraft.pantherlauncher.data.Message
 import ch.smartkraft.pantherlauncher.data.Prefs
@@ -98,17 +99,9 @@ fun hasUsageAccessPermission(context: Context): Boolean {
 }
 
 fun hasLocationPermission(context: Context): Boolean {
-    val fineLocationPermission = ContextCompat.checkSelfPermission(
-        context,
-        Manifest.permission.ACCESS_FINE_LOCATION
-    )
-    val coarseLocationPermission = ContextCompat.checkSelfPermission(
-        context,
-        Manifest.permission.ACCESS_COARSE_LOCATION
-    )
-
-    return fineLocationPermission == PackageManager.PERMISSION_GRANTED ||
-            coarseLocationPermission == PackageManager.PERMISSION_GRANTED
+    // Approximate location is all the weather needs, and all the app asks for
+    return ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) ==
+            PackageManager.PERMISSION_GRANTED
 }
 
 fun hasContactsPermission(context: Context): Boolean {
@@ -624,7 +617,7 @@ fun Context.openFirstWeatherApp() {
         }
 
         // Construct the URL with lat/lon and unit
-        val url = "https://weather.com/weather/today/l/$lat,$lon?unit=$unitParam"
+        val url = "https://weather.com/weather/today/l/${coarseCoordinate(lat)},${coarseCoordinate(lon)}?unit=$unitParam"
 
         // Open in browser
         val intent = Intent(Intent.ACTION_VIEW, url.toUri())
@@ -632,7 +625,7 @@ fun Context.openFirstWeatherApp() {
 
         AppLogger.d(
             "WeatherAppLauncher",
-            "Opened weather.com for coordinates: $lat,$lon with unit: $unitParam"
+            "Opened weather.com with unit: $unitParam"
         )
     } else {
         AppLogger.d("WeatherAppLauncher", "No coordinates found in prefs.")

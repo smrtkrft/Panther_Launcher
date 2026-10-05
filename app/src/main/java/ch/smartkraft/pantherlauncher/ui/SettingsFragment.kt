@@ -506,7 +506,7 @@ class SettingsFragment : BaseFragment() {
                             R.string.about_settings_title,
                             getLocalizedString(R.string.app_name)
                         ),
-                        iconRes = R.drawable.ic_toast,
+                        iconRes = R.drawable.app_launcher,
                         titleFontSize = titleFontSize,
                         descriptionFontSize = descriptionFontSize,
                         iconSize = iconSize,
@@ -1221,10 +1221,7 @@ class SettingsFragment : BaseFragment() {
 
                                 if (toggledGPSLocation && !hasLocationPermission(context)) {
                                     context.requestRuntimePermission(
-                                        arrayOf(
-                                            Manifest.permission.ACCESS_FINE_LOCATION,
-                                            Manifest.permission.ACCESS_COARSE_LOCATION
-                                        ),
+                                        arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
                                         Constants.ACCESS_FINE_LOCATION,
                                         "Location"
                                     )

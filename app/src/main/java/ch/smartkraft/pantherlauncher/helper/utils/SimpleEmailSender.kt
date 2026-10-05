@@ -1,6 +1,7 @@
 package ch.smartkraft.pantherlauncher.helper.utils
 
 import android.content.ActivityNotFoundException
+import android.content.ClipData
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -82,6 +83,7 @@ class SimpleEmailSender {
         intent.putExtra(Intent.EXTRA_SUBJECT, subject)
         intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, ArrayList(attachments))
         intent.putExtra(Intent.EXTRA_TEXT, body)
+        grantRead(intent, attachments)
         return intent
     }
 
@@ -92,7 +94,17 @@ class SimpleEmailSender {
         intent.putExtra(Intent.EXTRA_SUBJECT, subject)
         intent.putExtra(Intent.EXTRA_STREAM, attachment)
         intent.putExtra(Intent.EXTRA_TEXT, body)
+        grantRead(intent, listOf(attachment))
         return intent
+    }
+
+    /** The attachments live in private storage; the mail app chosen by the user gets one-time read access. */
+    private fun grantRead(intent: Intent, attachments: List<Uri>) {
+        if (attachments.isEmpty()) return
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        intent.clipData = ClipData.newRawUri("crash report", attachments.first()).apply {
+            attachments.drop(1).forEach { addItem(ClipData.Item(it)) }
+        }
     }
 
     private fun buildResolveIntent(): Intent {

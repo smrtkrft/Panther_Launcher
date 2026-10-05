@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.os.PersistableBundle
 import android.content.Intent
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
@@ -61,7 +62,10 @@ class ShareUtils(val context: Context, val activity: Activity) {
 
         copyButton.setOnClickListener {
             val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            clipboard.setPrimaryClip(ClipData.newPlainText("Share Text", textToShare))
+            val clip = ClipData.newPlainText("Share Text", textToShare)
+            // Notes can be private: keep the text out of the clipboard preview and keyboard suggestions
+            clip.description.extras = PersistableBundle().apply { putBoolean("android.content.extra.IS_SENSITIVE", true) }
+            clipboard.setPrimaryClip(clip)
         }
 
         recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)

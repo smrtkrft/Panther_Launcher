@@ -72,64 +72,11 @@ class CrashHandler(private val context: Context) : Thread.UncaughtExceptionHandl
         }
     }
 
-    private fun saveCrashToMediaStore(content: String): Uri? {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) return null
-
-        val packageManager = context.packageManager
-        val packageName = context.packageName
-        val appName = try {
-            val appInfo = packageManager.getApplicationInfo(packageName, 0)
-            packageManager.getApplicationLabel(appInfo).toString()
-        } catch (_: PackageManager.NameNotFoundException) {
-            packageName
-        }
-
-        val timestamp = getTimestamp()
-        val displayName = "$appName Crash Report_$timestamp.log"
-        val relativePath = "Download/$appName/Crash Reports"
-        val resolver = context.contentResolver
-        val collection = MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
-
-        // Insert new crash file
-        val values = ContentValues().apply {
-            put(MediaStore.MediaColumns.DISPLAY_NAME, displayName)
-            put(MediaStore.MediaColumns.MIME_TYPE, "application/octet-stream")
-            put(MediaStore.MediaColumns.RELATIVE_PATH, relativePath)
-        }
-        val uri = resolver.insert(collection, values)
-
-        uri?.let {
-            resolver.openOutputStream(it, "w")?.use { outputStream ->
-                outputStream.write(content.toByteArray())
-            }
-        }
-
-        // Maintain maximum 5 files
-        try {
-            val cursor = resolver.query(
-                collection,
-                arrayOf(MediaStore.MediaColumns._ID, MediaStore.MediaColumns.DISPLAY_NAME),
-                "${MediaStore.MediaColumns.RELATIVE_PATH}=?",
-                arrayOf("$relativePath/"),
-                "${MediaStore.MediaColumns.DATE_ADDED} DESC"
-            )
-            cursor?.use {
-                var count = 0
-                while (it.moveToNext()) {
-                    count++
-                    if (count > 5) {
-                        val id = it.getLong(it.getColumnIndexOrThrow(MediaStore.MediaColumns._ID))
-                        resolver.delete(ContentUris.withAppendedId(collection, id), null, null)
-                    }
-                }
-            }
-        } catch (_: Exception) {
-        }
-
-        return uri
-    }
-
-    private fun getCrashFileForLegacy(): File {
+    /**
+     * Crash logs stay in the app's private storage. They used to go to the shared Download folder,
+     * where any app with storage access could read them.
+     */
+    private fun getCrashFile(): File {
         val crashDir = File(context.filesDir, "crash_logs")
         crashDir.mkdirs()
         val timestamp = getTimestamp()
@@ -145,13 +92,9 @@ class CrashHandler(private val context: Context) : Thread.UncaughtExceptionHandl
     override fun uncaughtException(thread: Thread, exception: Throwable) {
         try {
             val content = buildCrashContent(exception)
-            val uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                saveCrashToMediaStore(content)
-            } else {
-                val file = getCrashFileForLegacy()
-                file.writeText(content)
-                FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", file)
-            }
+            val file = getCrashFile()
+            file.writeText(content)
+            val uri = FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", file)
 
             val intent = Intent(context, CrashReportActivity::class.java).apply {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)

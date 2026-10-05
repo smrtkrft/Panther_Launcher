@@ -124,7 +124,8 @@ object IconPackHelper {
 
             AppLogger.d("IconPackLoader", "Preload finished. Loaded: $loadedCount, Skipped: $skippedCount")
 
-        } catch (e: Exception) {
+        } catch (e: Throwable) {
+            // Also out-of-memory from a huge pack: this runs at every start, so it must never take the launcher down
             AppLogger.e("IconPackLoader", "Error while preloading icon pack: ${e.message}", e)
         }
     }

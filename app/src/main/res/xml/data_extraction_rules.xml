@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<data-extraction-rules xmlns:tools="http://schemas.android.com/tools">
+<data-extraction-rules>
 
-    <!-- SharedPreferences (Allow all) -->
+    <!-- Nothing goes to the cloud backup: settings contain notes, hidden and locked apps and a saved location -->
     <cloud-backup>
-        <include
-            domain="shared_prefs"
-            path="."
-            tools:ignore="FullBackupContent" />
+        <exclude domain="sharedpref" path="." />
+        <exclude domain="database" path="." />
+        <exclude domain="file" path="." />
     </cloud-backup>
 
-    <!-- Device-to-Device Migration (Exclude a specific file) -->
+    <!-- Moving directly to a new device keeps settings and the widget layout -->
     <device-transfer>
-        <include
-            domain="shared_prefs"
-            path="."
-            tools:ignore="FullBackupContent" />
+        <include domain="sharedpref" path="." />
+        <include domain="database" path="." />
     </device-transfer>
 
 </data-extraction-rules>

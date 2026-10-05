@@ -1,9 +1,12 @@
 package ch.smartkraft.pantherlauncher.ui.iconpack
 
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.CheckBox
 import android.widget.LinearLayout
 import androidx.lifecycle.ViewModelProvider
+import ch.smartkraft.common.AppLogger
 import ch.smartkraft.common.getLocalizedString
 import ch.smartkraft.pantherlauncher.MainViewModel
 import ch.smartkraft.pantherlauncher.R
@@ -11,7 +14,10 @@ import ch.smartkraft.pantherlauncher.data.Constants
 import ch.smartkraft.pantherlauncher.data.Prefs
 import ch.smartkraft.pantherlauncher.helper.IconCacheTarget
 import ch.smartkraft.pantherlauncher.helper.IconPackHelper
+import ch.smartkraft.pantherlauncher.helper.iconPackActions
+import ch.smartkraft.pantherlauncher.helper.iconPackBlacklist
 import ch.smartkraft.pantherlauncher.helper.utils.AppReloader
+import ch.smartkraft.pantherlauncher.helper.utils.BiometricHelper
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.concurrent.Executors
 
@@ -24,9 +30,44 @@ class ApplyIconPackActivity : androidx.appcompat.app.AppCompatActivity() {
         prefs = Prefs(this)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-        val packageName = intent.getStringExtra("packageName").toString()
-        val packageClass = intent.getStringExtra("packageClass").toString()
-        if (packageClass.isNotEmpty()) {
+        // Any app can start this screen, so nothing in the intent is trusted: the pack must be an
+        // installed icon pack, and its name is read from the system instead of the intent.
+        val packageClass = intent.getStringExtra("packageClass").orEmpty()
+        val packLabel = iconPackLabel(packageClass)
+        if (packLabel == null) {
+            AppLogger.w("ApplyIconPack", "Ignoring request for '$packageClass': not an installed icon pack")
+            finish()
+            return
+        }
+
+        if (prefs.settingsLocked) {
+            // Changing the look is a setting; a locked launcher asks who is there first
+            BiometricHelper(this).startBiometricSettingsAuth(object : BiometricHelper.CallbackSettings {
+                override fun onAuthenticationSucceeded() = askToApply(packageClass, packLabel)
+                override fun onAuthenticationFailed() = Unit
+                override fun onAuthenticationError(errorCode: Int, errorMessage: CharSequence?) = finish()
+            })
+        } else {
+            askToApply(packageClass, packLabel)
+        }
+    }
+
+    /** The app's own label when [packageName] is an installed icon pack, otherwise null. */
+    private fun iconPackLabel(packageName: String): String? {
+        if (packageName.isBlank() || packageName in iconPackBlacklist) return null
+        val isIconPack = iconPackActions.any { action ->
+            packageManager.queryIntentActivities(Intent(action).setPackage(packageName), 0).isNotEmpty()
+        }
+        if (!isIconPack) return null
+        return try {
+            packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName, 0)).toString()
+        } catch (_: PackageManager.NameNotFoundException) {
+            null
+        }
+    }
+
+    private fun askToApply(packageClass: String, packLabel: String) {
+        run {
             // Create a vertical LinearLayout programmatically
             val layout = LinearLayout(this).apply {
                 orientation = LinearLayout.VERTICAL
@@ -50,7 +91,7 @@ class ApplyIconPackActivity : androidx.appcompat.app.AppCompatActivity() {
 
             MaterialAlertDialogBuilder(this)
                 .setTitle(getLocalizedString(R.string.apply_icon_pack))
-                .setMessage(getLocalizedString(R.string.apply_icon_pack_are_you_sure, packageName))
+                .setMessage(getLocalizedString(R.string.apply_icon_pack_are_you_sure, packLabel))
                 .setView(layout)
                 .setPositiveButton(getLocalizedString(R.string.apply)) { _, _ ->
 
@@ -84,11 +125,8 @@ class ApplyIconPackActivity : androidx.appcompat.app.AppCompatActivity() {
                 .setNegativeButton(getLocalizedString(R.string.cancel)) { _, _ ->
                     finish()
                 }
-                .setCancelable(false)
+                .setOnCancelListener { finish() }
                 .show()
-
-        } else {
-            finish()
         }
     }
 }

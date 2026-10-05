@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
+import android.view.WindowManager
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.activity.OnBackPressedCallback
@@ -241,6 +242,17 @@ class NotesManagerFragment : BaseFragment() {
                 holder.actionButtonsLayout.isVisible = false
             }
         }
+    }
+
+    // Notes are kept out of screenshots and the recent-apps preview while they are on screen
+    override fun onResume() {
+        super.onResume()
+        requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
+    }
+
+    override fun onPause() {
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+        super.onPause()
     }
 
     override fun onDestroyView() {

@@ -18,15 +18,15 @@ import androidx.fragment.app.Fragment
 import ch.smartkraft.pantherlauncher.R
 
 fun Fragment.showLongToast(message: String) {
-    showCustomToast(this, message, iconRes = R.drawable.ic_toast, delayMillis = 3000L)
+    showCustomToast(this, message, iconRes = R.drawable.app_launcher, delayMillis = 3000L)
 }
 
 fun Fragment.showShortToast(message: String) {
-    showCustomToast(this, message, iconRes = R.drawable.ic_toast, delayMillis = 2000L)
+    showCustomToast(this, message, iconRes = R.drawable.app_launcher, delayMillis = 2000L)
 }
 
 fun Fragment.showInstantToast(message: String) {
-    showCustomToast(this, message, iconRes = R.drawable.ic_toast)
+    showCustomToast(this, message, iconRes = R.drawable.app_launcher)
 }
 
 fun showCustomToast(

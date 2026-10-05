@@ -30,22 +30,19 @@ class WeatherHelper(
             val locationManager =
                 context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-            val fineLocationGranted = ActivityCompat.checkSelfPermission(
-                context, Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-
-            val coarseLocationGranted = ActivityCompat.checkSelfPermission(
+            val locationGranted = ActivityCompat.checkSelfPermission(
                 context, Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
 
-            if (!fineLocationGranted && !coarseLocationGranted) {
+            if (!locationGranted) {
                 AppLogger.w("WeatherReceiver", "Location permission not granted. Aborting.")
                 return
             }
 
+            // Only approximate location is requested, so the GPS provider is not used
             val provider = when {
-                locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) -> LocationManager.GPS_PROVIDER
                 locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) -> LocationManager.NETWORK_PROVIDER
+                locationManager.isProviderEnabled(LocationManager.PASSIVE_PROVIDER) -> LocationManager.PASSIVE_PROVIDER
                 else -> {
                     AppLogger.e("WeatherReceiver", "No location provider enabled.")
                     return
@@ -53,7 +50,11 @@ class WeatherHelper(
             }
 
             // ✅ Try last known location first
-            val lastKnown = locationManager.getLastKnownLocation(provider)
+            val lastKnown = try {
+                locationManager.getLastKnownLocation(provider)
+            } catch (_: SecurityException) {
+                null
+            }
             if (lastKnown != null) {
                 handleLocation(lastKnown)
                 return
@@ -78,8 +79,8 @@ class WeatherHelper(
                     locationListener,
                     Looper.getMainLooper()
                 )
-            } catch (se: SecurityException) {
-                se.printStackTrace()
+            } catch (_: SecurityException) {
+                AppLogger.w("WeatherReceiver", "Location updates not allowed")
             }
         } else {
             // 📍 Use saved custom location from prefs
@@ -101,7 +102,6 @@ class WeatherHelper(
     private fun handleLocation(location: Location) {
         val lat = location.latitude
         val lon = location.longitude
-        AppLogger.d("WeatherReceiver", "Location: $lat, $lon")
 
         val receiver = WeatherReceiver(context)
 

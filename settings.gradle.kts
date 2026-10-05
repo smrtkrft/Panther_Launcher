@@ -4,8 +4,6 @@ pluginManagement {
     repositories {
         google()             // for Android dependencies
         gradlePluginPortal() // for plugins
-        maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev")
-        maven("https://jitpack.io")
         mavenCentral()       // for Kotlin stdlib
     }
 }
@@ -19,8 +17,6 @@ dependencyResolutionManagement {
     repositories {
         google() // for Android dependencies
         gradlePluginPortal() // for plugins
-        maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev")
-        maven("https://jitpack.io")
         mavenCentral()       // for Kotlin stdlib
     }
 }

@@ -133,7 +133,7 @@ class OnboardingPageFragment : Fragment() {
 
                 binding.permissionButton.setOnClickListener {
                     requireContext().requestRuntimePermission(
-                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
+                        arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
                         Constants.ACCESS_FINE_LOCATION,
                         "Location"
                     )

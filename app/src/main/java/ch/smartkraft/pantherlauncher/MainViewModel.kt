@@ -230,7 +230,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         // You can also perform additional logic here if needed
         // For example, updating a detail view, logging, or triggering actions
-        AppLogger.d("MainViewModel", "Contact selected: ${contact.displayName}, index=$n")
+        AppLogger.d("MainViewModel", "Contact selected, index=$n")
     }
 
     fun firstOpen(value: Boolean) {
@@ -344,7 +344,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val phoneNumber =
             contactItem.phoneNumber // Ensure ContactListItem has a phoneNumber property
         if (phoneNumber.isBlank()) {
-            AppLogger.e("CallContact", "No phone number available for ${contactItem.displayName}")
+            AppLogger.e("CallContact", "No phone number available for the selected contact")
             return
         }
 
@@ -393,7 +393,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             return try {
                 appUsageTracker.updateLastUsedTimestamp(packageName)
                 launcher.startMainActivity(component, user, null, null)
-                CrashHandler.logUserAction("${component.packageName} App Launched")
+                // Which app was opened is nobody else's business, also not a crash report's
+                CrashHandler.logUserAction("App Launched")
                 true
             } catch (_: Exception) {
                 false
@@ -407,18 +408,40 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    // What the list on screen was last asked to show. Refreshes that are not started by the screen
+    // itself (pinning, a shortcut change) reuse it, so they cannot bring hidden apps back into view.
+    private var listShowsHidden = false
+    private var listShowsRecent = true
+
+    /** The part of the full app list that the current screen may show. */
+    private fun visibleApps(all: List<AppListItem>): MutableList<AppListItem> {
+        if (listShowsHidden) return all.toMutableList()
+        val hidden = prefs.hiddenApps
+        return all.filterNot { app ->
+            val pkg = app.activityPackage
+            val userHash = app.user.hashCode()
+            "$pkg|${app.activityClass}|$userHash" in hidden || pkg in hidden || "$pkg|$userHash" in hidden ||
+                    // Usage is tracked per package, so a recent entry is hidden with any of its activities
+                    (app.category == AppCategory.RECENT && hidden.any { it.startsWith("$pkg|") })
+        }.toMutableList()
+    }
+
     /**
      * Public entry: loads apps from cache instantly and refreshes in background.
+     * The cache always holds every app; hidden apps are left out when the list is published.
      */
-    fun getAppList(includeHiddenApps: Boolean = true, includeRecentApps: Boolean = true) {
+    fun getAppList(includeHiddenApps: Boolean = listShowsHidden, includeRecentApps: Boolean = listShowsRecent) {
+        listShowsHidden = includeHiddenApps
+        listShowsRecent = includeRecentApps
+
         // Fast path: show memory cache
         appsMemoryCache?.let {
-            appList.postValue(it)
+            appList.postValue(visibleApps(it))
         } ?: run {
             // try file cache
             loadAppsFromFileCache()?.let { cached ->
                 appsMemoryCache = cached.toMutableList()
-                appList.postValue(cached)
+                appList.postValue(visibleApps(cached))
             }
         }
 
@@ -429,17 +452,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     val fresh = getAppsList(
                         appContext,
                         includeRegularApps = true,
-                        includeHiddenApps,
+                        includeHiddenApps = true,
                         includeRecentApps
                     )
                     appsMemoryCache = fresh
                     saveAppsToFileCache(fresh)
-                    // publish on main
+                    // publish on main, for whatever the screen asks for by now
                     withContext(Dispatchers.Main) {
-                        appList.value = fresh
+                        appList.value = visibleApps(fresh)
                     }
                 } finally {
                     appsRefreshing.set(false)
+                    // A request that came in meanwhile wanted a different list: fetch again
+                    if (includeRecentApps != listShowsRecent) getAppList()
                 }
             }
         }
@@ -451,6 +476,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun getContactList(includeHiddenContacts: Boolean = true) {
         if (!hasContactsPermission(appContext)) {
             contactsMemoryCache = null
+            // Without the permission the saved copy of the contacts has no business staying on disk
+            contactsCacheFile.delete()
             unregisterContactsObserverIfNeeded()
             _contactScrollMap.postValue(emptyMap())
             contactList.postValue(emptyList())
@@ -905,33 +932,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
 
-        // 🔹 Fetch emails
-        val emailsMap = mutableMapOf<String, String>()
-        if (contactIds.isNotEmpty()) {
-            contentResolver.query(
-                ContactsContract.CommonDataKinds.Email.CONTENT_URI,
-                arrayOf(
-                    ContactsContract.CommonDataKinds.Email.CONTACT_ID,
-                    ContactsContract.CommonDataKinds.Email.ADDRESS
-                ),
-                "${ContactsContract.CommonDataKinds.Email.CONTACT_ID} IN (${
-                    contactIds.joinToString(
-                        ","
-                    ) { "?" }
-                })",
-                contactIds.toTypedArray(),
-                null
-            )?.use { cursor ->
-                while (cursor.moveToNext()) {
-                    val id =
-                        cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Email.CONTACT_ID))
-                    val email =
-                        cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Email.ADDRESS))
-                            ?: ""
-                    emailsMap.putIfAbsent(id, email)
-                }
-            }
-        }
+        // E-mail addresses are not read: nothing in the launcher uses them
+        val emailsMap = emptyMap<String, String>()
 
         // 🔹 Create lightweight intermediate data (raw contacts)
         data class RawContact(

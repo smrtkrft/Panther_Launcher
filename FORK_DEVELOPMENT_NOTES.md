@@ -26,6 +26,13 @@ Bu dosya, Panther Launcher'ın kaynağı olan [mLauncher (Multi Launcher)](https
 - Cihazda ekran kilidi yoksa uygulama kilitlenemiyor; önceden böyle kilitlenen uygulama sessizce açılmaz hale geliyordu.
 - Erişilebilirlik servisi artık ekran içeriğini okuma yetkisi istemiyor ve bildirim metinlerini kayda yazmıyor.
 - Widget'lar artık sahibi uygulamanın kodu launcher'a yüklenmeden gösteriliyor ve başka uygulamadan dönen widget kimliğine güvenilmiyor.
+- Gizlenen uygulamalar, bir uygulama sabitlendiğinde çekmeceye ve aramaya geri dönmüyor.
+- Başka bir uygulamanın gönderdiği sahte "ikon paketi uygula" isteği yok sayılıyor; paket adı sistemden okunuyor ve pencere kapatılabiliyor.
+- İçe aktarılan tema yalnızca renk ayarlarını değiştirebiliyor; bozuk bir tema ya da yedek dosyası launcher'ı artık açılışta çökertmiyor.
+- Hava durumu için konum yaklaşık 1 km hassasiyetle gönderiliyor, hassas konum izni kaldırıldı ve koordinatlar kayda yazılmıyor.
+- Çökme kaydı ortak Download klasörü yerine uygulamanın özel alanında tutuluyor ve açılan uygulamaların adını içermiyor.
+- Launcher verileri bulut yedeğine gitmiyor; notlar ekran görüntüsüne çıkmıyor, rehber önbelleği izin kalkınca siliniyor ve e-posta adresleri okunmuyor.
+- Derleme kararlı Kotlin sürümüyle, geliştirici depoları olmadan ve Gradle indirmesi sağlama toplamıyla sabitlenerek yapılıyor.
 
 ### B – Hata düzeltmeleri
 
@@ -51,6 +58,7 @@ Bu dosya, Panther Launcher'ın kaynağı olan [mLauncher (Multi Launcher)](https
 - Uygulamanın adı "Panther Launcher", kimliği `app.pantherlauncher` oldu.
 - Yeni logo: siyah üzerine beyaz, Cormorant Garamond (açık lisanslı) ile yazılmış "PanTher"; uyarlanabilir uygulama simgesi olarak da kullanılıyor.
 - Widget düzenleme görünümü yenilendi: ince çerçeve, küçük tutamaçlar, canlı boyut etiketi, noktalı ızgara ve kesik çizgili bırakma önizlemesi.
+- Logonun açık ve koyu tema için ters renkli iki sürümü var; bildirim simgesi, açılış ekranı ve "Launcher Dots" stili de yeni logoyu kullanıyor.
 - Launcher artık kendi uygulama listesinde görünüyor; dokununca ayarları açılıyor.
 - Hakkında ekranından bağış, Discord ve "Uygulamayı Paylaş" bağlantıları kaldırıldı.
 
@@ -78,6 +86,13 @@ This file summarises where Panther Launcher departs from its source, [mLauncher 
 - An app cannot be locked when the device has no screen lock; previously an app locked that way silently became impossible to open.
 - The accessibility service no longer asks for permission to read screen content, and notification text is no longer written to the log.
 - Widgets are now shown without loading the code of the app that owns them into the launcher, and a widget id returned by another app is no longer trusted.
+- Hidden apps no longer return to the drawer and to search when an app is pinned.
+- A fake "apply icon pack" request sent by another app is ignored; the pack's name is read from the system and the dialog can be dismissed.
+- An imported theme can only change colour settings; a broken theme or backup file no longer crashes the launcher on start.
+- For the weather, the location is sent with about 1 km precision, the precise-location permission was removed and coordinates are not logged.
+- The crash log is kept in the app's private storage instead of the shared Download folder and no longer names the apps that were opened.
+- Launcher data is not sent to cloud backup; notes stay out of screenshots, the contact cache is deleted when the permission is withdrawn and e-mail addresses are not read.
+- The build uses the stable Kotlin release, no development repositories, and a checksum-pinned Gradle download.
 
 ### B – Bug fixes
 
@@ -103,5 +118,6 @@ This file summarises where Panther Launcher departs from its source, [mLauncher 
 - The app is now named "Panther Launcher" with the ID `app.pantherlauncher`.
 - New logo: "PanTher" in white on black, set in Cormorant Garamond (open licence); it is also used as an adaptive app icon.
 - The widget editing view was redesigned: thin outline, small handles, live size label, dotted grid and a dashed landing preview.
+- The logo has two versions with inverted colours for the light and dark theme; the toast icon, splash screen and "Launcher Dots" style use the new logo as well.
 - The launcher now appears in its own app list; tapping it opens its settings.
 - Donation, Discord and "Share Application" links were removed from the About screen.

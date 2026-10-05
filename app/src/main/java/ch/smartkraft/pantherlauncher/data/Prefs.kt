@@ -49,7 +49,16 @@ class Prefs(val context: Context) {
         return adapter.toJson(allPreferences)
     }
 
-    fun loadFromString(json: String) {
+    private companion object {
+        /** Settings stored as Float; a backup file cannot tell 1.0 from 1. */
+        val FLOAT_KEYS = setOf(SHORT_SWIPE_THRESHOLD, LONG_SWIPE_THRESHOLD, WEATHER_LATITUDE, WEATHER_LONGITUDE)
+    }
+
+    /**
+     * Replaces all settings with the ones in [json] and returns false, changing nothing, when the
+     * file cannot be read. The old settings are only dropped once the new ones are known to parse.
+     */
+    fun loadFromString(json: String): Boolean {
         val moshi = Moshi.Builder().build()
 
         val type = Types.newParameterizedType(
@@ -60,18 +69,26 @@ class Prefs(val context: Context) {
 
         val adapter = moshi.adapter<Map<String, Any?>>(type)
 
-        val all = adapter.fromJson(json) ?: emptyMap()
+        val all = try {
+            adapter.fromJson(json)
+        } catch (e: Exception) {
+            AppLogger.e("backup error", "Backup file could not be parsed", e)
+            null
+        }
+        if (all.isNullOrEmpty()) return false
 
         prefsNormal.edit {
+            clear()
             for ((key, value) in all) {
                 when (value) {
                     is String -> putString(key, value)
                     is Boolean -> putBoolean(key, value)
                     is Double -> {
-                        if (value % 1 == 0.0) {
-                            putInt(key, value.toInt())
-                        } else {
+                        // JSON has one number type: 1.0 would come back as an Int and crash getFloat
+                        if (key in FLOAT_KEYS || value % 1 != 0.0) {
                             putFloat(key, value.toFloat())
+                        } else {
+                            putInt(key, value.toInt())
                         }
                     }
 
@@ -87,6 +104,7 @@ class Prefs(val context: Context) {
                 }
             }
         }
+        return true
     }
 
     fun saveToTheme(colorNames: List<String>): String {
@@ -115,7 +133,8 @@ class Prefs(val context: Context) {
         return adapter.toJson(filteredPrefs)
     }
 
-    fun loadFromTheme(json: String) {
+    /** Applies a theme file. Only [allowedKeys], the colour settings a theme may carry, are written. */
+    fun loadFromTheme(json: String, allowedKeys: Collection<String>) {
         val moshi = Moshi.Builder().build()
 
         val type = Types.newParameterizedType(
@@ -136,6 +155,11 @@ class Prefs(val context: Context) {
 
         prefsNormal.edit {
             for ((key, value) in all) {
+                if (key !in allowedKeys) {
+                    // A theme must not reach other settings; a colour written over one of them would crash the launcher
+                    AppLogger.w("Theme Import", "Ignoring '$key': not a theme colour")
+                    continue
+                }
                 try {
                     when (value) {
                         is String -> {
@@ -174,15 +198,15 @@ class Prefs(val context: Context) {
     }
 
     var appVersion: Int
-        get() = prefsNormal.getInt(APP_VERSION, -1)
+        get() = getSetting(APP_VERSION, -1)
         set(value) = prefsNormal.edit { putInt(APP_VERSION, value) }
 
     var firstOpen: Boolean
-        get() = prefsNormal.getBoolean(FIRST_OPEN, true)
+        get() = getSetting(FIRST_OPEN, true)
         set(value) = prefsNormal.edit { putBoolean(FIRST_OPEN, value) }
 
     var firstSettingsOpen: Boolean
-        get() = prefsNormal.getBoolean(FIRST_SETTINGS_OPEN, true)
+        get() = getSetting(FIRST_SETTINGS_OPEN, true)
         set(value) = prefsNormal.edit { putBoolean(FIRST_SETTINGS_OPEN, value) }
 
     var autoOpenApp: Boolean
@@ -428,7 +452,7 @@ class Prefs(val context: Context) {
         set(value) = prefsNormal.edit { putBoolean(SHOW_WEATHER, value) }
 
     var gpsLocation: Boolean
-        get() = getSetting(GPS_LOCATION, true)
+        get() = getSetting(GPS_LOCATION, false)
         set(value) = prefsNormal.edit { putBoolean(GPS_LOCATION, value) }
 
     var showBatteryIcon: Boolean
@@ -458,7 +482,7 @@ class Prefs(val context: Context) {
         set(value) = prefsNormal.edit { putString(ICON_PACK_HOME, value.name) }
 
     var customIconPackHome: String
-        get() = prefsNormal.getString(CUSTOM_ICON_PACK_HOME, emptyString()).toString()
+        get() = getSetting(CUSTOM_ICON_PACK_HOME, emptyString()).toString()
         set(value) = prefsNormal.edit { putString(CUSTOM_ICON_PACK_HOME, value) }
 
     var iconPackAppList: Constants.IconPacks
@@ -468,7 +492,7 @@ class Prefs(val context: Context) {
         set(value) = prefsNormal.edit { putString(ICON_PACK_APP_LIST, value.name) }
 
     var customIconPackAppList: String
-        get() = prefsNormal.getString(CUSTOM_ICON_PACK_APP_LIST, emptyString()).toString()
+        get() = getSetting(CUSTOM_ICON_PACK_APP_LIST, emptyString()).toString()
         set(value) = prefsNormal.edit { putString(CUSTOM_ICON_PACK_APP_LIST, value) }
 
     var homeLocked: Boolean
@@ -602,24 +626,24 @@ class Prefs(val context: Context) {
     // The string sets below are returned as copies: SharedPreferences hands out its own set, and
     // writing that same instance back after changing it is treated as "no change" and never saved.
     var hiddenApps: MutableSet<String>
-        get() = prefsNormal.getStringSet(HIDDEN_APPS, null).orEmpty().toMutableSet()
+        get() = getSet(HIDDEN_APPS).toMutableSet()
         set(value) = prefsNormal.edit { putStringSet(HIDDEN_APPS, value) }
 
     var lockedApps: MutableSet<String>
-        get() = prefsNormal.getStringSet(LOCKED_APPS, null).orEmpty().toMutableSet()
+        get() = getSet(LOCKED_APPS).toMutableSet()
         set(value) = prefsNormal.edit { putStringSet(LOCKED_APPS, value) }
 
     var pinnedApps: Set<String>
-        get() = prefsNormal.getStringSet(PINNED_APPS, null).orEmpty().toSet()
+        get() = getSet(PINNED_APPS).toSet()
         set(value) = prefsNormal.edit { putStringSet(PINNED_APPS, value) }
 
 
     var hiddenContacts: MutableSet<String>
-        get() = prefsNormal.getStringSet(HIDDEN_CONTACTS, null).orEmpty().toMutableSet()
+        get() = getSet(HIDDEN_CONTACTS).toMutableSet()
         set(value) = prefsNormal.edit { putStringSet(HIDDEN_CONTACTS, value) }
 
     var pinnedContacts: Set<String>
-        get() = prefsNormal.getStringSet(PINNED_CONTACTS, null).orEmpty().toSet()
+        get() = getSet(PINNED_CONTACTS).toSet()
         set(value) = prefsNormal.edit { putStringSet(PINNED_CONTACTS, value) }
 
     var enableExpertOptions: Boolean
@@ -689,12 +713,12 @@ class Prefs(val context: Context) {
      *  TODO store with protobuf instead of serializing manually.
      */
     private fun loadApp(id: String): AppListItem {
-        val appName = prefsNormal.getString("${APP_NAME}_$id", emptyString()).toString()
-        val appPackage = prefsNormal.getString("${APP_PACKAGE}_$id", emptyString()).toString()
-        val appActivityName = prefsNormal.getString("${APP_ACTIVITY}_$id", emptyString()).toString()
+        val appName = getSetting("${APP_NAME}_$id", emptyString()).toString()
+        val appPackage = getSetting("${APP_PACKAGE}_$id", emptyString()).toString()
+        val appActivityName = getSetting("${APP_ACTIVITY}_$id", emptyString()).toString()
 
         val userHandleString = try {
-            prefsNormal.getString("${APP_USER}_$id", emptyString()).toString()
+            getSetting("${APP_USER}_$id", emptyString()).toString()
         } catch (_: Exception) {
             emptyString()
         }
@@ -755,7 +779,7 @@ class Prefs(val context: Context) {
                 storeApp(id, app.copy(activityPackage = emptyString(), activityClass = emptyString()))
                 // A gesture left on "Open app" without an app would silently fall back to another action
                 GESTURE_SLOT_ACTIONS[id]?.let { actionKey ->
-                    if (prefsNormal.getString(actionKey, null) == Constants.Action.OpenApp.name) {
+                    if (getSetting(actionKey, emptyString()) == Constants.Action.OpenApp.name) {
                         prefsNormal.edit { putString(actionKey, Constants.Action.Disabled.name) }
                     }
                 }
@@ -830,7 +854,7 @@ class Prefs(val context: Context) {
 
     // Get flags as list of booleans
     fun getMenuFlags(settingFlags: String, default: String = "0"): List<Boolean> {
-        val flagString = prefsNormal.getString(settingFlags, default) ?: default
+        val flagString = getSetting(settingFlags, default)
         return flagString.map { it == '1' }
     }
 
@@ -879,7 +903,7 @@ class Prefs(val context: Context) {
     }
 
     fun getAppAlias(appPackage: String): String {
-        return prefsNormal.getString("${appPackage}_ALIAS", emptyString()).toString()
+        return getSetting("${appPackage}_ALIAS", emptyString()).toString()
     }
 
     fun setAppAlias(appPackage: String, appAlias: String) {
@@ -896,7 +920,7 @@ class Prefs(val context: Context) {
     }
 
     fun getProfileCounter(profile: String): Int {
-        return prefsNormal.getInt(profile, 0)
+        return getSetting(profile, 0)
     }
 
     fun getAppTag(appPackage: String, userHandle: UserHandle? = null): String {
@@ -945,8 +969,8 @@ class Prefs(val context: Context) {
 
     /** 🔹 Load saved location */
     fun loadLocation(): Pair<Double, Double>? {
-        val lat = prefsNormal.getFloat(WEATHER_LATITUDE, Float.NaN)
-        val lon = prefsNormal.getFloat(WEATHER_LONGITUDE, Float.NaN)
+        val lat = getSetting(WEATHER_LATITUDE, Float.NaN)
+        val lon = getSetting(WEATHER_LONGITUDE, Float.NaN)
 
         return if (!lat.isNaN() && !lon.isNaN()) {
             Pair(lat.toDouble(), lon.toDouble())
@@ -956,7 +980,7 @@ class Prefs(val context: Context) {
     }
 
     fun loadLocationName(): String {
-        return prefsNormal.getString(WEATHER_LOCATION, "Select Location").toString()
+        return getSetting(WEATHER_LOCATION, "Select Location")
     }
 
     fun remove(prefName: String) {
@@ -975,12 +999,12 @@ class Prefs(val context: Context) {
     }
 
     fun loadMessagesWrong(): List<MessageWrong> {
-        val json = prefsNormal.getString(NOTES_MESSAGES, "[]") ?: return emptyList()
+        val json = getSetting(NOTES_MESSAGES, "[]")
         return messageWrongAdapter.fromJson(json) ?: emptyList()
     }
 
     fun loadMessages(): List<Message> {
-        val json = prefsNormal.getString(NOTES_MESSAGES, "[]") ?: return emptyList()
+        val json = getSetting(NOTES_MESSAGES, "[]")
         return messageAdapter.fromJson(json) ?: emptyList()
     }
 
@@ -993,14 +1017,14 @@ class Prefs(val context: Context) {
     }
 
     fun loadSettings(): Pair<String, String> {
-        val category = prefsNormal.getString(NOTES_CATEGORY, "None") ?: "None"
-        val priority = prefsNormal.getString(NOTES_PRIORITY, "None") ?: "None"
+        val category = getSetting(NOTES_CATEGORY, "None")
+        val priority = getSetting(NOTES_PRIORITY, "None")
         return Pair(category, priority)
     }
 
     // Function to fetch enum value from SharedPreferences
     private inline fun <reified T : Enum<T>> getEnumSetting(key: String, defaultValue: T): T {
-        val enumName = prefsNormal.getString(key, defaultValue.name)
+        val enumName = getSetting(key, defaultValue.name)
         return try {
             enumValueOf<T>(enumName ?: defaultValue.name)
         } catch (_: IllegalArgumentException) {
@@ -1009,16 +1033,30 @@ class Prefs(val context: Context) {
     }
 
     private inline fun <reified T> getSetting(key: String, defaultValue: T): T {
-        // Otherwise, fetch from SharedPreferences
-        val result = when (defaultValue) {
-            is Int -> prefsNormal.getInt(key, defaultValue)
-            is Boolean -> prefsNormal.getBoolean(key, defaultValue)
-            is String -> prefsNormal.getString(key, defaultValue) ?: defaultValue
-            is Float -> prefsNormal.getFloat(key, defaultValue)
-            else -> throw IllegalArgumentException("Unsupported type")
+        // A value of the wrong type (from an imported file) is dropped instead of crashing every start
+        val result = try {
+            when (defaultValue) {
+                is Int -> prefsNormal.getInt(key, defaultValue)
+                is Boolean -> prefsNormal.getBoolean(key, defaultValue)
+                is String -> prefsNormal.getString(key, defaultValue) ?: defaultValue
+                is Float -> prefsNormal.getFloat(key, defaultValue)
+                else -> throw IllegalArgumentException("Unsupported type")
+            }
+        } catch (_: ClassCastException) {
+            AppLogger.w("Prefs", "Dropping '$key': stored with the wrong type")
+            prefsNormal.edit { remove(key) }
+            defaultValue
         }
 
         return result as T
+    }
+
+    private fun getSet(key: String): Set<String> = try {
+        prefsNormal.getStringSet(key, null).orEmpty()
+    } catch (_: ClassCastException) {
+        AppLogger.w("Prefs", "Dropping '$key': stored with the wrong type")
+        prefsNormal.edit { remove(key) }
+        emptySet()
     }
 
 

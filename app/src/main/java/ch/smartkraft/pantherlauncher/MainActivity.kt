@@ -219,10 +219,12 @@ class MainActivity : AppCompatActivity() {
                             }
 
                             val string = stringBuilder.toString()
-                            val prefs = Prefs(applicationContext)
-                            prefs.clear()
-                            prefs.loadFromString(string)
-                            AppReloader.restartApp(applicationContext)
+                            // The current settings stay untouched unless the file can be read
+                            if (Prefs(applicationContext).loadFromString(string)) {
+                                AppReloader.restartApp(applicationContext)
+                            } else {
+                                showLongToast("The backup file could not be read")
+                            }
                         }
                     } catch (e: FileNotFoundException) {
                         e.printStackTrace()
@@ -299,7 +301,7 @@ class MainActivity : AppCompatActivity() {
 
                             val string = stringBuilder.toString()
                             val prefs = Prefs(applicationContext)
-                            prefs.loadFromTheme(string)
+                            prefs.loadFromTheme(string, colorNames)
                         }
                     } catch (e: FileNotFoundException) {
                         e.printStackTrace()

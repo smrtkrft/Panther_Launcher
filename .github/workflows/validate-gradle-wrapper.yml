@@ -12,14 +12,17 @@ on:
       - '**/gradlew'
       - '**/gradlew.bat'
 
+# Read-only: this workflow only inspects the checked-out files
+permissions:
+  contents: read
+
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7.0.1
         with:
-          token: ${{ github.actor == 'dependabot[bot]' && secrets.GITHUB_TOKEN || secrets.GIT_BOT_TOKEN }}
-          ref: main
+          persist-credentials: false
 
       - name: Validate Gradle Wrapper JAR
         uses: gradle/wrapper-validation-action@v3.5.0
