@@ -23,7 +23,11 @@ fun View.hideKeyboard() {
 }
 
 @SuppressLint("ClickableViewAccessibility")
-fun View.attachGestureManager(context: Context, listener: GestureManager.GestureListener) {
-    val gestureManager = GestureManager(context, listener)
+fun View.attachGestureManager(
+    context: Context,
+    listener: GestureManager.GestureListener,
+    waitForDoubleTap: Boolean = true
+) {
+    val gestureManager = GestureManager(context, listener, waitForDoubleTap)
     this.setOnTouchListener { _, event -> gestureManager.onTouchEvent(event) }
 }

@@ -3,7 +3,6 @@ package ch.smartkraft.pantherlauncher.helper
 import android.Manifest
 import android.app.AlarmManager
 import android.app.AppOpsManager
-import android.app.UiModeManager
 import android.app.role.RoleManager
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
@@ -14,6 +13,7 @@ import android.content.pm.ActivityInfo
 import android.content.pm.LauncherApps
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.ColorFilter
@@ -440,8 +440,10 @@ fun getHexForOpacity(prefs: Prefs): Int {
 }
 
 fun isSystemInDarkMode(context: Context): Boolean {
-    val uiModeManager = context.getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
-    return uiModeManager.nightMode == UiModeManager.MODE_NIGHT_YES
+    // UiModeManager.nightMode only reports the setting, which is "auto" or "custom" when dark mode
+    // is scheduled; the configuration tells whether dark mode is active right now.
+    val uiMode = context.applicationContext.resources.configuration.uiMode
+    return uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
 }
 
 fun setThemeMode(context: Context, isDark: Boolean, view: View) {

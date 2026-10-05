@@ -782,15 +782,15 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
         val actionService = ActionService.instance()
 
         when {
-            // Use Device Admin if active
-            dpm.isAdminActive(deviceAdmin) -> {
-                dpm.lockNow()
-                CrashHandler.logUserAction("Lock Screen via Device Admin")
-            }
-            // Fallback to ActionService if available
+            // Prefer the accessibility service: unlike Device Admin it keeps biometric unlock working
             actionService != null -> {
                 actionService.lockScreen()
                 CrashHandler.logUserAction("Lock Screen via ActionService")
+            }
+            // Fallback to Device Admin if active; the next unlock then needs the PIN or password
+            dpm.isAdminActive(deviceAdmin) -> {
+                dpm.lockNow()
+                CrashHandler.logUserAction("Lock Screen via Device Admin")
             }
             // Otherwise prompt the user to enable Device Admin
             else -> {
@@ -1510,7 +1510,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener, View.OnLongClickListe
                 }
                 CrashHandler.logUserAction("SwipeDown Long Gesture")
             }
-        })
+        }, waitForDoubleTap = false)
     }
 
     private fun dismissDialogs() {

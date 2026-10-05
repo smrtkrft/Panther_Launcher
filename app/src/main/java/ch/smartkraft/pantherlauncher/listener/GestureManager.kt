@@ -11,7 +11,9 @@ import kotlin.math.abs
 
 class GestureManager(
     private val context: Context,
-    private val listener: GestureListener
+    private val listener: GestureListener,
+    // When false a tap is reported as soon as the finger lifts instead of after the double-tap timeout.
+    private val waitForDoubleTap: Boolean = true
 ) : GestureDetector.SimpleOnGestureListener() {
 
     private val gestureDetector = GestureDetector(context, this)
@@ -72,7 +74,15 @@ class GestureManager(
         return true
     }
 
+    override fun onSingleTapUp(e: MotionEvent): Boolean {
+        if (waitForDoubleTap) return false
+        AppLogger.d(TAG, "onSingleTapUp")
+        listener.onSingleTap()
+        return true
+    }
+
     override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+        if (!waitForDoubleTap) return false
         AppLogger.d(TAG, "onSingleTapConfirmed")
         listener.onSingleTap()
         return true
@@ -123,7 +133,7 @@ class GestureManager(
 
         AppLogger.d(TAG, "onFling detected: velocity=$velocity")
 
-        val handled = detectSwipeGesture(e1, e2, duration, velocity)
+        val handled = detectSwipeGesture(e2.x - e1.x, e2.y - e1.y, duration, velocity)
         flingDetected = handled
         AppLogger.d(TAG, "onFling - gesture handled=$handled, flingDetected set to $flingDetected")
         return handled
@@ -132,11 +142,14 @@ class GestureManager(
     private fun handleScrollFinished(e1: MotionEvent, e2: MotionEvent) {
         scrollFinishedRunnable?.let { handler.removeCallbacks(it) }
         val duration = System.currentTimeMillis() - downTime
+        // Read the distance now: both events are recycled before the delayed check runs.
+        val diffX = e2.x - e1.x
+        val diffY = e2.y - e1.y
 
         scrollFinishedRunnable = Runnable {
             if (!flingDetected) {
                 AppLogger.d(TAG, "handleScrollFinished - no fling detected, checking for slow swipe")
-                detectSwipeGesture(e1, e2, duration)
+                detectSwipeGesture(diffX, diffY, duration)
             } else {
                 AppLogger.d(TAG, "handleScrollFinished - fling already detected, skipping detection")
             }
@@ -146,13 +159,11 @@ class GestureManager(
     }
 
     private fun detectSwipeGesture(
-        startEvent: MotionEvent,
-        endEvent: MotionEvent,
+        diffX: Float,
+        diffY: Float,
         duration: Long,
         velocity: Float? = null
     ): Boolean {
-        val diffX = endEvent.x - startEvent.x
-        val diffY = endEvent.y - startEvent.y
         val isHorizontalSwipe = abs(diffX) > abs(diffY)
 
         val direction = if (isHorizontalSwipe) {
