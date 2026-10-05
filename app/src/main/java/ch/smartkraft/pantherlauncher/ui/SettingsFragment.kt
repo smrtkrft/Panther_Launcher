@@ -200,6 +200,7 @@ class SettingsFragment : BaseFragment() {
         var toggledAutoShowKeyboard by remember { mutableStateOf(prefs.autoShowKeyboard) }
         var toggledSearchFromStart by remember { mutableStateOf(prefs.searchFromStart) }
         var toggledEnableFilterStrength by remember { mutableStateOf(prefs.enableFilterStrength) }
+        var toggledSmartSearch by remember { mutableStateOf(prefs.smartSearch) }
         var selectedFilterStrength by remember { mutableIntStateOf(prefs.filterStrength) }
 
         var toggledAutoOpenApp by remember { mutableStateOf(prefs.autoOpenApp) }
@@ -753,49 +754,62 @@ class SettingsFragment : BaseFragment() {
                     }
 
                     SettingsSwitch(
-                        text = getLocalizedString(R.string.enable_filter_strength),
+                        text = getLocalizedString(R.string.smart_search),
                         fontSize = titleFontSize,
-                        defaultState = toggledEnableFilterStrength,
+                        defaultState = toggledSmartSearch,
                         onCheckedChange = {
-                            toggledEnableFilterStrength = !prefs.enableFilterStrength
-                            prefs.enableFilterStrength = toggledEnableFilterStrength
+                            toggledSmartSearch = !prefs.smartSearch
+                            prefs.smartSearch = toggledSmartSearch
                         }
                     )
 
-                    if (toggledEnableFilterStrength) {
+                    // The fuzzy finder options only apply to the classic search.
+                    if (!toggledSmartSearch) {
                         SettingsSwitch(
-                            text = getLocalizedString(R.string.search_from_start),
+                            text = getLocalizedString(R.string.enable_filter_strength),
                             fontSize = titleFontSize,
-                            defaultState = toggledSearchFromStart,
+                            defaultState = toggledEnableFilterStrength,
                             onCheckedChange = {
-                                toggledSearchFromStart = !prefs.searchFromStart
-                                prefs.searchFromStart = toggledSearchFromStart
+                                toggledEnableFilterStrength = !prefs.enableFilterStrength
+                                prefs.enableFilterStrength = toggledEnableFilterStrength
                             }
                         )
-                    }
 
-                    if (toggledEnableFilterStrength) {
-                        SettingsSelect(
-                            title = getLocalizedString(R.string.filter_strength),
-                            option = selectedFilterStrength.toString(),
-                            fontSize = titleFontSize,
-                            onClick = {
-                                dialogBuilder.showSliderBottomSheet(
-                                    context = requireContext(),
-                                    title = getLocalizedString(R.string.filter_strength),
-                                    minValue = Constants.MIN_FILTER_STRENGTH,
-                                    maxValue = Constants.MAX_FILTER_STRENGTH,
-                                    currentValue = prefs.filterStrength,
-                                    onValueSelected = { newFilterStrength ->
-                                        selectedFilterStrength =
-                                            newFilterStrength.toInt() // Update state
-                                        prefs.filterStrength =
-                                            newFilterStrength.toInt() // Persist selection in preferences
-                                        viewModel.filterStrength.value = newFilterStrength.toInt()
-                                    }
-                                )
-                            }
-                        )
+                        if (toggledEnableFilterStrength) {
+                            SettingsSwitch(
+                                text = getLocalizedString(R.string.search_from_start),
+                                fontSize = titleFontSize,
+                                defaultState = toggledSearchFromStart,
+                                onCheckedChange = {
+                                    toggledSearchFromStart = !prefs.searchFromStart
+                                    prefs.searchFromStart = toggledSearchFromStart
+                                }
+                            )
+                        }
+
+                        if (toggledEnableFilterStrength) {
+                            SettingsSelect(
+                                title = getLocalizedString(R.string.filter_strength),
+                                option = selectedFilterStrength.toString(),
+                                fontSize = titleFontSize,
+                                onClick = {
+                                    dialogBuilder.showSliderBottomSheet(
+                                        context = requireContext(),
+                                        title = getLocalizedString(R.string.filter_strength),
+                                        minValue = Constants.MIN_FILTER_STRENGTH,
+                                        maxValue = Constants.MAX_FILTER_STRENGTH,
+                                        currentValue = prefs.filterStrength,
+                                        onValueSelected = { newFilterStrength ->
+                                            selectedFilterStrength =
+                                                newFilterStrength.toInt() // Update state
+                                            prefs.filterStrength =
+                                                newFilterStrength.toInt() // Persist selection in preferences
+                                            viewModel.filterStrength.value = newFilterStrength.toInt()
+                                        }
+                                    )
+                                }
+                            )
+                        }
                     }
 
                     Spacer(modifier = Modifier.height(12.dp))

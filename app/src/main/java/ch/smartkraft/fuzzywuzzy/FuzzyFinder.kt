@@ -157,6 +157,17 @@ object FuzzyFinder {
     ): MutableList<T> {
         if (query.isEmpty()) return itemsList.toMutableList()
 
+        if (prefs.smartSearch) {
+            return itemsList
+                .mapIndexedNotNull { index, item ->
+                    val score = SmartSearch.score(labelProvider(item), query)
+                    if (score > 0) Triple(item, score, index) else null
+                }
+                .sortedWith(compareByDescending<Triple<T, Int, Int>> { it.second }.thenBy { it.third })
+                .map { it.first }
+                .toMutableList()
+        }
+
         val normalizedQuery = normalizeSearch(query)
 
         // Keep original index as a final tie-breaker to preserve deterministic ordering.

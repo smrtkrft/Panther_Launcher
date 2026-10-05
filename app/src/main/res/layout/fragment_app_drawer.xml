@@ -18,7 +18,8 @@
         android:layout_marginEnd="12dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingHorizontal="8dp">
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="10dp">
 
         <ch.smartkraft.components.views.FontSearchView
             android:id="@+id/search"
@@ -140,6 +141,7 @@
         android:layout_height="0dp"
         android:layout_below="@id/appDrawerTip"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="16dp"
         android:clipToPadding="false">
 
         <!-- RecyclerView positioned below the Drawer TextViews -->

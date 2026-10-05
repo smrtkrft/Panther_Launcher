@@ -31,6 +31,7 @@ internal const val FILTER_STRENGTH = "FILTER_STRENGTH"
 internal const val SHORT_SWIPE_THRESHOLD = "SHORT_SWIPE_THRESHOLD"
 internal const val LONG_SWIPE_THRESHOLD = "LONG_SWIPE_THRESHOLD"
 internal const val ENABLE_FILTER_STRENGTH = "ENABLE_FILTER_STRENGTH"
+internal const val SMART_SEARCH = "SMART_SEARCH"
 
 // Alignment / Layout
 internal const val HOME_ALIGNMENT = "HOME_ALIGNMENT"

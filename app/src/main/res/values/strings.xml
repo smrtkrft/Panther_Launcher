@@ -144,6 +144,7 @@
     <string name="show_app_usage_stats">Show App Usage Stats</string>
     <string name="select_home_icons">Select Home Icon Pack</string>
     <string name="select_app_list_icons">Select App List Icon Pack</string>
+    <string name="smart_search">Smart Search</string>
     <string name="enable_filter_strength">Enable Fuzzy Finder</string>
     <string name="filter_strength">Fuzzy Finder Strength</string>
     <string name="show_background">Show Background</string>

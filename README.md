@@ -1,21 +1,8 @@
-<div align='center'>
-	<h2>Panther Launcher</h2>
-	<p>Sade ve dağınıklıktan uzak bir Android başlatıcısı.</p>
-	<table align='center'>
-		<tr>
-			<td><img src='docs/screenshots/0.png' height='200' alt=""></td>
-			<td><img src='docs/screenshots/1.png' height='200' alt=""></td>
-			<td><img src='docs/screenshots/2.png' height='200' alt=""></td>
-			<td><img src='docs/screenshots/3.png' height='200' alt=""></td>
-		</tr>
-		<tr>
-			<td><img src='docs/screenshots/4.png' height='200' alt=""></td>
-			<td><img src='docs/screenshots/5.png' height='200' alt=""></td>
-			<td><img src='docs/screenshots/6.png' height='200' alt=""></td>
-			<td><img src='docs/screenshots/7.png' height='200' alt=""></td>
-		</tr>
-	</table>
-</div>
+# Panther Launcher
+
+> **Bu bir dağıtım değildir.** mLauncher üzerinde, yalnızca kendi kullanımım için APK olarak yaptığım kişisel bir düzenlemedir.
+
+Sade ve dağınıklıktan uzak bir Android başlatıcısı.
 
 ## Bu proje hakkında
 

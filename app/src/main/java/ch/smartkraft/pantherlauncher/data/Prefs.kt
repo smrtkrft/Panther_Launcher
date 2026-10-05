@@ -213,6 +213,10 @@ class Prefs(val context: Context) {
         get() = getSetting(RECENT_COUNTER, 10)
         set(value) = prefsNormal.edit { putInt(RECENT_COUNTER, value) }
 
+    var smartSearch: Boolean
+        get() = getSetting(SMART_SEARCH, true)
+        set(value) = prefsNormal.edit { putBoolean(SMART_SEARCH, value) }
+
     var enableFilterStrength: Boolean
         get() = getSetting(ENABLE_FILTER_STRENGTH, true)
         set(value) = prefsNormal.edit { putBoolean(ENABLE_FILTER_STRENGTH, value) }

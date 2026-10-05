@@ -107,6 +107,7 @@
     <string name="show_app_usage_stats">Uygulama Kullanım İstatistiklerini Göster</string>
     <string name="select_home_icons">Ana Sayfa Simge Paketi\'ni seçin</string>
     <string name="select_app_list_icons">Uygulama Listesi Simge Paketini Seçin</string>
+    <string name="smart_search">Akıllı arama</string>
     <string name="enable_filter_strength">Esnek aramayı aç</string>
     <string name="filter_strength">Esnek arama hassasiyeti</string>
     <string name="show_background">Arka planı göster</string>
