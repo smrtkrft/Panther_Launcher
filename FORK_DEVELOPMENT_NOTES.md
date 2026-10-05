@@ -24,6 +24,7 @@ Bu dosya, Panther Launcher'ın kaynağı olan [mLauncher (Multi Launcher)](https
 - Uygulama kilidi artık kalıcı: ilkinden sonraki kilit değişiklikleri kaydedilmiyor, launcher yeniden başlayınca kayboluyordu.
 - Kilitli uygulamalar ana ekrandaki hızlı erişim düğmeleri ve tarih dokunuşu üzerinden doğrulamasız açılamıyor.
 - Cihazda ekran kilidi yoksa uygulama kilitlenemiyor; önceden böyle kilitlenen uygulama sessizce açılmaz hale geliyordu.
+- Erişilebilirlik servisi artık ekran içeriğini okuma yetkisi istemiyor ve bildirim metinlerini kayda yazmıyor.
 
 ### B – Hata düzeltmeleri
 
@@ -66,6 +67,7 @@ This file summarises where Panther Launcher departs from its source, [mLauncher 
 - The app lock is now persistent: lock changes after the first one were not saved and were lost when the launcher restarted.
 - Locked apps can no longer be opened without authentication through the home screen quick-action buttons or the date tap.
 - An app cannot be locked when the device has no screen lock; previously an app locked that way silently became impossible to open.
+- The accessibility service no longer asks for permission to read screen content, and notification text is no longer written to the log.
 
 ### B – Bug fixes
 

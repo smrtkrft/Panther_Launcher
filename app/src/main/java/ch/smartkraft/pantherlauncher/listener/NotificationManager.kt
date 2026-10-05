@@ -1,6 +1,5 @@
 package ch.smartkraft.pantherlauncher.listener
 
-import android.app.Notification
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import ch.smartkraft.common.AppLogger
@@ -10,11 +9,6 @@ private const val TAG = "NotifCount"
 class NotificationManager : NotificationListenerService() {
 
     override fun onNotificationPosted(sbn: StatusBarNotification) {
-        AppLogger.d(
-            TAG,
-            "${sbn.packageName} Notification: ${sbn.notification.extras.getString(Notification.EXTRA_TITLE)} | " +
-                    "${sbn.notification.extras.getString(Notification.EXTRA_TEXT)}"
-        )
         updateDots()
     }
 
