@@ -130,7 +130,10 @@ class AppDrawerAdapter(
             tagOf = { it.tag },
             systemCategoryOf = { systemCategoryOf(it.activityPackage) },
             otherName = getLocalizedString(R.string.category_other),
-            openCategory = settings.openDrawerCategory
+            openCategory = settings.openDrawerCategory,
+            extraCategories = settings.customCategories,
+            displayName = { settings.categoryDisplayName(it) },
+            maxCategories = settings.maxCategories
         )
         headers.clear()
         return rows.map { row ->

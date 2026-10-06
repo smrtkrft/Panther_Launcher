@@ -17,6 +17,7 @@ import android.widget.AbsListView
 import android.widget.ArrayAdapter
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ListView
@@ -87,6 +88,39 @@ class DialogManager(val context: Context, val activity: Activity) {
                     .setNegativeButton(getLocalizedString(R.string.cancel), null)
                     .show()
             }
+            .setNegativeButton(getLocalizedString(R.string.cancel), null)
+            .show()
+    }
+
+    /** Asks for one line of text; [onDone] gets the trimmed text, also when it is empty. */
+    fun showTextInputDialog(context: Context, title: String, current: String, hint: String = "", onDone: (String) -> Unit) {
+        val input = EditText(context).apply {
+            setText(current)
+            this.hint = hint
+            setSelection(text.length)
+            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
+        }
+        val padding = (24 * context.resources.displayMetrics.density).toInt()
+        val frame = FrameLayout(context).apply {
+            setPadding(padding, 0, padding, 0)
+            addView(input)
+        }
+        MaterialAlertDialogBuilder(context)
+            .setTitle(title)
+            .setView(frame)
+            .setPositiveButton(getLocalizedString(R.string.okay)) { _, _ -> onDone(input.text.toString().trim()) }
+            .setNegativeButton(getLocalizedString(R.string.cancel), null)
+            .show()
+        input.requestFocus()
+    }
+
+    /** Lets the user tick any number of [labels]; [onDone] gets the indices that ended up ticked. */
+    fun showMultiChoiceDialog(context: Context, title: String, labels: List<String>, checked: Set<Int>, onDone: (Set<Int>) -> Unit) {
+        val state = BooleanArray(labels.size) { it in checked }
+        MaterialAlertDialogBuilder(context)
+            .setTitle(title)
+            .setMultiChoiceItems(labels.toTypedArray(), state) { _, index, isChecked -> state[index] = isChecked }
+            .setPositiveButton(getLocalizedString(R.string.okay)) { _, _ -> onDone(state.indices.filter { state[it] }.toSet()) }
             .setNegativeButton(getLocalizedString(R.string.cancel), null)
             .show()
     }

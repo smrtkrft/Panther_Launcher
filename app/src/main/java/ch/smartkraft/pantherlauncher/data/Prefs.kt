@@ -3,6 +3,7 @@ package ch.smartkraft.pantherlauncher.data
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.UserHandle
+import org.json.JSONObject
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.edit
 import androidx.core.graphics.toColorInt
@@ -481,6 +482,35 @@ class Prefs(val context: Context) {
             return getEnumSetting(DRAWER_VIEW, Constants.DrawerView.Categories)
         }
         set(value) = prefsNormal.edit { putString(DRAWER_VIEW, value.name) }
+
+    /** Names the user gave to categories, keyed by the original name (tag or Android category) in lower case. */
+    var categoryNames: Map<String, String>
+        get() = try {
+            val json = JSONObject(getSetting(CATEGORY_NAMES, "{}"))
+            json.keys().asSequence().associateWith { json.getString(it) }
+        } catch (_: Exception) {
+            emptyMap()
+        }
+        set(value) = prefsNormal.edit { putString(CATEGORY_NAMES, JSONObject(value).toString()) }
+
+    fun categoryDisplayName(original: String): String = categoryNames[original.lowercase()] ?: original
+
+    fun renameCategory(original: String, newName: String) {
+        val names = categoryNames.toMutableMap()
+        if (newName.isBlank() || newName.trim() == original) names.remove(original.lowercase())
+        else names[original.lowercase()] = newName.trim()
+        categoryNames = names
+    }
+
+    /** Categories the user created; they are listed even while no app carries them as a tag. */
+    var customCategories: Set<String>
+        get() = getSet(CUSTOM_CATEGORIES).toSet()
+        set(value) = prefsNormal.edit { putStringSet(CUSTOM_CATEGORIES, value) }
+
+    /** Most categories shown in the drawer; the smallest beyond it join "Other". 0 means no limit. */
+    var maxCategories: Int
+        get() = getSetting(MAX_CATEGORIES, 0)
+        set(value) = prefsNormal.edit { putInt(MAX_CATEGORIES, value) }
 
     /** Drawer shows apps grouped into categories (one open at a time) instead of one A-Z list. */
     val drawerCategories: Boolean

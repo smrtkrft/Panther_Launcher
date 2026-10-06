@@ -92,6 +92,7 @@ import ch.smartkraft.pantherlauncher.helper.utils.AppReloader
 import ch.smartkraft.pantherlauncher.helper.utils.PrivateSpaceManager
 import ch.smartkraft.pantherlauncher.style.SettingsTheme
 import ch.smartkraft.pantherlauncher.ui.components.DialogManager
+import ch.smartkraft.pantherlauncher.ui.compose.CategoryManager
 import ch.smartkraft.pantherlauncher.ui.compose.SettingsComposable.PageHeader
 import ch.smartkraft.pantherlauncher.ui.compose.SettingsComposable.SettingsHomeItem
 import ch.smartkraft.pantherlauncher.ui.compose.SettingsComposable.SettingsSelect
@@ -109,6 +110,8 @@ class SettingsFragment : BaseFragment() {
 
     private lateinit var prefs: Prefs
     private lateinit var viewModel: MainViewModel
+    /** Apps for the category manager; kept as state so the screen follows tag changes. */
+    private var appsForCategories by mutableStateOf<List<AppListItem>>(emptyList())
     private lateinit var dialogBuilder: DialogManager
 
     private var _binding: FragmentSettingsBinding? = null
@@ -138,6 +141,7 @@ class SettingsFragment : BaseFragment() {
         } ?: throw Exception("Invalid Activity")
 
         viewModel.isPantherLauncherDefault()
+        viewModel.appList.observe(viewLifecycleOwner) { appsForCategories = it.orEmpty() }
 
         resetThemeColors()
 
@@ -543,6 +547,18 @@ class SettingsFragment : BaseFragment() {
                     }
                 }
 
+                "categories" -> {
+                    CategoryManager.Screen(
+                        context = requireContext(),
+                        prefs = prefs,
+                        dialogBuilder = dialogBuilder,
+                        apps = appsForCategories,
+                        titleFontSize = titleFontSize,
+                        onBack = { currentScreen = "features" },
+                        onChanged = { viewModel.getAppList(includeHiddenApps = false) }
+                    )
+                }
+
                 "features" -> {
                     BackHandler { currentScreen = "main" }
                     PageHeader(
@@ -771,6 +787,16 @@ class SettingsFragment : BaseFragment() {
                     )
 
                     if (selectedDrawerView == Constants.DrawerView.Categories) {
+                        SettingsSelect(
+                            title = getLocalizedString(R.string.manage_categories),
+                            option = "›",
+                            fontSize = titleFontSize,
+                            onClick = {
+                                // Hidden apps are not part of the drawer, so they are not part of its categories
+                                viewModel.getAppList(includeHiddenApps = false)
+                                currentScreen = "categories"
+                            }
+                        )
                         SettingsSwitch(
                             text = getLocalizedString(R.string.category_uppercase),
                             fontSize = titleFontSize,
