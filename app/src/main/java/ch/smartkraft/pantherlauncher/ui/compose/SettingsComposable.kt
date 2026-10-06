@@ -48,6 +48,10 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLayoutResult
+import androidx.compose.ui.unit.em
+import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
@@ -468,32 +472,117 @@ object SettingsComposable {
         fontSize: TextUnit = TextUnit.Unspecified,
         onClick: () -> Unit = {}
     ) {
-        val resolvedFontSizeSp = if (fontSize != TextUnit.Unspecified) fontSize.value else 18f
-        val fontColor = SettingsTheme.typography.header.color
+        // Section label above a card: small, spaced capitals in a dimmed text colour
+        val base = if (fontSize != TextUnit.Unspecified) fontSize.value else 18f
+        val fontColor = SettingsTheme.typography.title.color.copy(alpha = 0.6f)
 
-        AndroidView(
-            factory = { context ->
-                FontAppCompatTextView(context).apply {
-                    this.text = text
-                    setTextSize(TypedValue.COMPLEX_UNIT_SP, resolvedFontSizeSp)
-                    setTextColor(fontColor.toArgb())
-
-                    isClickable = true
-                    isFocusable = true
-                    setOnClickListener { onClick() }
-
-                    // Optional: touch ripple effect
-                    val typedValue = TypedValue()
-                    context.theme.resolveAttribute(
-                        R.attr.selectableItemBackground, typedValue, true
-                    )
-                    setBackgroundResource(typedValue.resourceId)
-                }
-            },
+        FontText(
+            text = text.uppercase(),
+            fontSize = (base * 0.68f).sp,
+            color = fontColor,
+            fontWeight = FontWeight.Medium,
+            style = TextStyle(letterSpacing = 0.08.em),
             modifier = modifier
-                .padding(horizontal = 16.dp)
+                .padding(start = 20.dp, end = 20.dp, top = 18.dp, bottom = 6.dp)
+                .clickable(onClick = onClick)
                 .wrapContentSize()
         )
+    }
+
+    /** Colour of the thin outline used by the home tiles and the section cards. */
+    @Composable
+    fun outlineColor(): Color = SettingsTheme.typography.title.color.copy(alpha = 0.15f)
+
+    /**
+     * A rounded, outlined box that groups the rows of one settings section. A hairline is drawn
+     * between the rows.
+     */
+    @Composable
+    fun SectionCard(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+        val shape = RoundedCornerShape(16.dp)
+        val line = SettingsTheme.typography.title.color.copy(alpha = 0.07f)
+        val outline = outlineColor()
+        val rowTops = remember { mutableListOf<Int>() }
+
+        Layout(
+            content = content,
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .clip(shape)
+                .border(1.dp, outline, shape)
+                .drawBehind {
+                    // Separators above every row but the first
+                    rowTops.drop(1).forEach { y ->
+                        drawLine(line, Offset(0f, y.toFloat()), Offset(size.width, y.toFloat()), 1.dp.toPx())
+                    }
+                }
+        ) { measurables, constraints ->
+            val childConstraints = constraints.copy(minHeight = 0)
+            val placeables = measurables.map { it.measure(childConstraints) }
+            val height = placeables.sumOf { it.height }
+            rowTops.clear()
+            var y = 0
+            placeables.forEach { rowTops.add(y); y += it.height }
+            layout(constraints.maxWidth, height) {
+                var top = 0
+                placeables.forEach { it.placeRelative(0, top); top += it.height }
+            }
+        }
+    }
+
+    /**
+     * One tile of the settings home grid: an outlined box with the icon centred above the title
+     * and nothing else. [subtitle] is only used for a state such as "Locked".
+     */
+    @Composable
+    fun SettingsTile(
+        title: String,
+        @DrawableRes iconRes: Int,
+        modifier: Modifier = Modifier,
+        subtitle: String? = null,
+        tintIcon: Boolean = true,
+        titleFontSize: TextUnit = 13.sp,
+        iconSize: Dp = 26.dp,
+        onClick: () -> Unit = {}
+    ) {
+        val shape = RoundedCornerShape(16.dp)
+        val color = SettingsTheme.typography.title.color
+        Column(
+            modifier = modifier
+                .clip(shape)
+                .border(1.dp, outlineColor(), shape)
+                .clickable(onClick = onClick)
+                .padding(horizontal = 8.dp, vertical = 10.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Image(
+                painter = painterResource(iconRes),
+                contentDescription = null,
+                colorFilter = if (tintIcon) ColorFilter.tint(color) else null,
+                modifier = Modifier.size(iconSize)
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            FontText(
+                text = title,
+                color = color,
+                fontSize = titleFontSize,
+                fontWeight = FontWeight.Medium,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.wrapContentHeight()
+            )
+            subtitle?.let {
+                Spacer(modifier = Modifier.height(2.dp))
+                FontText(
+                    text = it,
+                    color = SettingsTheme.typography.option.color,
+                    fontSize = (titleFontSize.value * 0.82f).sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.wrapContentHeight()
+                )
+            }
+        }
     }
 
     @Composable

@@ -22,6 +22,19 @@ import android.widget.TextView
 import androidx.activity.compose.BackHandler
 import androidx.appcompat.app.AlertDialog
 import androidx.compose.foundation.layout.Column
+import ch.smartkraft.pantherlauncher.ui.compose.SettingsComposable.FontText
+import ch.smartkraft.pantherlauncher.ui.compose.SettingsComposable.SettingsTile
+import ch.smartkraft.pantherlauncher.ui.compose.SettingsComposable.SectionCard
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.Alignment
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -377,7 +390,7 @@ class SettingsFragment : BaseFragment() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(scrollState)
+                .then(if (currentScreen == "main") Modifier else Modifier.verticalScroll(scrollState))
         ) {
             when (currentScreen) {
                 "main" -> {
@@ -395,153 +408,71 @@ class SettingsFragment : BaseFragment() {
                         }
                     )
 
-                    Spacer(modifier = Modifier.height(12.dp))
+                    // Eight tiles in two columns: how the launcher works, what is on the screen, system.
+                    // The grid takes 70% of the free space and sits in its middle; nothing scrolls.
+                    val tileFontSize = (titleFontSize.value * 0.72f).sp
+                    val privateSpaceSetUp = PrivateSpaceManager(context).isPrivateSpaceSetUp()
 
-                    // 1. Features
-                    SettingsHomeCard(
-                        title = getLocalizedString(R.string.settings_features_title),
-                        description = getLocalizedString(R.string.settings_features_description),
-                        iconRes = R.drawable.ic_feature,
-                        titleFontSize = titleFontSize,
-                        descriptionFontSize = descriptionFontSize,
-                        iconSize = iconSize,
-                        onClick = { currentScreen = "features" }
-                    )
+                    @Composable
+                    fun RowScope.Tile(title: String, iconRes: Int, subtitle: String? = null, onClick: () -> Unit) {
+                        SettingsTile(
+                            modifier = Modifier.weight(1f).fillMaxHeight(),
+                            title = title,
+                            iconRes = iconRes,
+                            subtitle = subtitle,
+                            titleFontSize = tileFontSize,
+                            onClick = onClick
+                        )
+                    }
 
-                    // 2. Look & Feel
-                    SettingsHomeCard(
-                        title = getLocalizedString(R.string.settings_look_feel_title),
-                        description = getLocalizedString(R.string.settings_look_feel_description),
-                        iconRes = R.drawable.ic_look_feel,
-                        titleFontSize = titleFontSize,
-                        descriptionFontSize = descriptionFontSize,
-                        iconSize = iconSize,
-                        onClick = { currentScreen = "look_feel" }
-                    )
-
-                    // 3. Gestures
-                    SettingsHomeCard(
-                        title = getLocalizedString(R.string.settings_gestures_title),
-                        description = getLocalizedString(R.string.settings_gestures_description),
-                        iconRes = R.drawable.ic_gestures,
-                        titleFontSize = titleFontSize,
-                        descriptionFontSize = descriptionFontSize,
-                        iconSize = iconSize,
-                        onClick = { currentScreen = "gestures" }
-                    )
-
-                    // 4. Notes
-                    SettingsHomeCard(
-                        title = getLocalizedString(R.string.settings_notes_title),
-                        description = getLocalizedString(R.string.settings_notes_description),
-                        iconRes = R.drawable.ic_notes,
-                        titleFontSize = titleFontSize,
-                        descriptionFontSize = descriptionFontSize,
-                        iconSize = iconSize,
-                        onClick = { currentScreen = "notes" }
-                    )
-
-                    // 5. Private Spaces (if supported)
-                    if (PrivateSpaceManager(context).isPrivateSpaceSetUp()) {
-                        SettingsHomeCard(
-                            title = getLocalizedString(
-                                R.string.private_space,
-                                getLocalizedString(setPrivateSpacesStatus)
-                            ),
-                            iconRes = setPrivateSpacesIcon,
-                            titleFontSize = titleFontSize,
-                            descriptionFontSize = descriptionFontSize,
-                            iconSize = iconSize,
-                            onClick = {
-                                if (PrivateSpaceManager(context).isPrivateSpaceSetUp(
-                                        showToast = false,
-                                        launchSettings = false
-                                    )
-                                ) {
-
-                                    PrivateSpaceManager(context).togglePrivateSpaceLock(
-                                        showToast = false,
-                                        launchSettings = false
-                                    )
-                                    toggledPrivateSpaces = !toggledPrivateSpaces
-                                }
+                    Box(
+                        modifier = Modifier.fillMaxWidth().weight(1f),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Column(
+                            modifier = Modifier.fillMaxWidth(0.7f).fillMaxHeight(0.7f),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Row(modifier = Modifier.fillMaxWidth().weight(1f), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                Tile(getLocalizedString(R.string.settings_features_title), R.drawable.ic_feature) { currentScreen = "features" }
+                                Tile(getLocalizedString(R.string.settings_look_feel_title), R.drawable.ic_look_feel) { currentScreen = "look_feel" }
                             }
-                        )
-                    }
-
-                    // Specialized/Other
-                    SettingsHomeCard(
-                        title = getLocalizedString(R.string.settings_favorite_apps_title),
-                        description = getLocalizedString(R.string.settings_favorite_apps_description),
-                        iconRes = R.drawable.ic_favorite,
-                        titleFontSize = titleFontSize,
-                        descriptionFontSize = descriptionFontSize,
-                        iconSize = iconSize,
-                        onClick = { showFavoriteApps() }
-                    )
-
-                    SettingsHomeCard(
-                        title = getLocalizedString(R.string.settings_hidden_apps_title),
-                        description = getLocalizedString(R.string.settings_hidden_apps_description),
-                        iconRes = R.drawable.ic_hidden,
-                        titleFontSize = titleFontSize,
-                        descriptionFontSize = descriptionFontSize,
-                        iconSize = iconSize,
-                        onClick = { showHiddenApps() }
-                    )
-
-                    SettingsHomeCard(
-                        title = getLocalizedString(R.string.settings_advanced_title),
-                        description = getLocalizedString(R.string.settings_advanced_description),
-                        iconRes = R.drawable.ic_advanced,
-                        titleFontSize = titleFontSize,
-                        descriptionFontSize = descriptionFontSize,
-                        iconSize = iconSize,
-                        onClick = { currentScreen = "advanced" }
-                    )
-
-                    if (toggledExpertOptions) {
-                        SettingsHomeCard(
-                            title = getLocalizedString(R.string.settings_expert_title),
-                            description = getLocalizedString(R.string.settings_expert_description),
-                            iconRes = R.drawable.ic_experimental,
-                            titleFontSize = titleFontSize,
-                            descriptionFontSize = descriptionFontSize,
-                            iconSize = iconSize,
-                            onClick = { currentScreen = "expert" }
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.weight(1f))
-
-                    SettingsHomeCard(
-                        title = getLocalizedString(
-                            R.string.about_settings_title,
-                            getLocalizedString(R.string.app_name)
-                        ),
-                        iconRes = R.drawable.app_launcher,
-                        tintIcon = false,
-                        titleFontSize = titleFontSize,
-                        descriptionFontSize = descriptionFontSize,
-                        iconSize = iconSize,
-                        onClick = { currentScreen = "about" },
-                        enableMultiClick = !toggledExpertOptions,
-                        onMultiClick = { count ->
-                            if (!prefs.enableExpertOptions) {
-                                if (count in 2..4) {
-                                    showInstantToast(
-                                        getLocalizedString(
-                                            R.string.expert_options_tap_hint,
-                                            count
-                                        )
-                                    )
-                                } else if (count == 5) {
-                                    showInstantToast(getLocalizedString(R.string.expert_options_unlocked))
-                                    toggledExpertOptions = !prefs.enableExpertOptions
-                                    prefs.enableExpertOptions = toggledExpertOptions
+                            Row(modifier = Modifier.fillMaxWidth().weight(1f), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                Tile(getLocalizedString(R.string.settings_gestures_title), R.drawable.ic_gestures) { currentScreen = "gestures" }
+                                Tile(getLocalizedString(R.string.settings_favorite_apps_title), R.drawable.ic_favorite) { showFavoriteApps() }
+                            }
+                            Row(modifier = Modifier.fillMaxWidth().weight(1f), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                Tile(getLocalizedString(R.string.settings_hidden_apps_title), R.drawable.ic_hidden) { showHiddenApps() }
+                                Tile(getLocalizedString(R.string.settings_notes_title), R.drawable.ic_notes) { currentScreen = "notes" }
+                            }
+                            Row(modifier = Modifier.fillMaxWidth().weight(1f), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                if (privateSpaceSetUp) {
+                                    Tile(
+                                        getLocalizedString(R.string.private_space_title),
+                                        setPrivateSpacesIcon,
+                                        getLocalizedString(setPrivateSpacesStatus)
+                                    ) {
+                                        if (PrivateSpaceManager(context).isPrivateSpaceSetUp(showToast = false, launchSettings = false)) {
+                                            PrivateSpaceManager(context).togglePrivateSpaceLock(showToast = false, launchSettings = false)
+                                            toggledPrivateSpaces = !toggledPrivateSpaces
+                                        }
+                                    }
                                 }
+                                Tile(getLocalizedString(R.string.settings_advanced_title), R.drawable.ic_advanced) { currentScreen = "advanced" }
                             }
                         }
+                    }
+
+                    // Always at the bottom: name, version and the way to the About screen
+                    FontText(
+                        text = getLocalizedString(R.string.app_name) + "  ·  " + BuildConfig.VERSION_NAME + "  ·  " + getLocalizedString(R.string.about_short),
+                        color = SettingsTheme.typography.option.color,
+                        fontSize = (titleFontSize.value * 0.7f).sp,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { currentScreen = "about" }
+                            .padding(vertical = 14.dp)
                     )
 
                     if (isGestureNavigationEnabled(context)) {
@@ -571,12 +502,12 @@ class SettingsFragment : BaseFragment() {
                         onClick = { currentScreen = "main" }
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-
                     // Personalization
                     SettingsTitle(
                         text = getLocalizedString(R.string.personalization),
                         fontSize = titleFontSize
                     )
+                    SectionCard {
 
                     SettingsSelect(
                         title = getLocalizedString(R.string.theme_mode),
@@ -692,13 +623,13 @@ class SettingsFragment : BaseFragment() {
                         }
                     )
 
-                    Spacer(modifier = Modifier.height(12.dp))
-
+                    }
                     // App List & Search
                     SettingsTitle(
                         text = getLocalizedString(R.string.search_and_app_list),
                         fontSize = titleFontSize
                     )
+                    SectionCard {
                     SettingsSwitch(
                         text = getLocalizedString(R.string.hide_search_view),
                         fontSize = titleFontSize,
@@ -919,13 +850,13 @@ class SettingsFragment : BaseFragment() {
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(12.dp))
-
+                    }
                     // Home Management
                     SettingsTitle(
                         text = getLocalizedString(R.string.home_management),
                         fontSize = titleFontSize,
                     )
+                    SectionCard {
 
                     SettingsSwitch(
                         text = getLocalizedString(R.string.auto_open_apps),
@@ -1045,13 +976,13 @@ class SettingsFragment : BaseFragment() {
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(12.dp))
-
+                    }
                     // Toggles
                     SettingsTitle(
                         text = getLocalizedString(R.string.toggleable_items),
                         fontSize = titleFontSize
                     )
+                    SectionCard {
 
                     val currentContextMenuFlags = remember {
                         mutableStateListOf<Boolean>().apply {
@@ -1154,13 +1085,13 @@ class SettingsFragment : BaseFragment() {
                         }
                     )
 
-                    Spacer(modifier = Modifier.height(12.dp))
-
+                    }
                     // Info Tiles
                     SettingsTitle(
                         text = getLocalizedString(R.string.info_tiles),
                         fontSize = titleFontSize,
                     )
+                    SectionCard {
 
                     SettingsSwitch(
                         text = getLocalizedString(R.string.show_date),
@@ -1301,11 +1232,13 @@ class SettingsFragment : BaseFragment() {
                     }
 
 
+                    }
                     // Weather
                     SettingsTitle(
                         text = getLocalizedString(R.string.weather),
                         fontSize = titleFontSize,
                     )
+                    SectionCard {
 
                     SettingsSwitch(
                         text = getLocalizedString(R.string.show_weather),
@@ -1374,11 +1307,13 @@ class SettingsFragment : BaseFragment() {
                         )
                     }
 
+                    }
                     if (isGestureNavigationEnabled(context)) {
                         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.bottom_margin_gesture_nav)))
                     } else {
                         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.bottom_margin_3_button_nav)))
                     }
+                
                 }
 
                 "look_feel" -> {
@@ -1395,12 +1330,12 @@ class SettingsFragment : BaseFragment() {
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
-
                     // Layout & Density
                     SettingsTitle(
                         text = getLocalizedString(R.string.layout_positioning),
                         fontSize = titleFontSize
                     )
+                    SectionCard {
                     SettingsSelect(
                         title = getLocalizedString(R.string.app_padding_size),
                         option = selectedPaddingSize.toString(),
@@ -1445,13 +1380,13 @@ class SettingsFragment : BaseFragment() {
                         }
                     )
 
-                    Spacer(modifier = Modifier.height(12.dp))
-
+                    }
                     // Visibility & Display
                     SettingsTitle(
                         text = getLocalizedString(R.string.visibility_display),
                         fontSize = titleFontSize,
                     )
+                    SectionCard {
 
                     SettingsSwitch(
                         text = getLocalizedString(R.string.show_status_bar),
@@ -1554,13 +1489,13 @@ class SettingsFragment : BaseFragment() {
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(12.dp))
-
+                    }
                     // Alignment
                     SettingsTitle(
                         text = getLocalizedString(R.string.element_alignment),
                         fontSize = titleFontSize
                     )
+                    SectionCard {
 
                     SettingsSelect(
                         title = getLocalizedString(R.string.clock_alignment),
@@ -1690,13 +1625,13 @@ class SettingsFragment : BaseFragment() {
                         }
                     )
 
-                    Spacer(modifier = Modifier.height(12.dp))
-
+                    }
                     // Colors
                     SettingsTitle(
                         text = getLocalizedString(R.string.element_colors),
                         fontSize = titleFontSize
                     )
+                    SectionCard {
 
                     val hexBackgroundColor =
                         String.format("#%06X", (0xFFFFFF and selectedBackgroundColor))
@@ -1861,13 +1796,13 @@ class SettingsFragment : BaseFragment() {
                         }
                     )
 
-                    Spacer(modifier = Modifier.height(12.dp))
-
+                    }
                     // Icon Packs
                     SettingsTitle(
                         text = getLocalizedString(R.string.icon_packs),
                         fontSize = titleFontSize
                     )
+                    SectionCard {
 
                     SettingsSelect(
                         title = getLocalizedString(R.string.select_home_icons),
@@ -1956,13 +1891,13 @@ class SettingsFragment : BaseFragment() {
                         }
                     )
 
-                    Spacer(modifier = Modifier.height(12.dp))
-
+                    }
                     // Text Size (moved to bottom for advanced users)
                     SettingsTitle(
                         text = getLocalizedString(R.string.text_size_adjustments),
                         fontSize = titleFontSize
                     )
+                    SectionCard {
 
                     SettingsSelect(
                         title = getLocalizedString(R.string.app_text_size),
@@ -2083,11 +2018,13 @@ class SettingsFragment : BaseFragment() {
                         }
                     )
 
+                    }
                     if (isGestureNavigationEnabled(context)) {
                         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.bottom_margin_gesture_nav)))
                     } else {
                         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.bottom_margin_3_button_nav)))
                     }
+                
                 }
 
                 "gestures" -> {
@@ -2098,12 +2035,12 @@ class SettingsFragment : BaseFragment() {
                         onClick = { currentScreen = "main" }
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-
                     // Tap & Click Actions
                     SettingsTitle(
                         text = getLocalizedString(R.string.tap_click_actions),
                         fontSize = titleFontSize
                     )
+                    SectionCard {
 
                     val appLabelDoubleTapAction = prefs.appDoubleTap.activityLabel
                     SettingsSelect(
@@ -2259,13 +2196,13 @@ class SettingsFragment : BaseFragment() {
                         }
                     )
 
-                    Spacer(modifier = Modifier.height(12.dp))
-
+                    }
                     // Swipe Actions
                     SettingsTitle(
                         text = getLocalizedString(R.string.swipe_movement),
                         fontSize = titleFontSize,
                     )
+                    SectionCard {
 
                     val appLabelShortSwipeUpAction =
                         prefs.appShortSwipeUp.activityLabel.ifEmpty { "Settings" }
@@ -2516,13 +2453,13 @@ class SettingsFragment : BaseFragment() {
                         }
                     )
 
-                    Spacer(modifier = Modifier.height(12.dp))
-
+                    }
                     // Thresholds
                     SettingsTitle(
                         text = getLocalizedString(R.string.threshold),
                         fontSize = titleFontSize
                     )
+                    SectionCard {
 
                     SettingsSelect(
                         title = getLocalizedString(R.string.settings_short_threshold),
@@ -2562,11 +2499,13 @@ class SettingsFragment : BaseFragment() {
                         }
                     )
 
+                    }
                     if (isGestureNavigationEnabled(context)) {
                         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.bottom_margin_gesture_nav)))
                     } else {
                         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.bottom_margin_3_button_nav)))
                     }
+                
                 }
 
                 "notes" -> {
@@ -2577,12 +2516,12 @@ class SettingsFragment : BaseFragment() {
                         onClick = { currentScreen = "main" }
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-
                     // Display
                     SettingsTitle(
                         text = getLocalizedString(R.string.display_options),
                         fontSize = titleFontSize
                     )
+                    SectionCard {
 
                     SettingsSwitch(
                         text = getLocalizedString(R.string.auto_expand_notes),
@@ -2604,13 +2543,13 @@ class SettingsFragment : BaseFragment() {
                         }
                     )
 
-                    Spacer(modifier = Modifier.height(12.dp))
-
+                    }
                     // Notes Colors
                     SettingsTitle(
                         text = getLocalizedString(R.string.notes_colors),
                         fontSize = titleFontSize
                     )
+                    SectionCard {
 
                     val hexBackgroundColor =
                         String.format("#%06X", (0xFFFFFF and selectedNotesBackgroundColor))
@@ -2707,13 +2646,13 @@ class SettingsFragment : BaseFragment() {
                         }
                     )
 
-                    Spacer(modifier = Modifier.height(12.dp))
-
+                    }
                     // Input Colors
                     SettingsTitle(
                         text = getLocalizedString(R.string.input_colors),
                         fontSize = titleFontSize
                     )
+                    SectionCard {
 
                     val hexBubbleInputMessageColor =
                         String.format("#%06X", (0xFFFFFF and selectedInputMessageColor))
@@ -2753,11 +2692,13 @@ class SettingsFragment : BaseFragment() {
                         }
                     )
 
+                    }
                     if (isGestureNavigationEnabled(context)) {
                         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.bottom_margin_gesture_nav)))
                     } else {
                         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.bottom_margin_3_button_nav)))
                     }
+                
                 }
 
                 "advanced" -> {
@@ -2774,98 +2715,192 @@ class SettingsFragment : BaseFragment() {
 
                     val versionName = getLocalizedString(R.string.app_version)
 
-                    SettingsHomeItem(
-                        title = getLocalizedString(R.string.advanced_settings_app_info_title),
-                        description = getLocalizedString(R.string.advanced_settings_app_info_description).format(
-                            versionName
-                        ),
-                        iconRes = R.drawable.ic_app_info,
-                        titleFontSize = titleFontSize,
-                        descriptionFontSize = descriptionFontSize,
-                        iconSize = iconSize,
-                        onClick = {
-                            openAppInfo(
-                                requireContext(),
-                                Process.myUserHandle(),
-                                BuildConfig.APPLICATION_ID
+                    // Actions as small tiles, like the home screen
+                    val tileFontSize = (titleFontSize.value * 0.72f).sp
+                    Column(modifier = Modifier.padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            SettingsTile(
+                                modifier = Modifier.weight(1f).height(92.dp),
+                                title = getLocalizedString(R.string.advanced_settings_app_info_title),
+                                iconRes = R.drawable.ic_app_info,
+                                titleFontSize = tileFontSize,
+                                iconSize = 24.dp,
+                                onClick = {
+                                openAppInfo(
+                                    requireContext(),
+                                    Process.myUserHandle(),
+                                    BuildConfig.APPLICATION_ID
+                                )
+                            }
+                            )
+                            SettingsTile(
+                                modifier = Modifier.weight(1f).height(92.dp),
+                                title = getLocalizedString(changeLauncherText),
+                                iconRes = R.drawable.ic_change_default_launcher,
+                                titleFontSize = tileFontSize,
+                                iconSize = 24.dp,
+                                onClick = {
+                                viewModel.resetDefaultLauncherApp(requireContext())
+                            }
                             )
                         }
-                    )
-
-                    SettingsHomeItem(
-                        title = getLocalizedString(changeLauncherText),
-                        description = getLocalizedString(changeLauncherTextDescription),
-                        iconRes = R.drawable.ic_change_default_launcher,
-                        titleFontSize = titleFontSize,
-                        descriptionFontSize = descriptionFontSize,
-                        iconSize = iconSize,
-                        onClick = {
-                            viewModel.resetDefaultLauncherApp(requireContext())
+                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            SettingsTile(
+                                modifier = Modifier.weight(1f).height(92.dp),
+                                title = getLocalizedString(R.string.advanced_settings_restart_title),
+                                iconRes = R.drawable.ic_restart,
+                                titleFontSize = tileFontSize,
+                                iconSize = 24.dp,
+                                onClick = {
+                                AppReloader.restartApp(requireContext())
+                            }
+                            )
+                            SettingsTile(
+                                modifier = Modifier.weight(1f).height(92.dp),
+                                title = getLocalizedString(R.string.settings_exit_launcher_title),
+                                iconRes = R.drawable.ic_exit,
+                                titleFontSize = tileFontSize,
+                                iconSize = 24.dp,
+                                onClick = {
+                                exitLauncher(requireContext())
+                            }
+                            )
                         }
-                    )
-
-                    SettingsHomeItem(
-                        title = getLocalizedString(R.string.advanced_settings_restart_title),
-                        description = getLocalizedString(R.string.advanced_settings_restart_description).format(
-                            versionName
-                        ),
-                        iconRes = R.drawable.ic_restart,
-                        titleFontSize = titleFontSize,
-                        descriptionFontSize = descriptionFontSize,
-                        iconSize = iconSize,
-                        onClick = {
-                            AppReloader.restartApp(requireContext())
+                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            SettingsTile(
+                                modifier = Modifier.weight(1f).height(92.dp),
+                                title = getLocalizedString(R.string.advanced_settings_backup_restore_title),
+                                iconRes = R.drawable.ic_backup_restore,
+                                titleFontSize = tileFontSize,
+                                iconSize = 24.dp,
+                                onClick = {
+                                dialogBuilder.showBackupRestoreBottomSheet()
+                            }
+                            )
+                            SettingsTile(
+                                modifier = Modifier.weight(1f).height(92.dp),
+                                title = getLocalizedString(R.string.advanced_settings_theme_title),
+                                iconRes = R.drawable.ic_theme,
+                                titleFontSize = tileFontSize,
+                                iconSize = 24.dp,
+                                onClick = {
+                                dialogBuilder.showSaveLoadThemeBottomSheet()
+                            }
+                            )
                         }
-                    )
-
-                    SettingsHomeItem(
-                        title = getLocalizedString(R.string.settings_exit_launcher_title),
-                        description = getLocalizedString(R.string.settings_exit_launcher_description),
-                        iconRes = R.drawable.ic_exit,
-                        titleFontSize = titleFontSize,
-                        descriptionFontSize = descriptionFontSize,
-                        iconSize = iconSize,
-                        onClick = {
-                            exitLauncher(requireContext())
-                        },
-                    )
-
-                    SettingsHomeItem(
-                        title = getLocalizedString(R.string.advanced_settings_backup_restore_title),
-                        description = getLocalizedString(R.string.advanced_settings_backup_restore_description),
-                        iconRes = R.drawable.ic_backup_restore,
-                        titleFontSize = titleFontSize,
-                        descriptionFontSize = descriptionFontSize,
-                        iconSize = iconSize,
-                        onClick = {
-                            dialogBuilder.showBackupRestoreBottomSheet()
+                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            SettingsTile(
+                                modifier = Modifier.weight(1f).height(92.dp),
+                                title = getLocalizedString(R.string.advanced_settings_help_feedback_title),
+                                iconRes = R.drawable.ic_help_feedback,
+                                titleFontSize = tileFontSize,
+                                iconSize = 24.dp,
+                                onClick = {
+                                helpFeedbackButton(requireContext())
+                            }
+                            )
                         }
-                    )
+                    }
 
-                    SettingsHomeItem(
-                        title = getLocalizedString(R.string.advanced_settings_theme_title),
-                        description = getLocalizedString(R.string.advanced_settings_theme_description),
-                        iconRes = R.drawable.ic_theme,
-                        titleFontSize = titleFontSize,
-                        descriptionFontSize = descriptionFontSize,
-                        iconSize = iconSize,
-                        onClick = {
-                            dialogBuilder.showSaveLoadThemeBottomSheet()
+                    // Expert options live here: the switch shows or hides them
+                    SettingsTitle(
+                        text = getLocalizedString(R.string.expert_settings_title),
+                        fontSize = titleFontSize
+                    )
+                    SectionCard {
+                        SettingsSwitch(
+                            text = getLocalizedString(R.string.expert_options_display),
+                            fontSize = titleFontSize,
+                            defaultState = toggledExpertOptions,
+                            onCheckedChange = {
+                                toggledExpertOptions = !prefs.enableExpertOptions
+                                prefs.enableExpertOptions = toggledExpertOptions
+                            }
+                        )
+                    }
+                    if (toggledExpertOptions) {
+                        SectionCard {
+
+
+
+                        // Personalization
                         }
-                    )
+                        SettingsTitle(
+                            text = getLocalizedString(R.string.personalization),
+                            fontSize = titleFontSize,
+                        )
+                        SectionCard {
+                        SettingsSelect(
+                            title = getLocalizedString(R.string.settings_text_size),
+                            option = selectedSettingsSize.toString(),
+                            fontSize = titleFontSize,
+                            onClick = {
+                                dialogBuilder.showSliderBottomSheet(
+                                    context = context,
+                                    title = getLocalizedString(R.string.settings_text_size),
+                                    minValue = Constants.MIN_TEXT_SIZE,
+                                    maxValue = Constants.MAX_TEXT_SIZE,
+                                    currentValue = prefs.settingsSize,
+                                    onValueSelected = { newSettingsSize ->
+                                        selectedSettingsSize = newSettingsSize.toInt()
+                                        prefs.settingsSize = newSettingsSize.toInt()
+                                    }
+                                )
+                            }
+                        )
+                        SettingsSwitch(
+                            text = getLocalizedString(R.string.lock_orientation),
+                            fontSize = titleFontSize,
+                            defaultState = toggledLockOrientation,
+                            onCheckedChange = {
+                                toggledLockOrientation = !prefs.lockOrientation
+                                prefs.lockOrientation = toggledLockOrientation
 
-                    Spacer(modifier = Modifier.weight(1f))
+                                val currentOrientation = resources.configuration.orientation
+                                prefs.lockOrientationPortrait =
+                                    currentOrientation == Configuration.ORIENTATION_PORTRAIT
+                                AppReloader.restartApp(requireContext())
+                            }
+                        )
 
-                    SettingsHomeItem(
-                        title = getLocalizedString(R.string.advanced_settings_help_feedback_title),
-                        iconRes = R.drawable.ic_help_feedback,
-                        titleFontSize = titleFontSize,
-                        descriptionFontSize = descriptionFontSize,
-                        iconSize = iconSize,
-                        onClick = {
-                            helpFeedbackButton(requireContext())
+                        SettingsSwitch(
+                            text = getLocalizedString(R.string.force_colored_wallpaper),
+                            fontSize = titleFontSize,
+                            defaultState = toggledForceWallpaper,
+
+                            onCheckedChange = {
+                                toggledForceWallpaper = !prefs.forceWallpaper
+                                prefs.forceWallpaper = toggledForceWallpaper
+                            }
+                        )
+
+                        if (requireContext().isBiometricEnabled()) {
+                            SettingsSwitch(
+                                text = getLocalizedString(R.string.lock_settings),
+                                fontSize = titleFontSize,
+                                defaultState = toggledSettingsLocked,
+
+                                onCheckedChange = {
+                                    toggledSettingsLocked = !prefs.settingsLocked
+                                    prefs.settingsLocked = toggledSettingsLocked
+                                }
+                            )
                         }
-                    )
+
+                        SettingsSwitch(
+                            text = getLocalizedString(R.string.haptic_feedback),
+                            fontSize = titleFontSize,
+                            defaultState = toggledHapticFeedback,
+                            onCheckedChange = {
+                                toggledHapticFeedback = !prefs.hapticFeedback
+                                prefs.hapticFeedback = toggledHapticFeedback
+                            }
+                        )
+
+
+                        }
+                    }
+
 
                     if (isGestureNavigationEnabled(context)) {
                         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.bottom_margin_gesture_nav)))
@@ -2892,162 +2927,46 @@ class SettingsFragment : BaseFragment() {
                     )
 
                     Spacer(modifier = Modifier.height(26.dp))
-
                     TopMainHeader(
                         iconRes = R.drawable.app_launcher,
                         title = getLocalizedString(R.string.app_name),
-                        description = getLocalizedString(R.string.created_by),
+                        description = getLocalizedString(R.string.created_by) + "<br>" + getLocalizedString(R.string.app_version),
                         titleFontSize = titleFontSize,
                         descriptionFontSize = descriptionFontSize
                     )
-
-                    TitleWithHtmlLinks(
-                        title = getLocalizedString(R.string.app_version),
-                        titleFontSize = descriptionFontSize,
-                    )
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    TitleWithHtmlLinks(
-                        title = getLocalizedString(R.string.settings_source_code),
-                        descriptions = listOf(
-                            getLocalizedString(R.string.github_link),
-                            getLocalizedString(R.string.source_link)
-                        ),
-                        titleFontSize = titleFontSize,
-                        descriptionFontSize = descriptionFontSize,
-                        columns = true
-                    )
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    Spacer(modifier = Modifier.weight(1f))
-
-                    TitleWithHtmlLinks(
-                        title = getLocalizedString(R.string.settings_credits),
-                        descriptions = listOf(
-                            getLocalizedString(R.string.weather_link),
-                            getLocalizedString(R.string.forked_link)
-                        ),
-                        titleFontSize = titleFontSize,
-                        descriptionFontSize = descriptionFontSize,
-                        columns = true
-                    )
-
-                    if (isGestureNavigationEnabled(context)) {
-                        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.bottom_margin_gesture_nav)))
-                    } else {
-                        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.bottom_margin_3_button_nav)))
-                    }
-
-                }
-
-                "expert" -> {
-                    BackHandler {
-                        currentScreen = "main"
-                    }
-
-                    PageHeader(
-                        iconRes = R.drawable.ic_back,
-                        title = getLocalizedString(R.string.expert_settings_title),
-                        onClick = {
-                            currentScreen = "main"
-                        }
-                    )
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    SettingsSwitch(
-                        text = getLocalizedString(R.string.expert_options_display),
-                        fontSize = titleFontSize,
-                        defaultState = toggledExpertOptions,
-                        onCheckedChange = {
-                            toggledExpertOptions = !prefs.enableExpertOptions
-                            prefs.enableExpertOptions = toggledExpertOptions
-                            currentScreen = "main"
-                        }
-                    )
-
-                    Spacer(modifier = Modifier.height(12.dp))
-
-                    // Personalization
-                    SettingsTitle(
-                        text = getLocalizedString(R.string.personalization),
-                        fontSize = titleFontSize,
-                    )
-                    SettingsSelect(
-                        title = getLocalizedString(R.string.settings_text_size),
-                        option = selectedSettingsSize.toString(),
-                        fontSize = titleFontSize,
-                        onClick = {
-                            dialogBuilder.showSliderBottomSheet(
-                                context = context,
-                                title = getLocalizedString(R.string.settings_text_size),
-                                minValue = Constants.MIN_TEXT_SIZE,
-                                maxValue = Constants.MAX_TEXT_SIZE,
-                                currentValue = prefs.settingsSize,
-                                onValueSelected = { newSettingsSize ->
-                                    selectedSettingsSize = newSettingsSize.toInt()
-                                    prefs.settingsSize = newSettingsSize.toInt()
-                                }
-                            )
-                        }
-                    )
-                    SettingsSwitch(
-                        text = getLocalizedString(R.string.lock_orientation),
-                        fontSize = titleFontSize,
-                        defaultState = toggledLockOrientation,
-                        onCheckedChange = {
-                            toggledLockOrientation = !prefs.lockOrientation
-                            prefs.lockOrientation = toggledLockOrientation
-
-                            val currentOrientation = resources.configuration.orientation
-                            prefs.lockOrientationPortrait =
-                                currentOrientation == Configuration.ORIENTATION_PORTRAIT
-                            AppReloader.restartApp(requireContext())
-                        }
-                    )
-
-                    SettingsSwitch(
-                        text = getLocalizedString(R.string.force_colored_wallpaper),
-                        fontSize = titleFontSize,
-                        defaultState = toggledForceWallpaper,
-
-                        onCheckedChange = {
-                            toggledForceWallpaper = !prefs.forceWallpaper
-                            prefs.forceWallpaper = toggledForceWallpaper
-                        }
-                    )
-
-                    if (requireContext().isBiometricEnabled()) {
-                        SettingsSwitch(
-                            text = getLocalizedString(R.string.lock_settings),
-                            fontSize = titleFontSize,
-                            defaultState = toggledSettingsLocked,
-
-                            onCheckedChange = {
-                                toggledSettingsLocked = !prefs.settingsLocked
-                                prefs.settingsLocked = toggledSettingsLocked
-                            }
+                    Spacer(modifier = Modifier.height(20.dp))
+                    SectionCard {
+                        TitleWithHtmlLinks(
+                            title = getLocalizedString(R.string.settings_source_code),
+                            descriptions = listOf(
+                                getLocalizedString(R.string.github_link),
+                                getLocalizedString(R.string.source_link)
+                            ),
+                            titleFontSize = titleFontSize,
+                            descriptionFontSize = descriptionFontSize,
+                            columns = true
+                        )
+                        TitleWithHtmlLinks(
+                            title = getLocalizedString(R.string.settings_credits),
+                            descriptions = listOf(
+                                getLocalizedString(R.string.weather_link),
+                                getLocalizedString(R.string.forked_link)
+                            ),
+                            titleFontSize = titleFontSize,
+                            descriptionFontSize = descriptionFontSize,
+                            columns = true
                         )
                     }
-
-                    SettingsSwitch(
-                        text = getLocalizedString(R.string.haptic_feedback),
-                        fontSize = titleFontSize,
-                        defaultState = toggledHapticFeedback,
-                        onCheckedChange = {
-                            toggledHapticFeedback = !prefs.hapticFeedback
-                            prefs.hapticFeedback = toggledHapticFeedback
-                        }
-                    )
-
+                    Spacer(modifier = Modifier.weight(1f))
                     if (isGestureNavigationEnabled(context)) {
                         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.bottom_margin_gesture_nav)))
                     } else {
                         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.bottom_margin_3_button_nav)))
                     }
+
                 }
+
+
             }
         }
     }

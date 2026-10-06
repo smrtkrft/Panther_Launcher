@@ -11,6 +11,10 @@ Sade ve dağınıklıktan uzak bir Android başlatıcısı.
     <td align="center"><img src="docs/screenshots/drawer-categories.png" width="260" alt="Çekmecede kategori görünümü"></td>
     <td align="center"><img src="docs/screenshots/widget-resize.png" width="260" alt="Widget boyutlandırma"></td>
   </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/settings-home.png" width="260" alt="Ayarlar giriş ekranı"></td>
+    <td align="center"><img src="docs/screenshots/settings-section.png" width="260" alt="Ayarlar bölüm kartları"></td>
+  </tr>
 </table>
 
 ## Bu proje hakkında

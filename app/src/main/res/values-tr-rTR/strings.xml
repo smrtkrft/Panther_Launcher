@@ -31,7 +31,7 @@
     <string name="settings_notes_description">Notların görünümünü kendi tarzınıza göre ayarlayın.</string>
     <!-- Favorite Apps -->
     <!-- Favorite Apps -->
-    <string name="settings_favorite_apps_title">Favori Uygulamalar</string>
+    <string name="settings_favorite_apps_title">Ana Ekran Uygulamaları</string>
     <string name="settings_favorite_apps_description">Ana ekrandan hızlı erişim için favori uygulamalarınızın sırasını değiştirin.</string>
     <!-- Hidden Apps -->
     <string name="settings_hidden_apps_title">Gizli uygulamalar</string>
@@ -147,6 +147,8 @@
     <string name="categories_choose_apps">Uygulamaları seç</string>
     <string name="categories_reset_name">Özgün adı kullan</string>
     <string name="categories_remove">Kategoriyi kaldır</string>
+    <string name="private_space_title">Özel Alan</string>
+    <string name="about_short">Hakkında</string>
     <string name="smart_search">Akıllı arama</string>
     <string name="enable_filter_strength">Esnek aramayı aç</string>
     <string name="filter_strength">Esnek arama hassasiyeti</string>

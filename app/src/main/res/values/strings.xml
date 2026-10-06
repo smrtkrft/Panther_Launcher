@@ -42,7 +42,7 @@
 
     <!-- Favorite Apps -->
     <!-- Favorite Apps -->
-    <string name="settings_favorite_apps_title">Favorite Apps</string>
+    <string name="settings_favorite_apps_title">Home Screen Apps</string>
     <string name="settings_favorite_apps_description">Reorder your favorite apps for quick access from the home screen.</string>
 
     <!-- Hidden Apps -->
@@ -185,6 +185,8 @@
     <string name="categories_choose_apps">Choose apps</string>
     <string name="categories_reset_name">Use the original name</string>
     <string name="categories_remove">Remove category</string>
+    <string name="private_space_title">Private Space</string>
+    <string name="about_short">About</string>
     <string name="smart_search">Smart Search</string>
     <string name="enable_filter_strength">Enable Fuzzy Finder</string>
     <string name="filter_strength">Fuzzy Finder Strength</string>
