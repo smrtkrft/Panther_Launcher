@@ -82,6 +82,7 @@ Bu dosya, Panther Launcher'ın kaynağı olan [mLauncher (Multi Launcher)](https
 - Çekmece görünümü (A–Z liste / Kategoriler) ve arama kapsamı artık açma-kapama yerine açılır listeden seçiliyor.
 - Çekmece araması cihaz içinde kademeli çalışıyor: uygulama eşleşmezse dosyalar, dosya da yoksa kişiler listeleniyor, hiçbiri yoksa "Bulunamadı" yazıyor; gereken izin yoksa listede tek dokunuşla izin veren bir satır çıkıyor.
 - Ayarlara "Kategorileri Yönet" ekranı eklendi: kategoriler yeniden adlandırılıyor, yeni kategori açılıp uygulamaları seçiliyor, kategorilerin üstünde duran uygulamalar ve en fazla kategori sayısı (fazlası "Diğer"e katılır) belirleniyor.
+- Ayarların giriş ekranı kart düzenine geçti: her bölüm simge kutusu, başlık, kısa açıklama ve ok ile bir kartta; kart renkleri seçili temadan türetiliyor.
 
 ---
 
@@ -163,3 +164,4 @@ This file summarises where Panther Launcher departs from its source, [mLauncher 
 - The drawer view (A–Z list / Categories) and the search scope are now chosen from selection lists instead of toggles.
 - The drawer search works in stages on the device: when no app matches it lists files, when no file matches it lists contacts, and otherwise shows "Not found"; a missing permission appears as a row in the list that asks for it with one tap.
 - A "Manage Categories" settings screen was added: categories can be renamed, new ones created with their apps chosen, and the apps kept above the categories as well as the maximum number of categories (the rest join "Other") can be set.
+- The settings home screen became a card layout: each section is a card with an icon tile, title, short description and chevron; the card colours derive from the chosen theme.

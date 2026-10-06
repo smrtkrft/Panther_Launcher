@@ -13,6 +13,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -158,6 +159,54 @@ object SettingsComposable {
         }
     }
 
+    /**
+     * Click handling shared by the home entries: a plain click, or (for hidden options) a count of
+     * quick taps where a single tap still acts after [multiClickInterval].
+     */
+    @Composable
+    private fun rememberEntryClick(
+        onClick: () -> Unit,
+        onMultiClick: (Int) -> Unit,
+        enableMultiClick: Boolean,
+        multiClickCount: Int,
+        multiClickInterval: Long
+    ): () -> Unit {
+        val scope = rememberCoroutineScope()
+        val multiClickState = remember {
+            object {
+                var tapCount = 0
+                var lastTapTime = 0L
+                var clickJob: Job? = null
+            }
+        }
+        return {
+            if (!enableMultiClick) {
+                onClick()
+            } else {
+                val currentTime = System.currentTimeMillis()
+                if (currentTime - multiClickState.lastTapTime > multiClickInterval) {
+                    multiClickState.tapCount = 0
+                }
+
+                multiClickState.tapCount++
+                multiClickState.lastTapTime = currentTime
+                multiClickState.clickJob?.cancel()
+
+                if (multiClickState.tapCount >= multiClickCount) {
+                    multiClickState.tapCount = 0
+                    onMultiClick(multiClickCount)
+                } else {
+                    onMultiClick(multiClickState.tapCount)
+                    multiClickState.clickJob = scope.launch {
+                        delay(multiClickInterval)
+                        if (multiClickState.tapCount == 1) onClick()
+                        multiClickState.tapCount = 0
+                    }
+                }
+            }
+        }
+    }
+
     @Composable
     fun SettingsHomeItem(
         title: String,
@@ -174,45 +223,12 @@ object SettingsComposable {
         multiClickCount: Int = 5,
         multiClickInterval: Long = 2000L
     ) {
-        val scope = rememberCoroutineScope()
-        val multiClickState = remember {
-            object {
-                var tapCount = 0
-                var lastTapTime = 0L
-                var clickJob: Job? = null
-            }
-        }
+        val click = rememberEntryClick(onClick, onMultiClick, enableMultiClick, multiClickCount, multiClickInterval)
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable {
-                    if (!enableMultiClick) {
-                        onClick()
-                        return@clickable
-                    }
-
-                    val currentTime = System.currentTimeMillis()
-                    if (currentTime - multiClickState.lastTapTime > multiClickInterval) {
-                        multiClickState.tapCount = 0
-                    }
-
-                    multiClickState.tapCount++
-                    multiClickState.lastTapTime = currentTime
-                    multiClickState.clickJob?.cancel()
-
-                    if (multiClickState.tapCount >= multiClickCount) {
-                        multiClickState.tapCount = 0
-                        onMultiClick(multiClickCount)
-                    } else {
-                        onMultiClick(multiClickState.tapCount)
-                        multiClickState.clickJob = scope.launch {
-                            delay(multiClickInterval)
-                            if (multiClickState.tapCount == 1) onClick()
-                            multiClickState.tapCount = 0
-                        }
-                    }
-                }
+                .clickable { click() }
                 .padding(vertical = 8.dp, horizontal = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -243,6 +259,92 @@ object SettingsComposable {
                     )
                 }
             }
+        }
+    }
+
+    /**
+     * One entry of the settings home screen as a card: an icon tile, the title, a short
+     * description and a chevron. Surface and border are tints of the text colour, so the card
+     * follows whatever background and theme the user picked.
+     */
+    @Composable
+    fun SettingsHomeCard(
+        title: String,
+        description: String? = null,
+        @DrawableRes iconRes: Int,
+        onClick: () -> Unit = {},
+        onMultiClick: (Int) -> Unit = {},
+        enableMultiClick: Boolean = false,
+        titleFontSize: TextUnit = TextUnit.Unspecified,
+        descriptionFontSize: TextUnit = TextUnit.Unspecified,
+        headerColor: Color = SettingsTheme.typography.title.color,
+        optionColor: Color = SettingsTheme.typography.option.color,
+        iconSize: Dp = 22.dp,
+        tintIcon: Boolean = true,
+        multiClickCount: Int = 5,
+        multiClickInterval: Long = 2000L
+    ) {
+        val click = rememberEntryClick(onClick, onMultiClick, enableMultiClick, multiClickCount, multiClickInterval)
+        val shape = RoundedCornerShape(20.dp)
+        val tileShape = RoundedCornerShape(14.dp)
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 5.dp)
+                .clip(shape)
+                .background(headerColor.copy(alpha = 0.06f))
+                .border(1.dp, headerColor.copy(alpha = 0.12f), shape)
+                .clickable { click() }
+                .heightIn(min = 72.dp)
+                .padding(horizontal = 16.dp, vertical = 14.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(44.dp)
+                    .clip(tileShape)
+                    .background(headerColor.copy(alpha = 0.10f)),
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    painter = painterResource(iconRes),
+                    contentDescription = null,
+                    colorFilter = if (tintIcon) ColorFilter.tint(headerColor) else null,
+                    modifier = Modifier.size(if (tintIcon) iconSize else 32.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Column(modifier = Modifier.weight(1f)) {
+                FontText(
+                    text = title,
+                    color = headerColor,
+                    fontSize = if (titleFontSize != TextUnit.Unspecified) titleFontSize else 18.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.wrapContentHeight()
+                )
+
+                description?.let {
+                    Spacer(modifier = Modifier.height(3.dp))
+                    FontText(
+                        text = it,
+                        color = optionColor,
+                        fontSize = if (descriptionFontSize != TextUnit.Unspecified) descriptionFontSize else 12.sp,
+                        modifier = Modifier.wrapContentHeight()
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.width(12.dp))
+
+            FontText(
+                text = "›",
+                color = optionColor.copy(alpha = 0.7f),
+                fontSize = if (titleFontSize != TextUnit.Unspecified) titleFontSize * 1.2f else 22.sp,
+                modifier = Modifier.wrapContentHeight()
+            )
         }
     }
 

@@ -94,6 +94,7 @@ import ch.smartkraft.pantherlauncher.style.SettingsTheme
 import ch.smartkraft.pantherlauncher.ui.components.DialogManager
 import ch.smartkraft.pantherlauncher.ui.compose.CategoryManager
 import ch.smartkraft.pantherlauncher.ui.compose.SettingsComposable.PageHeader
+import ch.smartkraft.pantherlauncher.ui.compose.SettingsComposable.SettingsHomeCard
 import ch.smartkraft.pantherlauncher.ui.compose.SettingsComposable.SettingsHomeItem
 import ch.smartkraft.pantherlauncher.ui.compose.SettingsComposable.SettingsSelect
 import ch.smartkraft.pantherlauncher.ui.compose.SettingsComposable.SettingsSwitch
@@ -394,8 +395,10 @@ class SettingsFragment : BaseFragment() {
                         }
                     )
 
+                    Spacer(modifier = Modifier.height(12.dp))
+
                     // 1. Features
-                    SettingsHomeItem(
+                    SettingsHomeCard(
                         title = getLocalizedString(R.string.settings_features_title),
                         description = getLocalizedString(R.string.settings_features_description),
                         iconRes = R.drawable.ic_feature,
@@ -406,7 +409,7 @@ class SettingsFragment : BaseFragment() {
                     )
 
                     // 2. Look & Feel
-                    SettingsHomeItem(
+                    SettingsHomeCard(
                         title = getLocalizedString(R.string.settings_look_feel_title),
                         description = getLocalizedString(R.string.settings_look_feel_description),
                         iconRes = R.drawable.ic_look_feel,
@@ -417,7 +420,7 @@ class SettingsFragment : BaseFragment() {
                     )
 
                     // 3. Gestures
-                    SettingsHomeItem(
+                    SettingsHomeCard(
                         title = getLocalizedString(R.string.settings_gestures_title),
                         description = getLocalizedString(R.string.settings_gestures_description),
                         iconRes = R.drawable.ic_gestures,
@@ -428,7 +431,7 @@ class SettingsFragment : BaseFragment() {
                     )
 
                     // 4. Notes
-                    SettingsHomeItem(
+                    SettingsHomeCard(
                         title = getLocalizedString(R.string.settings_notes_title),
                         description = getLocalizedString(R.string.settings_notes_description),
                         iconRes = R.drawable.ic_notes,
@@ -440,7 +443,7 @@ class SettingsFragment : BaseFragment() {
 
                     // 5. Private Spaces (if supported)
                     if (PrivateSpaceManager(context).isPrivateSpaceSetUp()) {
-                        SettingsHomeItem(
+                        SettingsHomeCard(
                             title = getLocalizedString(
                                 R.string.private_space,
                                 getLocalizedString(setPrivateSpacesStatus)
@@ -467,7 +470,7 @@ class SettingsFragment : BaseFragment() {
                     }
 
                     // Specialized/Other
-                    SettingsHomeItem(
+                    SettingsHomeCard(
                         title = getLocalizedString(R.string.settings_favorite_apps_title),
                         description = getLocalizedString(R.string.settings_favorite_apps_description),
                         iconRes = R.drawable.ic_favorite,
@@ -477,7 +480,7 @@ class SettingsFragment : BaseFragment() {
                         onClick = { showFavoriteApps() }
                     )
 
-                    SettingsHomeItem(
+                    SettingsHomeCard(
                         title = getLocalizedString(R.string.settings_hidden_apps_title),
                         description = getLocalizedString(R.string.settings_hidden_apps_description),
                         iconRes = R.drawable.ic_hidden,
@@ -487,7 +490,7 @@ class SettingsFragment : BaseFragment() {
                         onClick = { showHiddenApps() }
                     )
 
-                    SettingsHomeItem(
+                    SettingsHomeCard(
                         title = getLocalizedString(R.string.settings_advanced_title),
                         description = getLocalizedString(R.string.settings_advanced_description),
                         iconRes = R.drawable.ic_advanced,
@@ -498,7 +501,7 @@ class SettingsFragment : BaseFragment() {
                     )
 
                     if (toggledExpertOptions) {
-                        SettingsHomeItem(
+                        SettingsHomeCard(
                             title = getLocalizedString(R.string.settings_expert_title),
                             description = getLocalizedString(R.string.settings_expert_description),
                             iconRes = R.drawable.ic_experimental,
@@ -511,12 +514,13 @@ class SettingsFragment : BaseFragment() {
 
                     Spacer(modifier = Modifier.weight(1f))
 
-                    SettingsHomeItem(
+                    SettingsHomeCard(
                         title = getLocalizedString(
                             R.string.about_settings_title,
                             getLocalizedString(R.string.app_name)
                         ),
                         iconRes = R.drawable.app_launcher,
+                        tintIcon = false,
                         titleFontSize = titleFontSize,
                         descriptionFontSize = descriptionFontSize,
                         iconSize = iconSize,
