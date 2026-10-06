@@ -10,7 +10,6 @@ import ch.smartkraft.pantherlauncher.databinding.AdapterSearchResultBinding
 import ch.smartkraft.pantherlauncher.data.CATEGORY_PREFIX
 import android.view.Gravity
 import android.os.Process
-import android.content.pm.ApplicationInfo
 import android.app.Activity
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -104,21 +103,10 @@ class AppDrawerAdapter(
     private val settings by lazy { Prefs(context) }
     private var currentQuery = ""
     private val headers = HashMap<String, DrawerRow.Header>()
-    private val systemCategories = HashMap<String, String?>()
 
     /** The category view is only used for the plain app drawer, not for pickers or hidden apps. */
     private val categoryMode: Boolean
         get() = flag == AppDrawerFlag.LaunchApp && settings.drawerCategories
-
-    /** The category an app declares to Android, as the system names it; null when it declares none. */
-    private fun systemCategoryOf(packageName: String): String? = systemCategories.getOrPut(packageName) {
-        try {
-            val info = context.packageManager.getApplicationInfo(packageName, 0)
-            ApplicationInfo.getCategoryTitle(context, info.category)?.toString()
-        } catch (_: Exception) {
-            null
-        }
-    }
 
     /** What is shown without a search: the grouped rows in category view, otherwise every app. */
     private fun listWithoutSearch(): MutableList<AppListItem> {
@@ -128,12 +116,9 @@ class AppDrawerAdapter(
             apps = appsList,
             isPinned = { it.settingsKey in pinned },
             tagOf = { it.tag },
-            systemCategoryOf = { systemCategoryOf(it.activityPackage) },
             otherName = getLocalizedString(R.string.category_other),
             openCategory = settings.openDrawerCategory,
-            extraCategories = settings.customCategories,
-            displayName = { settings.categoryDisplayName(it) },
-            maxCategories = settings.maxCategories
+            order = settings.categoryOrder
         )
         headers.clear()
         return rows.map { row ->

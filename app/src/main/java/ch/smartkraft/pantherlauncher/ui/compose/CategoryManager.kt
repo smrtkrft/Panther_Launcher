@@ -1,7 +1,6 @@
 package ch.smartkraft.pantherlauncher.ui.compose
 
 import android.content.Context
-import android.content.pm.ApplicationInfo
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -17,19 +16,20 @@ import ch.smartkraft.common.getLocalizedString
 import ch.smartkraft.common.showShortToast
 import ch.smartkraft.pantherlauncher.R
 import ch.smartkraft.pantherlauncher.data.AppListItem
-import ch.smartkraft.pantherlauncher.data.Constants
 import ch.smartkraft.pantherlauncher.data.Prefs
 import ch.smartkraft.pantherlauncher.ui.adapter.AppCategory
 import ch.smartkraft.pantherlauncher.ui.adapter.AppGrouping
 import ch.smartkraft.pantherlauncher.ui.components.DialogManager
 import ch.smartkraft.pantherlauncher.ui.compose.SettingsComposable.PageHeader
+import ch.smartkraft.pantherlauncher.ui.compose.SettingsComposable.SectionCard
 import ch.smartkraft.pantherlauncher.ui.compose.SettingsComposable.SettingsSelect
 import ch.smartkraft.pantherlauncher.ui.compose.SettingsComposable.SettingsTitle
 
 /**
- * Settings screen for the category view of the drawer: which apps stay above the categories,
- * how many categories there may be, and the categories themselves (rename, choose apps, create,
- * remove). The categories are computed the same way the drawer computes them.
+ * Settings screen for the category view of the drawer. A category is nothing but the tag its
+ * apps share, so the screen edits tags: create a category by choosing its apps, rename it,
+ * change its apps, move it up or down, remove it. A category without apps no longer exists.
+ * The apps kept above the categories are the pinned ones.
  */
 object CategoryManager {
 
@@ -44,17 +44,7 @@ object CategoryManager {
         onChanged: () -> Unit
     ) {
         var version by remember { mutableIntStateOf(0) }
-        val systemCategories = remember { HashMap<String, String?>() }
         val otherName = getLocalizedString(R.string.category_other)
-
-        fun systemCategoryOf(app: AppListItem): String? = systemCategories.getOrPut(app.activityPackage) {
-            try {
-                val info = context.packageManager.getApplicationInfo(app.activityPackage, 0)
-                ApplicationInfo.getCategoryTitle(context, info.category)?.toString()
-            } catch (_: Exception) {
-                null
-            }
-        }
 
         fun labelOf(app: AppListItem) = prefs.getAppAlias(app.settingsKey).ifBlank { app.activityLabel }
         fun changed() {
@@ -66,13 +56,11 @@ object CategoryManager {
         val sortedApps = remember(apps, version) { apps.sortedBy { labelOf(it).lowercase() } }
         val unpinned = remember(sortedApps, pinned) { sortedApps.filter { it.settingsKey !in pinned } }
         val categories = remember(unpinned, version) {
-            AppGrouping.categories(
-                unpinned, { it.tag }, ::systemCategoryOf, otherName,
-                extraCategories = prefs.customCategories,
-                displayName = { prefs.categoryDisplayName(it) },
-                maxCategories = prefs.maxCategories
-            )
+            AppGrouping.categories(unpinned, { it.tag }, otherName, prefs.categoryOrder)
         }
+        // Names that lost their apps leave the saved order
+        val named = categories.filter { !it.isOther }.map { it.name }
+        if (named != prefs.categoryOrder) prefs.categoryOrder = named
 
         BackHandler { onBack() }
         PageHeader(
@@ -82,68 +70,73 @@ object CategoryManager {
         )
         Spacer(modifier = Modifier.height(16.dp))
 
-        // ---- Above the categories --------------------------------------------------------
-        SettingsTitle(text = getLocalizedString(R.string.categories_top_section), fontSize = titleFontSize)
-        SettingsSelect(
-            title = getLocalizedString(R.string.categories_top_apps),
-            option = pinned.size.toString(),
-            fontSize = titleFontSize,
-            onClick = {
-                val checked = sortedApps.indices.filter { sortedApps[it].settingsKey in pinned }.toSet()
-                dialogBuilder.showMultiChoiceDialog(
-                    context, getLocalizedString(R.string.categories_top_apps), sortedApps.map(::labelOf), checked
-                ) { chosen ->
-                    prefs.pinnedApps = chosen.map { sortedApps[it].settingsKey }.toSet()
+        SettingsTitle(text = getLocalizedString(R.string.categories_top_apps), fontSize = titleFontSize)
+        SectionCard {
+            SettingsSelect(
+                title = getLocalizedString(R.string.categories_top_apps),
+                option = pinned.size.toString(),
+                fontSize = titleFontSize,
+                onClick = {
+                    val checked = sortedApps.indices.filter { sortedApps[it].settingsKey in pinned }.toSet()
+                    dialogBuilder.showMultiChoiceDialog(
+                        context, getLocalizedString(R.string.categories_top_apps), sortedApps.map(::labelOf), checked
+                    ) { chosen ->
+                        prefs.pinnedApps = chosen.map { sortedApps[it].settingsKey }.toSet()
+                        changed()
+                    }
+                }
+            )
+        }
+
+        SettingsTitle(text = getLocalizedString(R.string.categories_section), fontSize = titleFontSize)
+        SectionCard {
+            categories.forEach { category ->
+                SettingsSelect(
+                    title = category.name,
+                    option = category.apps.size.toString(),
+                    fontSize = titleFontSize,
+                    onClick = { showActions(context, prefs, dialogBuilder, category, categories, unpinned, ::labelOf, ::changed) }
+                )
+            }
+            SettingsSelect(
+                title = getLocalizedString(R.string.categories_new),
+                option = "+",
+                fontSize = titleFontSize,
+                onClick = { createCategory(context, prefs, dialogBuilder, categories, unpinned, ::labelOf, ::changed) }
+            )
+        }
+        Spacer(modifier = Modifier.height(32.dp))
+    }
+
+    private fun nameTaken(name: String, categories: List<AppCategory<AppListItem>>) =
+        categories.any { it.name.equals(name, ignoreCase = true) }
+
+    /** A category comes into being with its first apps; without a choice nothing is created. */
+    private fun createCategory(
+        context: Context,
+        prefs: Prefs,
+        dialogBuilder: DialogManager,
+        categories: List<AppCategory<AppListItem>>,
+        apps: List<AppListItem>,
+        labelOf: (AppListItem) -> String,
+        changed: () -> Unit
+    ) {
+        dialogBuilder.showTextInputDialog(context, getLocalizedString(R.string.categories_new), "", getLocalizedString(R.string.categories_name_hint)) { name ->
+            if (name.isEmpty()) return@showTextInputDialog
+            if (nameTaken(name, categories)) {
+                context.showShortToast(getLocalizedString(R.string.categories_exists))
+                return@showTextInputDialog
+            }
+            dialogBuilder.showMultiChoiceDialog(context, getLocalizedString(R.string.categories_choose_apps_for, name), apps.map(labelOf), emptySet()) { chosen ->
+                if (chosen.isEmpty()) {
+                    context.showShortToast(getLocalizedString(R.string.categories_not_created))
+                } else {
+                    chosen.forEach { prefs.setAppTag(apps[it].settingsKey, name, apps[it].user) }
+                    prefs.categoryOrder = prefs.categoryOrder + name
                     changed()
                 }
             }
-        )
-        SettingsSelect(
-            title = getLocalizedString(R.string.categories_max),
-            option = prefs.maxCategories.let { if (it == 0) getLocalizedString(R.string.categories_unlimited) else it.toString() },
-            fontSize = titleFontSize,
-            onClick = {
-                dialogBuilder.showSliderBottomSheet(
-                    context = context,
-                    title = getLocalizedString(R.string.categories_max_hint),
-                    minValue = 0,
-                    maxValue = Constants.MAX_CATEGORY_COUNT,
-                    currentValue = prefs.maxCategories,
-                    onValueSelected = { value ->
-                        prefs.maxCategories = value.toInt()
-                        changed()
-                    }
-                )
-            }
-        )
-
-        // ---- The categories --------------------------------------------------------------
-        SettingsTitle(text = getLocalizedString(R.string.categories_section), fontSize = titleFontSize)
-        for (category in categories) {
-            SettingsSelect(
-                title = category.name,
-                option = category.apps.size.toString(),
-                fontSize = titleFontSize,
-                onClick = { showActions(context, prefs, dialogBuilder, category, unpinned, ::labelOf, ::systemCategoryOf, otherName, ::changed) }
-            )
         }
-        SettingsSelect(
-            title = getLocalizedString(R.string.categories_new),
-            option = "+",
-            fontSize = titleFontSize,
-            onClick = {
-                dialogBuilder.showTextInputDialog(context, getLocalizedString(R.string.categories_new), "", getLocalizedString(R.string.categories_name_hint)) { name ->
-                    if (name.isEmpty()) return@showTextInputDialog
-                    if (categories.any { it.name.equals(name, ignoreCase = true) }) {
-                        context.showShortToast(getLocalizedString(R.string.categories_exists))
-                    } else {
-                        prefs.customCategories = prefs.customCategories + name
-                        changed()
-                    }
-                }
-            }
-        )
-        Spacer(modifier = Modifier.height(32.dp))
     }
 
     private fun showActions(
@@ -151,22 +144,25 @@ object CategoryManager {
         prefs: Prefs,
         dialogBuilder: DialogManager,
         category: AppCategory<AppListItem>,
+        categories: List<AppCategory<AppListItem>>,
         apps: List<AppListItem>,
         labelOf: (AppListItem) -> String,
-        systemCategoryOf: (AppListItem) -> String?,
-        otherName: String,
         changed: () -> Unit
     ) {
-        val isOther = category.original == otherName
         val rename = getLocalizedString(R.string.categories_rename)
         val choose = getLocalizedString(R.string.categories_choose_apps)
-        val reset = getLocalizedString(R.string.categories_reset_name)
+        val up = getLocalizedString(R.string.categories_move_up)
+        val down = getLocalizedString(R.string.categories_move_down)
         val remove = getLocalizedString(R.string.categories_remove)
+        val named = categories.filter { !it.isOther }
+        val index = named.indexOf(category)
+        // "Other" only collects the untagged apps; it is managed through the other categories
+        if (category.isOther) return
         val options = buildList {
-            add(rename)
-            if (!isOther) add(choose)
-            if (category.name != category.original) add(reset)
-            if (!category.fromSystem && !isOther) add(remove)
+            add(rename); add(choose)
+            if (index > 0) add(up)
+            if (index in 0 until named.size - 1) add(down)
+            add(remove)
         }
         dialogBuilder.showSingleChoiceBottomSheet(
             context = context,
@@ -175,22 +171,31 @@ object CategoryManager {
             onItemSelected = { chosen ->
                 when (chosen) {
                     rename -> dialogBuilder.showTextInputDialog(context, rename, category.name) { name ->
-                        prefs.renameCategory(category.original, name)
+                        if (name.isEmpty() || name == category.name) return@showTextInputDialog
+                        if (nameTaken(name, categories) && !name.equals(category.name, ignoreCase = true)) {
+                            context.showShortToast(getLocalizedString(R.string.categories_exists))
+                            return@showTextInputDialog
+                        }
+                        category.apps.forEach { prefs.setAppTag(it.settingsKey, name, it.user) }
+                        prefs.categoryOrder = prefs.categoryOrder.map { if (it.equals(category.name, ignoreCase = true)) name else it }
+                        if (prefs.openDrawerCategory.equals(category.name, ignoreCase = true)) prefs.openDrawerCategory = name
                         changed()
                     }
 
-                    reset -> {
-                        prefs.renameCategory(category.original, "")
+                    choose -> chooseApps(context, prefs, dialogBuilder, category, apps, labelOf, changed)
+
+                    up, down -> {
+                        val order = named.map { it.name }.toMutableList()
+                        val to = if (chosen == up) index - 1 else index + 1
+                        order.add(to, order.removeAt(index))
+                        prefs.categoryOrder = order
                         changed()
                     }
-
-                    choose -> chooseApps(context, prefs, dialogBuilder, category, apps, labelOf, systemCategoryOf, otherName, changed)
 
                     remove -> {
-                        // Its apps lose the tag and fall back to the category Android gives them
+                        // Its apps lose the tag and go to "Other"
                         category.apps.forEach { prefs.setAppTag(it.settingsKey, "", it.user) }
-                        prefs.customCategories = prefs.customCategories.filterNot { it.equals(category.original, ignoreCase = true) }.toSet()
-                        prefs.renameCategory(category.original, "")
+                        prefs.categoryOrder = prefs.categoryOrder.filterNot { it.equals(category.name, ignoreCase = true) }
                         changed()
                     }
                 }
@@ -205,8 +210,6 @@ object CategoryManager {
         category: AppCategory<AppListItem>,
         apps: List<AppListItem>,
         labelOf: (AppListItem) -> String,
-        systemCategoryOf: (AppListItem) -> String?,
-        otherName: String,
         changed: () -> Unit
     ) {
         val members = category.apps.map { it.settingsKey }.toSet()
@@ -215,14 +218,8 @@ object CategoryManager {
             apps.forEachIndexed { index, app ->
                 val wasIn = index in checked
                 val isIn = index in chosen
-                when {
-                    isIn && !wasIn -> prefs.setAppTag(app.settingsKey, category.original, app.user)
-                    // An app Android places here can only leave through a tag of its own
-                    !isIn && wasIn -> {
-                        val staysBySystem = systemCategoryOf(app).equals(category.original, ignoreCase = true)
-                        prefs.setAppTag(app.settingsKey, if (staysBySystem) otherName else "", app.user)
-                    }
-                }
+                // An app taken out loses its tag and goes to "Other"
+                if (isIn != wasIn) prefs.setAppTag(app.settingsKey, if (isIn) category.name else "", app.user)
             }
             changed()
         }

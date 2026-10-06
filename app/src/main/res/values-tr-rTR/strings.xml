@@ -134,21 +134,20 @@
     <string name="search_result_contact">Kişi</string>
     <string name="search_no_app_to_open">Bunu açabilecek uygulama yok</string>
     <string name="manage_categories">Kategorileri Yönet</string>
-    <string name="categories_top_section">Kategorilerin Üstü</string>
     <string name="categories_top_apps">Kategorilerin üstünde gösterilen uygulamalar</string>
-    <string name="categories_max">En fazla kategori sayısı</string>
-    <string name="categories_max_hint">En fazla kategori sayısı (0 = sınırsız)</string>
-    <string name="categories_unlimited">Sınırsız</string>
     <string name="categories_section">Kategoriler</string>
     <string name="categories_new">Yeni kategori</string>
     <string name="categories_name_hint">Ad</string>
     <string name="categories_exists">Bu adda bir kategori zaten var</string>
     <string name="categories_rename">Yeniden adlandır</string>
     <string name="categories_choose_apps">Uygulamaları seç</string>
-    <string name="categories_reset_name">Özgün adı kullan</string>
     <string name="categories_remove">Kategoriyi kaldır</string>
     <string name="private_space_title">Özel Alan</string>
     <string name="about_short">Hakkında</string>
+    <string name="categories_move_up">Yukarı taşı</string>
+    <string name="categories_move_down">Aşağı taşı</string>
+    <string name="categories_not_created">Uygulama seçilmediği için kategori oluşturulmadı</string>
+    <string name="categories_choose_apps_for">“%1$s” uygulamaları</string>
     <string name="smart_search">Akıllı arama</string>
     <string name="enable_filter_strength">Esnek aramayı aç</string>
     <string name="filter_strength">Esnek arama hassasiyeti</string>

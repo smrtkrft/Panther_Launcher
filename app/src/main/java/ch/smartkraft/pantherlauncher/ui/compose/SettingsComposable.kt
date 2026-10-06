@@ -489,6 +489,35 @@ object SettingsComposable {
         )
     }
 
+    /** A row that leads to another screen: the title with a chevron at the end. */
+    @Composable
+    fun SettingsLink(
+        title: String,
+        fontSize: TextUnit = 24.sp,
+        onClick: () -> Unit = {}
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(onClick = onClick)
+                .padding(vertical = 12.dp, horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            FontText(
+                text = title,
+                fontSize = fontSize,
+                color = SettingsTheme.typography.title.color,
+                modifier = Modifier.weight(1f).wrapContentHeight()
+            )
+            FontText(
+                text = "›",
+                fontSize = (fontSize.value * 1.3f).sp,
+                color = SettingsTheme.typography.option.color,
+                modifier = Modifier.wrapContentHeight()
+            )
+        }
+    }
+
     /** Colour of the thin outline used by the home tiles and the section cards. */
     @Composable
     fun outlineColor(): Color = SettingsTheme.typography.title.color.copy(alpha = 0.15f)

@@ -172,21 +172,20 @@
     <string name="search_result_contact">Contact</string>
     <string name="search_no_app_to_open">No app can open this</string>
     <string name="manage_categories">Manage Categories</string>
-    <string name="categories_top_section">Above the Categories</string>
     <string name="categories_top_apps">Apps shown above the categories</string>
-    <string name="categories_max">Maximum number of categories</string>
-    <string name="categories_max_hint">Maximum number of categories (0 = no limit)</string>
-    <string name="categories_unlimited">No limit</string>
     <string name="categories_section">Categories</string>
     <string name="categories_new">New category</string>
     <string name="categories_name_hint">Name</string>
     <string name="categories_exists">A category with this name already exists</string>
     <string name="categories_rename">Rename</string>
     <string name="categories_choose_apps">Choose apps</string>
-    <string name="categories_reset_name">Use the original name</string>
     <string name="categories_remove">Remove category</string>
     <string name="private_space_title">Private Space</string>
     <string name="about_short">About</string>
+    <string name="categories_move_up">Move up</string>
+    <string name="categories_move_down">Move down</string>
+    <string name="categories_not_created">No app chosen, so the category was not created</string>
+    <string name="categories_choose_apps_for">Apps of “%1$s”</string>
     <string name="smart_search">Smart Search</string>
     <string name="enable_filter_strength">Enable Fuzzy Finder</string>
     <string name="filter_strength">Fuzzy Finder Strength</string>

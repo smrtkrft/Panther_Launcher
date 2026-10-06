@@ -41,7 +41,6 @@ object Constants {
 
     const val MIN_CATEGORY_SIZE = 8
     const val MAX_CATEGORY_SIZE = 40
-    const val MAX_CATEGORY_COUNT = 20
 
     // Drawer search area, in dp
     const val MIN_SEARCH_SPACING = 0

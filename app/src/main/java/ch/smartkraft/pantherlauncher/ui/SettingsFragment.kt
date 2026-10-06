@@ -109,6 +109,7 @@ import ch.smartkraft.pantherlauncher.ui.compose.CategoryManager
 import ch.smartkraft.pantherlauncher.ui.compose.SettingsComposable.PageHeader
 import ch.smartkraft.pantherlauncher.ui.compose.SettingsComposable.SettingsHomeCard
 import ch.smartkraft.pantherlauncher.ui.compose.SettingsComposable.SettingsHomeItem
+import ch.smartkraft.pantherlauncher.ui.compose.SettingsComposable.SettingsLink
 import ch.smartkraft.pantherlauncher.ui.compose.SettingsComposable.SettingsSelect
 import ch.smartkraft.pantherlauncher.ui.compose.SettingsComposable.SettingsSwitch
 import ch.smartkraft.pantherlauncher.ui.compose.SettingsComposable.SettingsTitle
@@ -722,9 +723,8 @@ class SettingsFragment : BaseFragment() {
                     )
 
                     if (selectedDrawerView == Constants.DrawerView.Categories) {
-                        SettingsSelect(
+                        SettingsLink(
                             title = getLocalizedString(R.string.manage_categories),
-                            option = "›",
                             fontSize = titleFontSize,
                             onClick = {
                                 // Hidden apps are not part of the drawer, so they are not part of its categories
