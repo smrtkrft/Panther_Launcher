@@ -465,14 +465,21 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /** Set while a permission dialog or settings screen covers the launcher; the open screen survives it once. */
+    private var keepScreenWhileAway = false
+
+    fun keepCurrentScreenWhileAway() {
+        keepScreenWhileAway = true
+    }
+
     override fun onStop() {
-        backToHomeScreen()
+        if (!keepScreenWhileAway) backToHomeScreen()
         super.onStop()
     }
 
     override fun onResume() {
         recoverLostDestination()
-        backToHomeScreen()
+        if (keepScreenWhileAway) keepScreenWhileAway = false else backToHomeScreen()
         super.onResume()
     }
 
@@ -482,7 +489,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onUserLeaveHint() {
-        backToHomeScreen()
+        if (!keepScreenWhileAway) backToHomeScreen()
         super.onUserLeaveHint()
     }
 

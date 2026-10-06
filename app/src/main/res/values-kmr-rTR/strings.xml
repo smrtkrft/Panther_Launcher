@@ -55,7 +55,6 @@
     <string name="lock_orientation">Arasteyê kilît bike</string>
     <string name="haptic_feedback">Bersiva haptîk</string>
     <string name="search">Bigere</string>
-    <string name="search_engine">Motora lêgerînê</string>
     <string name="show_az_sidebar">Darika kêlekê ya A-Z nîşan bide</string>
     <string name="auto_show_keyboard">Kilîtdankê xweber nîşan bide</string>
     <string name="search_from_start">Ji serî bigere</string>
@@ -316,7 +315,6 @@
     <string name="home_button_web">Tevn</string>
     <string name="home_button_settings">Sazkarî</string>
     <string name="home_button_logo">Logo</string>
-    <string name="applist_button_web">Tevn</string>
     <string name="applist_button_contacts">Têkilî</string>
     <string name="allow">Mafê bide</string>
     <string name="deny">Paşguh bik</string>

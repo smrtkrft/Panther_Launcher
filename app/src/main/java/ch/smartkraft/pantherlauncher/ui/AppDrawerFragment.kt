@@ -41,8 +41,6 @@ import ch.smartkraft.common.getLocalizedString
 import ch.smartkraft.common.hasSoftKeyboard
 import ch.smartkraft.common.isGestureNavigationEnabled
 import ch.smartkraft.common.isSystemApp
-import ch.smartkraft.common.searchCustomSearchEngine
-import ch.smartkraft.common.searchOnPlayStore
 import ch.smartkraft.common.showShortToast
 import ch.smartkraft.pantherlauncher.MainViewModel
 import ch.smartkraft.pantherlauncher.R
@@ -61,6 +59,7 @@ import ch.smartkraft.pantherlauncher.helper.isPantherLauncherDefault
 import ch.smartkraft.pantherlauncher.helper.openAppInfo
 import ch.smartkraft.pantherlauncher.helper.utils.PrivateSpaceManager
 import ch.smartkraft.pantherlauncher.ui.adapter.AppDrawerAdapter
+import ch.smartkraft.pantherlauncher.ui.search.ExtraSearch
 import ch.smartkraft.pantherlauncher.ui.adapter.ContactDrawerAdapter
 
 class AppDrawerFragment : BaseFragment() {
@@ -69,6 +68,7 @@ class AppDrawerFragment : BaseFragment() {
     private lateinit var viewModel: MainViewModel
     private lateinit var appsAdapter: AppDrawerAdapter
     private lateinit var contactsAdapter: ContactDrawerAdapter
+    private val extraSearch by lazy { ExtraSearch(requireContext()) }
 
     private var currentFilteredSection: String? = null
 
@@ -434,25 +434,18 @@ class AppDrawerFragment : BaseFragment() {
         if (prefs.hideSearchView) {
             binding.search.isVisible = false
         } else {
-            val appListButtonFlags = prefs.getMenuFlags("APPLIST_BUTTON_FLAGS", "00")
+            // Older builds stored two flags (web, contacts); the contacts flag has always been the last one
+            val showContactsButton = prefs.getMenuFlags("APPLIST_BUTTON_FLAGS", "0").lastOrNull() == true
             when (flag) {
                 AppDrawerFlag.LaunchApp -> {
                     setupProfileButtons(flag, viewModel, appAdapter, contactAdapter, profileType)
 
-                    binding.internetSearch.apply {
-                        isVisible = appListButtonFlags[0]
-                        setOnClickListener {
-                            val query = binding.search.query.toString().trim()
-                            if (query.isEmpty()) return@setOnClickListener
-                            requireContext().searchCustomSearchEngine(query, prefs)
-                        }
-                    }
                     binding.searchSwitcher.apply {
                         if (hasContactsPermission(context)) {
                             when (profileType) {
                                 "WORK", "PRIVATE" -> isVisible = false
                                 else -> {
-                                    isVisible = appListButtonFlags[1]
+                                    isVisible = showContactsButton
                                     setOnClickListener {
                                         switchMenus()
                                         binding.contactsRecyclerView.post {
@@ -484,6 +477,16 @@ class AppDrawerFragment : BaseFragment() {
         binding.listEmptyHint.text =
             applyTextColor(getLocalizedString(R.string.drawer_list_empty_hint), prefs.appColor)
 
+        if (flag == AppDrawerFlag.LaunchApp) {
+            // No app matched: files, then contacts, then "Not found"
+            appAdapter?.extraSearch = { query -> extraSearch.search(query, prefs.searchScope) }
+        }
+        appAdapter?.onResultsShown = { query, empty ->
+            val hint = if (query.isBlank()) R.string.drawer_list_empty_hint else R.string.search_not_found
+            binding.listEmptyHint.text = applyTextColor(getLocalizedString(hint), prefs.appColor)
+            binding.listEmptyHint.isVisible = empty
+        }
+
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 val searchQuery = query?.trim()
@@ -502,8 +505,6 @@ class AppDrawerFragment : BaseFragment() {
                                 ) || prefs.openAppOnEnter
                             ) {
                                 appAdapter?.launchFirstInList()
-                            } else {
-                                requireContext().searchOnPlayStore(searchQuery)
                             }
                         }
 
@@ -515,8 +516,6 @@ class AppDrawerFragment : BaseFragment() {
                                 ) || prefs.openAppOnEnter
                             ) {
                                 contactAdapter?.launchFirstInList()
-                            } else {
-                                requireContext().searchOnPlayStore(searchQuery)
                             }
                         }
                     }
@@ -790,6 +789,9 @@ class AppDrawerFragment : BaseFragment() {
         if (requireContext().hasSoftKeyboard()) {
             binding.search.showKeyboard()
         }
+        // A permission may have been granted meanwhile; the results have to reflect that
+        val query = binding.search.query?.toString().orEmpty()
+        if (query.isNotBlank() && ::appsAdapter.isInitialized) appsAdapter.filter.filter(query)
     }
 
     override fun onStop() {
@@ -879,6 +881,9 @@ class AppDrawerFragment : BaseFragment() {
         flag: AppDrawerFlag,
         n: Int = 0
     ): (appListItem: AppListItem) -> Unit = { appModel ->
+        if (appModel.isSearchExtra) {
+            if (extraSearch.open(requireActivity(), appModel)) closeDrawer()
+        } else {
         val opensLauncherItself = appModel.activityPackage == requireContext().packageName &&
                 (flag == AppDrawerFlag.LaunchApp || flag == AppDrawerFlag.HiddenApps)
         if (opensLauncherItself) {
@@ -890,6 +895,7 @@ class AppDrawerFragment : BaseFragment() {
                 findNavController().popBackStack(R.id.mainFragment, false)
             else
                 closeDrawer()
+        }
         }
     }
 

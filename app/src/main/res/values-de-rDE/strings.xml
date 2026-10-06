@@ -55,7 +55,6 @@
     <string name="lock_orientation">Schlossausrichtung</string>
     <string name="haptic_feedback">Haptisches Feedback</string>
     <string name="search">Suchen</string>
-    <string name="search_engine">Suchmaschine</string>
     <string name="show_az_sidebar">AZ-Seitenleiste anzeigen</string>
     <string name="auto_show_keyboard">Auto show keyboard</string>
     <string name="search_from_start">Suche von Start</string>
@@ -316,7 +315,6 @@
     <string name="home_button_web">Web</string>
     <string name="home_button_settings">Einstellungen</string>
     <string name="home_button_logo">Logo</string>
-    <string name="applist_button_web">Web</string>
     <string name="applist_button_contacts">Kontakte</string>
     <string name="allow">Erlauben</string>
     <string name="deny">Leugnen</string>

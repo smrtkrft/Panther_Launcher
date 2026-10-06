@@ -55,7 +55,6 @@
     <string name="lock_orientation">Ориентация замка</string>
     <string name="haptic_feedback">Тактильная обратная связь</string>
     <string name="search">Поиск</string>
-    <string name="search_engine">Поисковый движок</string>
     <string name="show_az_sidebar">Показать боковую панель AZ</string>
     <string name="auto_show_keyboard">Auto show keyboard</string>
     <string name="search_from_start">Поиск из начала</string>
@@ -317,7 +316,6 @@
     <string name="home_button_web">Веб</string>
     <string name="home_button_settings">Настройки</string>
     <string name="home_button_logo">Логотип</string>
-    <string name="applist_button_web">Веб</string>
     <string name="applist_button_contacts">Контакты</string>
     <string name="allow">Позволять</string>
     <string name="deny">Отрицать</string>

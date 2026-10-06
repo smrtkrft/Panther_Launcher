@@ -471,10 +471,25 @@ class Prefs(val context: Context) {
         get() = getSetting(HAPTIC_FEEDBACK, true)
         set(value) = prefsNormal.edit { putBoolean(HAPTIC_FEEDBACK, value) }
 
+    /** How the drawer lists apps. The earlier on/off setting is carried over the first time it is read. */
+    var drawerView: Constants.DrawerView
+        get() {
+            if (!prefsNormal.contains(DRAWER_VIEW) && prefsNormal.contains(DRAWER_CATEGORIES)) {
+                val old = if (getSetting(DRAWER_CATEGORIES, true)) Constants.DrawerView.Categories else Constants.DrawerView.AZ
+                prefsNormal.edit { putString(DRAWER_VIEW, old.name); remove(DRAWER_CATEGORIES) }
+            }
+            return getEnumSetting(DRAWER_VIEW, Constants.DrawerView.Categories)
+        }
+        set(value) = prefsNormal.edit { putString(DRAWER_VIEW, value.name) }
+
     /** Drawer shows apps grouped into categories (one open at a time) instead of one A-Z list. */
-    var drawerCategories: Boolean
-        get() = getSetting(DRAWER_CATEGORIES, true)
-        set(value) = prefsNormal.edit { putBoolean(DRAWER_CATEGORIES, value) }
+    val drawerCategories: Boolean
+        get() = drawerView == Constants.DrawerView.Categories
+
+    /** Where the drawer search continues when no app matches. */
+    var searchScope: Constants.SearchScope
+        get() = getEnumSetting(SEARCH_SCOPE, Constants.SearchScope.AppsFilesContacts)
+        set(value) = prefsNormal.edit { putString(SEARCH_SCOPE, value.name) }
 
     /** The category that was open last, so the drawer comes back the way it was left. */
     var openDrawerCategory: String
@@ -647,12 +662,6 @@ class Prefs(val context: Context) {
             return getEnumSetting(APP_LANGUAGE, Constants.Language.System)
         }
         set(value) = prefsNormal.edit { putString(APP_LANGUAGE, value.name) }
-
-    var searchEngines: Constants.SearchEngines
-        get() {
-            return getEnumSetting(SEARCH_ENGINE, Constants.SearchEngines.Google)
-        }
-        set(value) = prefsNormal.edit { putString(SEARCH_ENGINE, value.name) }
 
     var fontFamily: Constants.FontFamily
         get() {

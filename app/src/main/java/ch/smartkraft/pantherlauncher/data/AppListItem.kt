@@ -48,6 +48,19 @@ data class AppListItem(
     val isCategoryHeader: Boolean
         get() = activityPackage.isEmpty() && activityClass.startsWith(CATEGORY_PREFIX)
 
+    val isFileResult: Boolean
+        get() = activityPackage.isEmpty() && activityClass.startsWith(FILE_PREFIX)
+
+    val isContactResult: Boolean
+        get() = activityPackage.isEmpty() && activityClass.startsWith(CONTACT_PREFIX)
+
+    val isPermissionRequest: Boolean
+        get() = activityPackage.isEmpty() && activityClass.startsWith(PERMISSION_PREFIX)
+
+    /** A file, contact or permission row shown in the drawer when no app matched the search. */
+    val isSearchExtra: Boolean
+        get() = isFileResult || isContactResult || isPermissionRequest
+
     val shortcutId: String
         get() = activityClass.removePrefix(SHORTCUT_PREFIX)
 
@@ -68,6 +81,9 @@ data class AppListItem(
 
 const val SHORTCUT_PREFIX = "shortcut:"
 const val CATEGORY_PREFIX = "category:"
+const val FILE_PREFIX = "file:"
+const val CONTACT_PREFIX = "contact:"
+const val PERMISSION_PREFIX = "permission:"
 
 /** See [AppListItem.settingsKey]. */
 fun settingsKeyOf(packageName: String, activityClass: String): String =

@@ -55,7 +55,6 @@
     <string name="lock_orientation">Vergrendelingsoriëntatie</string>
     <string name="haptic_feedback">Haptische feedback</string>
     <string name="search">Zoek</string>
-    <string name="search_engine">Zoekmachine</string>
     <string name="show_az_sidebar">Toon de AZ-zijbalk</string>
     <string name="auto_show_keyboard">Toetsenbord automatisch tonen</string>
     <string name="search_from_start">App zoeken vanaf het begin</string>
@@ -317,7 +316,6 @@
     <string name="home_button_web">Web</string>
     <string name="home_button_settings">Instellingen</string>
     <string name="home_button_logo">Logo</string>
-    <string name="applist_button_web">Web</string>
     <string name="applist_button_contacts">Contacten</string>
     <string name="allow">Toestaan</string>
     <string name="deny">Ontkennen</string>

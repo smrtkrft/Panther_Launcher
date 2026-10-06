@@ -33,6 +33,7 @@ Bu dosya, Panther Launcher'ın kaynağı olan [mLauncher (Multi Launcher)](https
 - Çökme kaydı ortak Download klasörü yerine uygulamanın özel alanında tutuluyor ve açılan uygulamaların adını içermiyor.
 - Launcher verileri bulut yedeğine gitmiyor; notlar ekran görüntüsüne çıkmıyor, rehber önbelleği izin kalkınca siliniyor ve e-posta adresleri okunmuyor.
 - Derleme kararlı Kotlin sürümüyle, geliştirici depoları olmadan ve Gradle indirmesi sağlama toplamıyla sabitlenerek yapılıyor.
+- Eşleşme olmayınca aramanın Play Store'a veya bir web arama motoruna gönderilmesi, internet arama düğmesi ve arama motoru ayarı kaldırıldı; çekmeceye yazılanlar cihaz dışına çıkmıyor.
 
 ### B – Hata düzeltmeleri
 
@@ -51,6 +52,7 @@ Bu dosya, Panther Launcher'ın kaynağı olan [mLauncher (Multi Launcher)](https
 - "Tüm widget'ları kaldır" çökmesi, boyutlandırmadan çıkışta sayfanın yeniden başlaması ve yavaş sürüklerken menünün açılması giderildi.
 - Hiç açılmamış bir uygulamanın widget'ı eklenirken, Android bu uygulamaları durdurulmuş saydığı için widget'ın boş kalabileceği söyleniyor ve uygulama tek dokunuşla açılabiliyor.
 - Widget seçici tüm widget'ları listeliyor, ayar ekranları Android'in widget'lar için ayırdığı yoldan açılıyor ve widget kimliği artık uygulamanın adına bağlı değil.
+- Kategori görünümünde liste yenilenirken (ör. uygulama sabitlenince) arama sonuçlarının tüm listeyle değiştirilmesi giderildi.
 
 ### C – Keyfî GUI tasarımı
 
@@ -77,6 +79,8 @@ Bu dosya, Panther Launcher'ın kaynağı olan [mLauncher (Multi Launcher)](https
 - Logonun açık ve koyu tema için ters renkli iki sürümü var; bildirim simgesi, açılış ekranı ve "Launcher Dots" stili de yeni logoyu kullanıyor.
 - Launcher artık kendi uygulama listesinde görünüyor; dokununca ayarları açılıyor.
 - Hakkında ekranından bağış, Discord ve "Uygulamayı Paylaş" bağlantıları kaldırıldı.
+- Çekmece görünümü (A–Z liste / Kategoriler) ve arama kapsamı artık açma-kapama yerine açılır listeden seçiliyor.
+- Çekmece araması cihaz içinde kademeli çalışıyor: uygulama eşleşmezse dosyalar, dosya da yoksa kişiler listeleniyor, hiçbiri yoksa "Bulunamadı" yazıyor; gereken izin yoksa listede tek dokunuşla izin veren bir satır çıkıyor.
 
 ---
 
@@ -109,6 +113,7 @@ This file summarises where Panther Launcher departs from its source, [mLauncher 
 - The crash log is kept in the app's private storage instead of the shared Download folder and no longer names the apps that were opened.
 - Launcher data is not sent to cloud backup; notes stay out of screenshots, the contact cache is deleted when the permission is withdrawn and e-mail addresses are not read.
 - The build uses the stable Kotlin release, no development repositories, and a checksum-pinned Gradle download.
+- Sending a search without a match to the Play Store or a web search engine, the internet search button and the search engine setting were removed; what is typed into the drawer does not leave the device.
 
 ### B – Bug fixes
 
@@ -127,6 +132,7 @@ This file summarises where Panther Launcher departs from its source, [mLauncher 
 - The "Remove all Widgets" crash, the page restart when leaving resize mode and the menu opening during a slow drag are fixed.
 - When a widget of an app that has never been opened is added, the launcher explains that Android keeps such apps stopped and the widget may stay empty, and offers to open the app.
 - The widget picker lists every widget, configure screens are opened the way Android intends for widgets, and the widget host id no longer depends on the app's name.
+- In the category view the search results are no longer replaced by the full list when the list is refreshed (for example after pinning an app).
 
 ### C – Discretionary GUI design
 
@@ -153,3 +159,5 @@ This file summarises where Panther Launcher departs from its source, [mLauncher 
 - The logo has two versions with inverted colours for the light and dark theme; the toast icon, splash screen and "Launcher Dots" style use the new logo as well.
 - The launcher now appears in its own app list; tapping it opens its settings.
 - Donation, Discord and "Share Application" links were removed from the About screen.
+- The drawer view (A–Z list / Categories) and the search scope are now chosen from selection lists instead of toggles.
+- The drawer search works in stages on the device: when no app matches it lists files, when no file matches it lists contacts, and otherwise shows "Not found"; a missing permission appears as a row in the list that asks for it with one tap.

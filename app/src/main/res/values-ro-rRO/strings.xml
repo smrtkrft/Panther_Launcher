@@ -55,7 +55,6 @@
     <string name="lock_orientation">Orientarea blocării</string>
     <string name="haptic_feedback">Feedback haptic</string>
     <string name="search">Căutare</string>
-    <string name="search_engine">Motor de căutare</string>
     <string name="show_az_sidebar">Afișează bara laterală de la A la Z</string>
     <string name="auto_show_keyboard">Tastatură cu afișare automată</string>
     <string name="search_from_start">Căutare de la început</string>
@@ -317,7 +316,6 @@
     <string name="home_button_web">Web</string>
     <string name="home_button_settings">Setări</string>
     <string name="home_button_logo">Siglă</string>
-    <string name="applist_button_web">Web</string>
     <string name="applist_button_contacts">Contacte</string>
     <string name="allow">Permite</string>
     <string name="deny">Refuza</string>

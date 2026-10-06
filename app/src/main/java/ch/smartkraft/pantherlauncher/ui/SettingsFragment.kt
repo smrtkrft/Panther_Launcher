@@ -195,13 +195,13 @@ class SettingsFragment : BaseFragment() {
         var toggledHideSearchView by remember { mutableStateOf(prefs.hideSearchView) }
         var toggledFloating by remember { mutableStateOf(prefs.showFloating) }
 
-        var selectedSearchEngine by remember { mutableStateOf(prefs.searchEngines) }
         var toggledShowAZSidebar by remember { mutableStateOf(prefs.showAZSidebar) }
         var toggledAutoShowKeyboard by remember { mutableStateOf(prefs.autoShowKeyboard) }
         var toggledSearchFromStart by remember { mutableStateOf(prefs.searchFromStart) }
         var toggledEnableFilterStrength by remember { mutableStateOf(prefs.enableFilterStrength) }
         var toggledSmartSearch by remember { mutableStateOf(prefs.smartSearch) }
-        var toggledDrawerCategories by remember { mutableStateOf(prefs.drawerCategories) }
+        var selectedDrawerView by remember { mutableStateOf(prefs.drawerView) }
+        var selectedSearchScope by remember { mutableStateOf(prefs.searchScope) }
         var toggledCategoryUppercase by remember { mutableStateOf(prefs.categoryUppercase) }
         var toggledCategoryShowCount by remember { mutableStateOf(prefs.categoryShowCount) }
         var selectedCategorySize by remember { mutableIntStateOf(prefs.categorySize) }
@@ -255,7 +255,6 @@ class SettingsFragment : BaseFragment() {
         )
 
         val appListButtonOptionLabels = listOf(
-            getLocalizedString(R.string.applist_button_web),
             getLocalizedString(R.string.applist_button_contacts)
         )
 
@@ -706,32 +705,21 @@ class SettingsFragment : BaseFragment() {
                     )
 
                     SettingsSelect(
-                        title = getLocalizedString(R.string.search_engine),
-                        option = selectedSearchEngine.string(),
+                        title = getLocalizedString(R.string.search_scope),
+                        option = selectedSearchScope.string(),
                         fontSize = titleFontSize,
                         onClick = {
-                            val searchEnginesEntries = Constants.SearchEngines.entries
-
-                            val searchEnginesOptions = searchEnginesEntries.map { it.getString() }
-
-                            // Determine selected index based on current prefs value
-                            val selectedIndex = searchEnginesEntries.indexOf(selectedSearchEngine)
-                                .takeIf { it >= 0 } ?: 1
-
+                            val entries = Constants.SearchScope.entries
+                            val options = entries.map { it.getString() }
                             dialogBuilder.showSingleChoiceBottomSheet(
                                 context = requireContext(),
-                                options = searchEnginesOptions.map { it }.toTypedArray(),
-                                title = getLocalizedString(R.string.search_engine),
-                                selectedIndex = selectedIndex,
-                                onItemSelected = { newSearchEngineName ->
-                                    val newFontFamilyIndex =
-                                        searchEnginesOptions.indexOfFirst { it == newSearchEngineName }
-                                    if (newFontFamilyIndex != -1) {
-                                        val newSearchEngine =
-                                            searchEnginesEntries[newFontFamilyIndex] // Get the selected FontFamily enum
-                                        selectedSearchEngine = newSearchEngine // Update state
-                                        prefs.searchEngines =
-                                            newSearchEngine // Persist selection in preferences
+                                options = options.toTypedArray(),
+                                title = getLocalizedString(R.string.search_scope),
+                                selectedIndex = entries.indexOf(selectedSearchScope).coerceAtLeast(0),
+                                onItemSelected = { chosen ->
+                                    entries.getOrNull(options.indexOf(chosen))?.let {
+                                        selectedSearchScope = it
+                                        prefs.searchScope = it
                                     }
                                 }
                             )
@@ -760,17 +748,29 @@ class SettingsFragment : BaseFragment() {
                         )
                     }
 
-                    SettingsSwitch(
-                        text = getLocalizedString(R.string.drawer_categories),
+                    SettingsSelect(
+                        title = getLocalizedString(R.string.drawer_view),
+                        option = selectedDrawerView.string(),
                         fontSize = titleFontSize,
-                        defaultState = toggledDrawerCategories,
-                        onCheckedChange = {
-                            toggledDrawerCategories = !prefs.drawerCategories
-                            prefs.drawerCategories = toggledDrawerCategories
+                        onClick = {
+                            val entries = Constants.DrawerView.entries
+                            val options = entries.map { it.getString() }
+                            dialogBuilder.showSingleChoiceBottomSheet(
+                                context = requireContext(),
+                                options = options.toTypedArray(),
+                                title = getLocalizedString(R.string.drawer_view),
+                                selectedIndex = entries.indexOf(selectedDrawerView).coerceAtLeast(0),
+                                onItemSelected = { chosen ->
+                                    entries.getOrNull(options.indexOf(chosen))?.let {
+                                        selectedDrawerView = it
+                                        prefs.drawerView = it
+                                    }
+                                }
+                            )
                         }
                     )
 
-                    if (toggledDrawerCategories) {
+                    if (selectedDrawerView == Constants.DrawerView.Categories) {
                         SettingsSwitch(
                             text = getLocalizedString(R.string.category_uppercase),
                             fontSize = titleFontSize,
@@ -1059,7 +1059,7 @@ class SettingsFragment : BaseFragment() {
 
                     val currentAppListFlags = remember {
                         mutableStateListOf<Boolean>().apply {
-                            addAll(prefs.getMenuFlags("APPLIST_BUTTON_FLAGS", "00"))
+                            addAll(prefs.getMenuFlags("APPLIST_BUTTON_FLAGS", "0").takeLast(1))
                         }
                     }
 
@@ -1083,7 +1083,7 @@ class SettingsFragment : BaseFragment() {
                                 context,
                                 appListButtonOptionLabels,
                                 "APPLIST_BUTTON_FLAGS",
-                                "00"
+                                "0"
                             ) { updatedFlags: List<Boolean> ->
                                 currentAppListFlags.clear()
                                 currentAppListFlags.addAll(updatedFlags)

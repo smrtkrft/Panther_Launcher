@@ -55,7 +55,6 @@
     <string name="lock_orientation">ロックの向き</string>
     <string name="haptic_feedback">触覚フィードバック</string>
     <string name="search">検索</string>
-    <string name="search_engine">検索エンジン</string>
     <string name="show_az_sidebar">AZサイドバーを表示</string>
     <string name="auto_show_keyboard">Auto show keyboard</string>
     <string name="search_from_start">スタート地点から検索</string>
@@ -306,7 +305,6 @@
     <string name="home_button_web">ウェブ</string>
     <string name="home_button_settings">設定</string>
     <string name="home_button_logo">ロゴ</string>
-    <string name="applist_button_web">ウェブ</string>
     <string name="applist_button_contacts">連絡先</string>
     <string name="allow">許可する</string>
     <string name="deny">拒否</string>

@@ -55,7 +55,6 @@
     <string name="lock_orientation">잠금 방향</string>
     <string name="haptic_feedback">햅틱 피드백</string>
     <string name="search">찾다</string>
-    <string name="search_engine">검색 엔진</string>
     <string name="show_az_sidebar">AZ 사이드바 표시</string>
     <string name="auto_show_keyboard">Auto show keyboard</string>
     <string name="search_from_start">시작부터 검색</string>
@@ -317,7 +316,6 @@
     <string name="home_button_web">편물</string>
     <string name="home_button_settings">설정</string>
     <string name="home_button_logo">심벌 마크</string>
-    <string name="applist_button_web">편물</string>
     <string name="applist_button_contacts">콘택트 렌즈</string>
     <string name="allow">허용하다</string>
     <string name="deny">부인하다</string>

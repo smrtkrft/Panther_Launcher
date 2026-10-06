@@ -55,7 +55,6 @@
     <string name="lock_orientation">اتجاه القفل</string>
     <string name="haptic_feedback">ردود الفعل اللمسية</string>
     <string name="search">يبحث</string>
-    <string name="search_engine">محرك البحث</string>
     <string name="show_az_sidebar">عرض الشريط الجانبي AZ</string>
     <string name="auto_show_keyboard">Auto show keyboard</string>
     <string name="search_from_start">البحث عن التطبيق من البداية</string>
@@ -316,7 +315,6 @@
     <string name="home_button_web">الويب</string>
     <string name="home_button_settings">إعدادات</string>
     <string name="home_button_logo">الشعار</string>
-    <string name="applist_button_web">الويب</string>
     <string name="applist_button_contacts">جهات الاتصال</string>
     <string name="allow">يسمح</string>
     <string name="deny">ينكر</string>

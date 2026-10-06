@@ -55,7 +55,6 @@
     <string name="lock_orientation">Zamknúť orientáciu</string>
     <string name="haptic_feedback">Haptická spätná väzba</string>
     <string name="search">Hľadať</string>
-    <string name="search_engine">Vyhľadávač</string>
     <string name="show_az_sidebar">Zobraziť bočný panel AZ</string>
     <string name="auto_show_keyboard">Automaticky zobraziť klávesnicu</string>
     <string name="search_from_start">Vyhľadávanie aplikácií od začiatku.</string>
@@ -319,7 +318,6 @@ Tento prístup môžete kedykoľvek vypnúť v nastaveniach zariadenia.
     <string name="home_button_web">Web</string>
     <string name="home_button_settings">Nastavenia</string>
     <string name="home_button_logo">Logo</string>
-    <string name="applist_button_web">Web</string>
     <string name="applist_button_contacts">Kontakty</string>
     <string name="allow">Povoliť</string>
     <string name="deny">Odmietnuť</string>

@@ -55,7 +55,6 @@
     <string name="lock_orientation">Zamknout orientaci</string>
     <string name="haptic_feedback">Haptická zpětná vazba</string>
     <string name="search">Vyhledávání</string>
-    <string name="search_engine">Vyhledávač</string>
     <string name="show_az_sidebar">Zobrazit postranní panel AZ</string>
     <string name="auto_show_keyboard">Automaticky zobrazit klávesnici</string>
     <string name="search_from_start">Hledat od začátku</string>
@@ -317,7 +316,6 @@
     <string name="home_button_web">Web</string>
     <string name="home_button_settings">Nastavení</string>
     <string name="home_button_logo">Logo</string>
-    <string name="applist_button_web">Web</string>
     <string name="applist_button_contacts">Kontakty</string>
     <string name="allow">Povolit</string>
     <string name="deny">Odmítnout</string>

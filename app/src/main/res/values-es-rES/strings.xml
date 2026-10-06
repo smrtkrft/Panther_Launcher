@@ -55,7 +55,6 @@
     <string name="lock_orientation">Orientación de bloqueo</string>
     <string name="haptic_feedback">Retroalimentación háptica</string>
     <string name="search">Buscar</string>
-    <string name="search_engine">Buscador</string>
     <string name="show_az_sidebar">Mostrar barra lateral de AZ</string>
     <string name="auto_show_keyboard">Teclado automático</string>
     <string name="search_from_start">Buscar desde el inicio</string>
@@ -317,7 +316,6 @@
     <string name="home_button_web">Web</string>
     <string name="home_button_settings">Ajustes</string>
     <string name="home_button_logo">Logo</string>
-    <string name="applist_button_web">Web</string>
     <string name="applist_button_contacts">Contactos</string>
     <string name="allow">Permitir</string>
     <string name="deny">Denegar</string>

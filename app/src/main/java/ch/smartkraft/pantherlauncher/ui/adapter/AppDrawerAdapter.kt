@@ -6,6 +6,7 @@ package ch.smartkraft.pantherlauncher.ui.adapter
 
 import android.annotation.SuppressLint
 import ch.smartkraft.pantherlauncher.databinding.AdapterAppCategoryBinding
+import ch.smartkraft.pantherlauncher.databinding.AdapterSearchResultBinding
 import ch.smartkraft.pantherlauncher.data.CATEGORY_PREFIX
 import android.view.Gravity
 import android.os.Process
@@ -88,9 +89,16 @@ class AppDrawerAdapter(
     private companion object {
         const val TYPE_APP = 0
         const val TYPE_CATEGORY = 1
+        const val TYPE_RESULT = 2
     }
 
     private var isBangSearch = false
+
+    /** Files and contacts for a query that matched no app; set by the drawer, null for pickers. */
+    var extraSearch: ((String) -> List<AppListItem>)? = null
+
+    /** Called after every search with the query and whether the list ended up empty. */
+    var onResultsShown: ((String, Boolean) -> Unit)? = null
 
     // ---- Category view -------------------------------------------------------------------
     private val settings by lazy { Prefs(context) }
@@ -144,8 +152,35 @@ class AppDrawerAdapter(
         notifyDataSetChanged()
     }
 
-    override fun getItemViewType(position: Int): Int =
-        if (appFilteredList.getOrNull(position)?.isCategoryHeader == true) TYPE_CATEGORY else TYPE_APP
+    override fun getItemViewType(position: Int): Int {
+        val item = appFilteredList.getOrNull(position)
+        return when {
+            item?.isCategoryHeader == true -> TYPE_CATEGORY
+            item?.isSearchExtra == true -> TYPE_RESULT
+            else -> TYPE_APP
+        }
+    }
+
+    inner class ResultHolder(val row: AdapterSearchResultBinding) : RecyclerView.ViewHolder(row.root)
+
+    private fun bindResult(holder: ResultHolder, item: AppListItem) {
+        val size = settings.appSize.toFloat()
+        holder.row.resultRow.gravity = gravity or Gravity.CENTER_VERTICAL
+        holder.row.resultIcon.setImageResource(if (item.isContactResult) R.drawable.ic_contacts else R.drawable.ic_file)
+        holder.row.resultIcon.imageTintList = android.content.res.ColorStateList.valueOf(settings.appColor)
+        holder.row.resultTitle.apply {
+            text = item.activityLabel
+            textSize = size
+            setTextColor(settings.appColor)
+        }
+        holder.row.resultSubtitle.apply {
+            isVisible = item.customTag.isNotEmpty()
+            text = item.customTag
+            textSize = size * 0.7f
+            setTextColor(settings.appColor)
+        }
+        holder.row.root.setOnClickListener { appClickListener(item) }
+    }
 
     inner class CategoryHolder(val row: AdapterAppCategoryBinding) : RecyclerView.ViewHolder(row.root)
 
@@ -179,6 +214,9 @@ class AppDrawerAdapter(
         if (viewType == TYPE_CATEGORY) {
             return CategoryHolder(AdapterAppCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false))
         }
+        if (viewType == TYPE_RESULT) {
+            return ResultHolder(AdapterSearchResultBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        }
         binding = AdapterAppDrawerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         prefs = Prefs(parent.context)
         biometricHelper = BiometricHelper(fragment.requireActivity())
@@ -192,7 +230,7 @@ class AppDrawerAdapter(
     }
 
     /** The app shown at [position]; null for a category header. */
-    fun getItemAt(position: Int): AppListItem? = appFilteredList.getOrNull(position)?.takeUnless { it.isCategoryHeader }
+    fun getItemAt(position: Int): AppListItem? = appFilteredList.getOrNull(position)?.takeUnless { it.isCategoryHeader || it.isSearchExtra }
 
     @SuppressLint("RecyclerView")
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
@@ -202,6 +240,10 @@ class AppDrawerAdapter(
         }
         if (viewHolder is CategoryHolder) {
             bindCategory(viewHolder, appFilteredList[position])
+            return
+        }
+        if (viewHolder is ResultHolder) {
+            bindResult(viewHolder, appFilteredList[position])
             return
         }
         val holder = viewHolder as ViewHolder
@@ -325,7 +367,12 @@ class AppDrawerAdapter(
                     loggerTag = "appScore"
                 )
 
-                return FilterResults().apply { values = filtered }
+                // No app matched: continue in files and contacts when the drawer allows it
+                val values = if (filtered.isEmpty() && !isTagSearch && query.isNotEmpty()) {
+                    extraSearch?.invoke(query)?.toMutableList() ?: filtered
+                } else filtered
+
+                return FilterResults().apply { this.values = values }
             }
 
 
@@ -336,6 +383,7 @@ class AppDrawerAdapter(
                     // Without a search the category view shows its groups; a search always gives a flat list
                     appFilteredList = if (constraint.isNullOrBlank()) listWithoutSearch() else results.values as MutableList<AppListItem>
                     notifyDataSetChanged()
+                    onResultsShown?.invoke(constraint?.toString().orEmpty(), appFilteredList.isEmpty())
                 } else {
                     return
                 }
@@ -344,7 +392,8 @@ class AppDrawerAdapter(
     }
 
     private fun autoLaunch(position: Int) {
-        val lastMatch = itemCount == 1 && appFilteredList.firstOrNull()?.isCategoryHeader == false
+        val only = appFilteredList.singleOrNull()
+        val lastMatch = only != null && !only.isCategoryHeader && !only.isSearchExtra
         val openApp = flag == AppDrawerFlag.LaunchApp
         val autoOpenApp = prefs.autoOpenApp
         if (lastMatch && openApp && autoOpenApp) {
@@ -359,8 +408,13 @@ class AppDrawerAdapter(
     @SuppressLint("NotifyDataSetChanged")
     fun setAppList(appsList: MutableList<AppListItem>) {
         this.appsList = appsList
-        this.appFilteredList = if (currentQuery.isEmpty()) listWithoutSearch() else appsList
-        notifyDataSetChanged()
+        if (currentQuery.isEmpty()) {
+            this.appFilteredList = listWithoutSearch()
+            notifyDataSetChanged()
+        } else {
+            // A refresh while the user is typing must not replace the results with every app
+            filter.filter(currentQuery)
+        }
     }
 
     fun launchFirstInList() {

@@ -55,7 +55,6 @@
     <string name="lock_orientation">Ekran yönünü kilitle</string>
     <string name="haptic_feedback">Dokunsal Geri Bildirim</string>
     <string name="search">Ara</string>
-    <string name="search_engine">Arama motoru</string>
     <string name="show_az_sidebar">A-Z kenar çubuğunu göster</string>
     <string name="auto_show_keyboard">Klavye\'yi otomatik göster</string>
     <string name="search_from_start">Aramayı Başlat\'tan Başlat\'a kadar yapın</string>
@@ -122,6 +121,18 @@
     <string name="advanced_settings_backup_restore_snapshot_confirm">Mevcut tüm ayarlar bu kopyayla değiştirilecek.</string>
     <string name="advanced_settings_backup_restore_snapshot_failed">Bu yedek okunamadı.</string>
     <string name="widgets_app_not_opened_yet">%1$s henüz hiç açılmadı. Android böyle uygulamaları durdurulmuş sayar; bu yüzden widget, %1$s bir kez açılana kadar boş kalabilir ya da \"önce uygulamayı açın\" diyebilir. Şimdi açılsın mı?</string>
+    <string name="drawer_view">Çekmece görünümü</string>
+    <string name="drawer_view_az">A–Z liste</string>
+    <string name="drawer_view_categories">Kategoriler</string>
+    <string name="search_scope">Arama kapsamı</string>
+    <string name="search_scope_apps">Yalnızca uygulamalar</string>
+    <string name="search_scope_files">Uygulamalar, sonra dosyalar</string>
+    <string name="search_scope_all">Uygulamalar, sonra dosyalar, sonra kişiler</string>
+    <string name="search_not_found">Bulunamadı</string>
+    <string name="search_permission_files">Dosyalarda aramak için dosya erişimine izin ver</string>
+    <string name="search_permission_contacts">Kişilerde aramak için kişi erişimine izin ver</string>
+    <string name="search_result_contact">Kişi</string>
+    <string name="search_no_app_to_open">Bunu açabilecek uygulama yok</string>
     <string name="smart_search">Akıllı arama</string>
     <string name="enable_filter_strength">Esnek aramayı aç</string>
     <string name="filter_strength">Esnek arama hassasiyeti</string>
@@ -333,7 +344,6 @@
     <string name="home_button_web">Web</string>
     <string name="home_button_settings">Ayarlar</string>
     <string name="home_button_logo">Panther Launcher logosu</string>
-    <string name="applist_button_web">Web</string>
     <string name="applist_button_contacts">Kişiler</string>
     <string name="allow">İzin ver</string>
     <string name="deny">Reddet</string>

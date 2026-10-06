@@ -79,7 +79,6 @@
 
     <string name="search">Search</string>
 
-    <string name="search_engine">Search Engine</string>
     <string name="show_az_sidebar">Show A-Z Sidebar</string>
     <string name="auto_show_keyboard">Auto Show Keyboard</string>
     <string name="search_from_start">Search from Start</string>
@@ -160,6 +159,18 @@
     <string name="advanced_settings_backup_restore_snapshot_confirm">All current settings will be replaced with this copy.</string>
     <string name="advanced_settings_backup_restore_snapshot_failed">This backup could not be read.</string>
     <string name="widgets_app_not_opened_yet">%1$s has not been opened yet. Android keeps such apps stopped, so this widget may stay empty or say \"open the app first\" until you open %1$s once. Open it now?</string>
+    <string name="drawer_view">App Drawer View</string>
+    <string name="drawer_view_az">A–Z list</string>
+    <string name="drawer_view_categories">Categories</string>
+    <string name="search_scope">Search Scope</string>
+    <string name="search_scope_apps">Apps only</string>
+    <string name="search_scope_files">Apps, then files</string>
+    <string name="search_scope_all">Apps, then files, then contacts</string>
+    <string name="search_not_found">Not found</string>
+    <string name="search_permission_files">Allow file access to search files</string>
+    <string name="search_permission_contacts">Allow contact access to search contacts</string>
+    <string name="search_result_contact">Contact</string>
+    <string name="search_no_app_to_open">No app can open this</string>
     <string name="smart_search">Smart Search</string>
     <string name="enable_filter_strength">Enable Fuzzy Finder</string>
     <string name="filter_strength">Fuzzy Finder Strength</string>
@@ -424,7 +435,6 @@
     <string name="home_button_settings">Settings</string>
     <string name="home_button_logo">Logo</string>
 
-    <string name="applist_button_web">Web</string>
     <string name="applist_button_contacts">Contacts</string>
 
     <string name="allow">Allow</string>
